@@ -1,0 +1,319 @@
+[gd_scene format=3 uid="uid://b2pnm1lsfaajt"]
+
+[ext_resource type="Script" uid="uid://bxi5rioo638k8" path="res://UI/Game Menu/game_menu.gd" id="1_efeg3"]
+[ext_resource type="Texture2D" uid="uid://xi2ifg7ixo2g" path="res://Assets/ui.png" id="2_hihkt"]
+[ext_resource type="PackedScene" uid="uid://dg2eebu544xhu" path="res://UI/Animated Slot/animated_slot.tscn" id="3_17mpa"]
+[ext_resource type="PackedScene" uid="uid://crivg1daf13fq" path="res://UI/Animated Button/animated_button.tscn" id="3_hihkt"]
+[ext_resource type="Texture2D" uid="uid://bi6n8bjnm10ki" path="res://Assets/Vertical Separator.png" id="4_dk7y1"]
+[ext_resource type="Resource" uid="uid://c73p7mv6bkqf1" path="res://Systems/Resources/golden_ring.tres" id="4_dmh5u"]
+[ext_resource type="Resource" uid="uid://da6nxmxi8svx5" path="res://Systems/Resources/bat_eye.tres" id="5_pu6sy"]
+[ext_resource type="Resource" uid="uid://ds0ps3l0a2o67" path="res://Systems/Resources/mushroom.tres" id="6_5v0sf"]
+[ext_resource type="Resource" uid="uid://b5vqbcgqouhj4" path="res://Systems/Resources/shell.tres" id="7_32urs"]
+[ext_resource type="Resource" uid="uid://da7gktxnl8xxc" path="res://Systems/Resources/gold.tres" id="8_nmxdp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_efeg3"]
+atlas = ExtResource("2_hihkt")
+region = Rect2(240, 99, 16, 9)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hihkt"]
+atlas = ExtResource("2_hihkt")
+region = Rect2(84, 36, 8, 8)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_17mpa"]
+load_path = "res://.godot/imported/ui.png-9852ca86a9258f1bb84490edfbc4ad38.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dk7y1"]
+atlas = SubResource("CompressedTexture2D_17mpa")
+region = Rect2(146, 35, 12, 11)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_dmh5u"]
+load_path = "res://.godot/imported/ui.png-9852ca86a9258f1bb84490edfbc4ad38.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2a0b4"]
+atlas = SubResource("CompressedTexture2D_dmh5u")
+region = Rect2(146, 18, 12, 12)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ugeno"]
+load_path = "res://.godot/imported/ui.png-9852ca86a9258f1bb84490edfbc4ad38.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2dwik"]
+atlas = SubResource("CompressedTexture2D_ugeno")
+region = Rect2(146, 50, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pu6sy"]
+atlas = ExtResource("2_hihkt")
+region = Rect2(224, 83, 16, 9)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ot070"]
+atlas = ExtResource("2_hihkt")
+region = Rect2(144, 80, 48, 9)
+
+[node name="GameMenu" type="CanvasLayer" unique_id=996763185]
+process_mode = 3
+layer = 2
+script = ExtResource("1_efeg3")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1352286058]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5882353)
+
+[node name="TabNameLabel" type="Label" parent="." unique_id=1367494291]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -41.0
+offset_top = 11.0
+offset_right = 41.0
+offset_bottom = 27.0
+grow_horizontal = 2
+theme_override_constants/outline_size = 0
+text = "Inventory"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=568865259]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackgroundBoard" type="Panel" parent="CenterContainer" unique_id=1374764515]
+custom_minimum_size = Vector2(213, 120)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/BackgroundBoard" unique_id=1115065584]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 8.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Header" type="HBoxContainer" parent="CenterContainer/BackgroundBoard/VBoxContainer" unique_id=841976837]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="LT" type="TextureRect" parent="CenterContainer/BackgroundBoard/VBoxContainer/Header" unique_id=13363639]
+layout_mode = 2
+texture = SubResource("AtlasTexture_efeg3")
+stretch_mode = 5
+
+[node name="Circle" type="TextureRect" parent="CenterContainer/BackgroundBoard/VBoxContainer/Header" unique_id=1355979796]
+layout_mode = 2
+texture = SubResource("AtlasTexture_hihkt")
+stretch_mode = 5
+
+[node name="Tab1" type="TextureRect" parent="CenterContainer/BackgroundBoard/VBoxContainer/Header" unique_id=267364081]
+modulate = Color(0.5137255, 0.62352943, 0.6509804, 1)
+layout_mode = 2
+texture = SubResource("AtlasTexture_dk7y1")
+stretch_mode = 5
+
+[node name="Tab2" type="TextureRect" parent="CenterContainer/BackgroundBoard/VBoxContainer/Header" unique_id=987355930]
+layout_mode = 2
+texture = SubResource("AtlasTexture_2a0b4")
+stretch_mode = 5
+
+[node name="Tab3" type="TextureRect" parent="CenterContainer/BackgroundBoard/VBoxContainer/Header" unique_id=1469842921]
+modulate = Color(0.5137255, 0.62352943, 0.6509804, 1)
+layout_mode = 2
+texture = SubResource("AtlasTexture_2dwik")
+stretch_mode = 5
+
+[node name="Circle2" type="TextureRect" parent="CenterContainer/BackgroundBoard/VBoxContainer/Header" unique_id=446274927]
+layout_mode = 2
+texture = SubResource("AtlasTexture_hihkt")
+stretch_mode = 5
+flip_h = true
+
+[node name="RT" type="TextureRect" parent="CenterContainer/BackgroundBoard/VBoxContainer/Header" unique_id=1130159982]
+layout_mode = 2
+texture = SubResource("AtlasTexture_pu6sy")
+stretch_mode = 5
+
+[node name="TabContent" type="Control" parent="CenterContainer/BackgroundBoard/VBoxContainer" unique_id=1547792741]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="InventoryTab" type="MarginContainer" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent" unique_id=1705097449]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab" unique_id=251348548]
+layout_mode = 2
+
+[node name="SlotGrid" type="GridContainer" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer" unique_id=829004423]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = -2
+theme_override_constants/v_separation = -2
+columns = 4
+
+[node name="Slot1" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer/SlotGrid" unique_id=1772062701 instance=ExtResource("3_17mpa")]
+layout_mode = 2
+item_data = ExtResource("4_dmh5u")
+
+[node name="Slot2" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer/SlotGrid" unique_id=1825537538 instance=ExtResource("3_17mpa")]
+layout_mode = 2
+item_data = ExtResource("5_pu6sy")
+
+[node name="Slot3" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer/SlotGrid" unique_id=514328080 instance=ExtResource("3_17mpa")]
+layout_mode = 2
+
+[node name="Slot4" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer/SlotGrid" unique_id=1238555355 instance=ExtResource("3_17mpa")]
+layout_mode = 2
+
+[node name="Slot5" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer/SlotGrid" unique_id=1887145107 instance=ExtResource("3_17mpa")]
+layout_mode = 2
+
+[node name="Slot6" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer/SlotGrid" unique_id=1073940607 instance=ExtResource("3_17mpa")]
+layout_mode = 2
+item_data = ExtResource("6_5v0sf")
+
+[node name="Slot7" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer/SlotGrid" unique_id=1794692286 instance=ExtResource("3_17mpa")]
+layout_mode = 2
+
+[node name="Slot8" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer/SlotGrid" unique_id=778777256 instance=ExtResource("3_17mpa")]
+layout_mode = 2
+item_data = ExtResource("7_32urs")
+
+[node name="Slot9" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer/SlotGrid" unique_id=638369308 instance=ExtResource("3_17mpa")]
+layout_mode = 2
+item_data = ExtResource("4_dmh5u")
+
+[node name="Slot10" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer/SlotGrid" unique_id=773741064 instance=ExtResource("3_17mpa")]
+layout_mode = 2
+item_data = ExtResource("5_pu6sy")
+
+[node name="Slot11" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer/SlotGrid" unique_id=1650118496 instance=ExtResource("3_17mpa")]
+layout_mode = 2
+item_data = ExtResource("7_32urs")
+
+[node name="Slot12" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer/SlotGrid" unique_id=457225602 instance=ExtResource("3_17mpa")]
+layout_mode = 2
+item_data = ExtResource("8_nmxdp")
+
+[node name="ItemInfo" type="VBoxContainer" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer" unique_id=579452337]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ItemName" type="Label" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer/ItemInfo" unique_id=2130347247]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Item name"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer/ItemInfo" unique_id=1739630667]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer/ItemInfo/HBoxContainer" unique_id=768390207]
+layout_mode = 2
+texture = ExtResource("4_dk7y1")
+stretch_mode = 4
+
+[node name="ItemDescription" type="RichTextLabel" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer/ItemInfo/HBoxContainer" unique_id=619534206]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(85, 36)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_font_sizes/normal_font_size = 8
+theme_override_font_sizes/mono_font_size = 8
+text = "Item description j'ai fait caca tres fort prout prout prout
+"
+
+[node name="SettingsTab" type="MarginContainer" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent" unique_id=1835344281]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/SettingsTab" unique_id=1627687377]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 4
+
+[node name="SaveButton" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/SettingsTab/VBoxContainer" unique_id=381347748 instance=ExtResource("3_hihkt")]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.27058825, 0.16862746, 0.24705882, 1)
+theme_override_constants/outline_size = 0
+text = "SAVE"
+
+[node name="LoadSaveButton" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/SettingsTab/VBoxContainer" unique_id=532922773 instance=ExtResource("3_hihkt")]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.27058825, 0.16862746, 0.24705882, 1)
+text = "LOAD SAVE"
+
+[node name="QuitButton" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/SettingsTab/VBoxContainer" unique_id=1307625619 instance=ExtResource("3_hihkt")]
+unique_name_in_owner = true
+layout_mode = 2
+text = "QUIT"
+
+[node name="MapTab" type="MarginContainer" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent" unique_id=451216661]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/MapTab" unique_id=293408254]
+layout_mode = 2
+text = "MAP
+UNDER CONSTRUCTION"
+horizontal_alignment = 1
+
+[node name="TinyThingOnTop" type="TextureRect" parent="." unique_id=1008931911]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -24.0
+offset_top = 27.0
+offset_right = 24.0
+offset_bottom = 36.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+texture = SubResource("AtlasTexture_ot070")
+
+[connection signal="pressed" from="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/SettingsTab/VBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/SettingsTab/VBoxContainer/LoadSaveButton" to="." method="_on_load_save_button_pressed"]
+[connection signal="pressed" from="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/SettingsTab/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

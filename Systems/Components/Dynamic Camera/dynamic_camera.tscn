@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://c57sm7a0j8c55"]
+
+[ext_resource type="Script" uid="uid://b4lda8cif8tgy" path="res://Systems/Components/Dynamic Camera/camera.gd" id="1_yavdc"]
+
+[node name="DynamicCamera" type="Camera2D" unique_id=138968710]
+script = ExtResource("1_yavdc")
+look_delay = 1.0

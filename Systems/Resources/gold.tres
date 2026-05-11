@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://da7gktxnl8xxc"]
+
+[ext_resource type="Script" uid="uid://bpr4g7udde1b6" path="res://Systems/Resources/item_data.gd" id="1_gb2ta"]
+[ext_resource type="Texture2D" uid="uid://cd4qh5of2k141" path="res://Assets/animations/animations.png" id="1_u8g1f"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4rlgs"]
+atlas = ExtResource("1_u8g1f")
+region = Rect2(321, 113, 14, 14)
+
+[resource]
+script = ExtResource("1_gb2ta")
+item_name = "Gold"
+description = "La thunass"
+icon = SubResource("AtlasTexture_4rlgs")
+metadata/_custom_type_script = "uid://bpr4g7udde1b6"

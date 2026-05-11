@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://b5qnhbxwsse1r"]
+
+[ext_resource type="Script" uid="uid://dw8072bqcbpx4" path="res://Systems/Loot/loot_2d.gd" id="1_1ikbu"]
+
+[node name="Loot2D" type="Marker2D" unique_id=750658645]
+script = ExtResource("1_1ikbu")

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://da6nxmxi8svx5"]
+
+[ext_resource type="Texture2D" uid="uid://bbucqtflj4my0" path="res://Assets/items.png" id="1_fkonb"]
+[ext_resource type="Script" uid="uid://bpr4g7udde1b6" path="res://Systems/Resources/item_data.gd" id="1_nslfn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_suukd"]
+atlas = ExtResource("1_fkonb")
+region = Rect2(33, 33, 15, 15)
+
+[resource]
+script = ExtResource("1_nslfn")
+item_name = "Eye"
+description = "A bat's eye."
+icon = SubResource("AtlasTexture_suukd")
+metadata/_custom_type_script = "uid://bpr4g7udde1b6"

@@ -1,0 +1,106 @@
+[gd_scene format=3 uid="uid://dg2eebu544xhu"]
+
+[ext_resource type="Texture2D" uid="uid://xi2ifg7ixo2g" path="res://Assets/ui.png" id="1_0042o"]
+[ext_resource type="Script" uid="uid://be3xf4bbfxoes" path="res://UI/Animated Slot/animated_slot.gd" id="1_kpumt"]
+[ext_resource type="Texture2D" uid="uid://bcgxmoy0y68mw" path="res://Assets/grab_focus.png" id="2_nvpme"]
+[ext_resource type="Texture2D" uid="uid://bbucqtflj4my0" path="res://Assets/items.png" id="4_tfu1q"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tfu1q"]
+atlas = ExtResource("1_0042o")
+region = Rect2(110, 30, 20, 20)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tq8nx"]
+texture = SubResource("AtlasTexture_tfu1q")
+
+[sub_resource type="Animation" id="Animation_q4jru"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(0, 0, 24, 25)]
+}
+
+[sub_resource type="Animation" id="Animation_jfsf7"]
+resource_name = "default"
+loop_mode = 1
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:region")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(0, 0, 24, 25), Rect2(24, 0, 24, 25), Rect2(48, 0, 24, 25), Rect2(72, 0, 24, 25)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8k8sl"]
+_data = {
+&"RESET": SubResource("Animation_q4jru"),
+&"default": SubResource("Animation_jfsf7")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dbgo8"]
+atlas = ExtResource("2_nvpme")
+region = Rect2(0, 0, 24, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tq8nx"]
+atlas = ExtResource("4_tfu1q")
+region = Rect2(32, 16, 16, 16)
+
+[node name="AnimatedSlot" type="Button" unique_id=1772062701]
+custom_minimum_size = Vector2(24, 24)
+theme_override_styles/normal = SubResource("StyleBoxTexture_tq8nx")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_tq8nx")
+theme_override_styles/hover = SubResource("StyleBoxTexture_tq8nx")
+theme_override_styles/focus = SubResource("StyleBoxTexture_tq8nx")
+script = ExtResource("1_kpumt")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=110637003]
+root_node = NodePath("../NinePatchRect")
+libraries/ = SubResource("AnimationLibrary_8k8sl")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=930578213]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_dbgo8")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="IconRect" type="TextureRect" parent="." unique_id=1246991126]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(8, 8)
+texture = SubResource("AtlasTexture_tq8nx")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="IconSprite" type="Sprite2D" parent="." unique_id=1728223100]
+position = Vector2(12, 12)
