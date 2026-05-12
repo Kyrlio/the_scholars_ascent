@@ -34,8 +34,8 @@ func save_game(player_position: Vector2, current_health: int, total_gold: int) -
 		"gold": total_gold,
 		"collected_items": items_save_data,
 		"collected_charms": charms_paths,
-		"equipped_charms": equipped_paths
-		# Ajouter inventaire, etc...
+		"equipped_charms": equipped_paths,
+		"opened_chests": GameState.opened_chests
 	}
 	
 	var file = FileAccess.open(save_path, FileAccess.WRITE)

@@ -7,7 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://b5fli01mem64p" path="res://UI/Player Hud/hud.tscn" id="2_jycte"]
 [ext_resource type="PackedScene" uid="uid://cq443ehieft8v" path="res://Actors/BeetleEnemy/beetle_enemy.tscn" id="3_6isyr"]
 [ext_resource type="PackedScene" uid="uid://c57sm7a0j8c55" path="res://Systems/Components/Dynamic Camera/dynamic_camera.tscn" id="5_uda3f"]
+[ext_resource type="PackedScene" uid="uid://b1k8da547si5m" path="res://Actors/Interactable/Chest/chest.tscn" id="7_fiyor"]
 [ext_resource type="PackedScene" uid="uid://d1qf1x2cl5xpi" path="res://Actors/Interactable/Campfire/campfire.tscn" id="7_xfsjo"]
+[ext_resource type="Resource" uid="uid://bj5t60ys37ri6" path="res://Systems/Resources/Charms/jump_charm.tres" id="8_e33e4"]
+[ext_resource type="Resource" uid="uid://ob6ebspo3twm" path="res://Systems/Resources/Charms/golden_ring.tres" id="9_e33e4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uxjsv"]
 texture = ExtResource("2_6isyr")
@@ -578,6 +581,18 @@ position = Vector2(649, 144)
 
 [node name="Campfire" parent="LevelContainer" unique_id=1793744179 instance=ExtResource("7_xfsjo")]
 position = Vector2(166, 48)
+
+[node name="Chests" type="Node2D" parent="LevelContainer" unique_id=1334890514]
+
+[node name="Chest" parent="LevelContainer/Chests" unique_id=12775994 instance=ExtResource("7_fiyor")]
+position = Vector2(792, 144)
+item_content = ExtResource("8_e33e4")
+chest_id = "1"
+
+[node name="Chest2" parent="LevelContainer/Chests" unique_id=72647227 instance=ExtResource("7_fiyor")]
+position = Vector2(20, -64)
+item_content = ExtResource("9_e33e4")
+chest_id = "2"
 
 [node name="Player" parent="LevelContainer" unique_id=391222067 instance=ExtResource("1_uxjsv")]
 position = Vector2(188, 136)

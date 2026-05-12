@@ -11,7 +11,8 @@ enum State {
 	ATTACK,
 	HURT,
 	DEAD,
-	REST
+	REST,
+	SHOW_ITEM
 }
 var current_state: State = State.IDLE
 
@@ -40,6 +41,7 @@ var current_state: State = State.IDLE
 @onready var health_component: HealthComponent = %HealthComponent
 @onready var hitbox_component: HitboxComponent = %Hitbox
 @onready var flash_animation_player: AnimationPlayer = $FlashAnimationPlayer
+@onready var looted_item_sprite: Sprite2D = %LootedItemSprite
 
 var is_dead: bool = false
 var _was_on_floor: bool = false
@@ -100,6 +102,7 @@ func _handle_horizontal_movement(delta: float) -> void:
 	match current_state:
 		State.HURT: return
 		State.REST: return
+		State.SHOW_ITEM: return
 		State.ROLL:
 			if is_on_floor():
 				velocity.x = visuals.scale.x * roll_speed
@@ -124,6 +127,7 @@ func _handle_jump() -> void:
 	match current_state:
 		State.HURT: return
 		State.REST: return
+		State.SHOW_ITEM: return
 	
 	_check_wall_jump()
 	_check_buffer_jump()
@@ -152,7 +156,7 @@ func _handle_attack() -> void:
 
 
 func _handle_roll() -> void:
-	if current_state == State.HURT or current_state == State.REST or current_state == State.WALL_SLIDE:
+	if check_common_conditions():
 		return
 	
 	if Input.is_action_just_pressed("roll") and current_state != State.ROLL and current_state != State.ATTACK:
@@ -160,6 +164,13 @@ func _handle_roll() -> void:
 			if not is_on_floor():
 				can_air_roll = false
 			switch_state(State.ROLL)
+
+
+func check_common_conditions() -> bool:
+	return current_state == State.HURT or \
+		current_state == State.REST or \
+		current_state == State.WALL_SLIDE or \
+		current_state == State.SHOW_ITEM
 
 
 func _apply_pogo() -> void:
@@ -199,6 +210,14 @@ func apply_squish(squish_x: float, squish_y: float) -> void:
 	
 	var tween := create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	tween.tween_property(sprite, "scale", Vector2.ONE, 0.35)
+
+
+func receive_item(item: ItemData) -> void:
+	if item != null and item.icon != null:
+		looted_item_sprite.texture = item.icon
+		looted_item_sprite.show()
+	switch_state(State.SHOW_ITEM)
+
 
 func switch_state(new_state: State) -> void:
 	if current_state == new_state:
@@ -265,6 +284,10 @@ func switch_state(new_state: State) -> void:
 		State.REST:
 			velocity = Vector2.ZERO
 			animation_player.play("campfire")
+		
+		State.SHOW_ITEM:
+			animation_player.play("item_chest")
+			velocity = Vector2.ZERO
 
 
 func _on_animation_finished(animation_name: StringName) -> void:
@@ -278,6 +301,10 @@ func _on_animation_finished(animation_name: StringName) -> void:
 		State.HURT:
 			if animation_name == &"hurt":
 				switch_state(_get_post_action_state())
+		State.SHOW_ITEM:
+			if animation_name == &"show_item":
+				#looted_item_sprite.hide()
+				switch_state(State.IDLE)
 
 
 func _get_post_action_state() -> State:
@@ -301,6 +328,7 @@ func _update_state() -> void:
 		State.HURT: return
 		State.DEAD: return
 		State.REST: return
+		State.SHOW_ITEM: return
 	
 	var next_state: State = _get_post_action_state()
 	if next_state == State.WALL_SLIDE:

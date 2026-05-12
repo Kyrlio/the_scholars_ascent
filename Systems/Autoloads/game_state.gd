@@ -7,6 +7,8 @@ var collected_items: Array[Dictionary] = []
 var collected_charms: Array[CharmItem] = []
 var equipped_charms: Array[CharmItem] = []
 
+var opened_chests: Array = []
+
 var total_gold: int = 0
 
 var saved_player_pos: Vector2 = Vector2.ZERO
@@ -80,10 +82,6 @@ func load_save_data():
 				"quantity": data_slot["quantity"]
 			})
 	
-	#for path in data.get("collected_items", []):
-		#if ResourceLoader.exists(path):
-			#collected_items.append(load(path))
-	
 	# Charm inventory
 	collected_charms.clear()
 	for path in data.get("collected_charms", []):
@@ -95,6 +93,8 @@ func load_save_data():
 	for path in data.get("equipped_charms", []):
 		if ResourceLoader.exists(path):
 			equipped_charms.append(load(path))
+	
+	opened_chests = data.get("opened_chests", [])
 	
 	rebuild_player_stats()
 

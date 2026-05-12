@@ -1,0 +1,233 @@
+[gd_scene format=3 uid="uid://b1k8da547si5m"]
+
+[ext_resource type="Script" uid="uid://dus63ymc85ipc" path="res://Actors/Interactable/Chest/chest.gd" id="1_6k5n3"]
+[ext_resource type="Texture2D" uid="uid://cd4qh5of2k141" path="res://Assets/animations/animations.png" id="1_hp7bx"]
+[ext_resource type="Texture2D" uid="uid://vsgmrqgvil2s" path="res://Assets/ui-2.png" id="3_qyu18"]
+
+[sub_resource type="Animation" id="Animation_6k5n3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_qyu18"]
+resource_name = "closed"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_wwmw2"]
+resource_name = "opened"
+length = 0.083341666
+step = 0.083333336
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="Animation" id="Animation_imyur"]
+resource_name = "opening"
+length = 0.416675
+step = 0.083333336
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.083333336, 0.16666667, 0.25, 0.33333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_43nlh"]
+_data = {
+&"RESET": SubResource("Animation_6k5n3"),
+&"closed": SubResource("Animation_qyu18"),
+&"opened": SubResource("Animation_wwmw2"),
+&"opening": SubResource("Animation_imyur")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ccg74"]
+size = Vector2(44, 17)
+
+[sub_resource type="Animation" id="Animation_cimpx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.5, 0.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_srtig"]
+resource_name = "hide"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_i4dxc"]
+resource_name = "pressed"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.2, 0.3),
+"transitions": PackedFloat32Array(0.5, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.75, 0.75), Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_lxa5d"]
+resource_name = "show"
+length = 0.4
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wwmw2"]
+_data = {
+&"RESET": SubResource("Animation_cimpx"),
+&"hide": SubResource("Animation_srtig"),
+&"pressed": SubResource("Animation_i4dxc"),
+&"show": SubResource("Animation_lxa5d")
+}
+
+[node name="Chest" type="Area2D" unique_id=12775994]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_6k5n3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1550345523]
+libraries/ = SubResource("AnimationLibrary_43nlh")
+autoplay = &"closed"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=626507426]
+position = Vector2(0, -8.5)
+shape = SubResource("RectangleShape2D_ccg74")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1002611544]
+texture = ExtResource("1_hp7bx")
+offset = Vector2(0, -8)
+hframes = 5
+region_enabled = true
+region_rect = Rect2(48, 176, 160, 16)
+
+[node name="InteractSprite" type="Sprite2D" parent="." unique_id=376385184]
+visible = false
+position = Vector2(0, -19)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_qyu18")
+region_enabled = true
+region_rect = Rect2(226, 98, 12, 12)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="InteractSprite" unique_id=678280740]
+libraries/ = SubResource("AnimationLibrary_wwmw2")

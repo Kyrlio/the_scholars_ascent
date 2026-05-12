@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bbucqtflj4my0" path="res://Assets/items.png" id="1_oth74"]
 [ext_resource type="Resource" uid="uid://dsmvcvstsvrkv" path="res://Systems/Resources/Charms/Stat Modifier/jump_multiplier.tres" id="3_mgrdw"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wg52b"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_oth74"]
 atlas = ExtResource("1_oth74")
 region = Rect2(17, 48, 14, 16)
 
@@ -13,5 +13,5 @@ script = ExtResource("1_j5xy7")
 stat_modifier = ExtResource("3_mgrdw")
 item_name = "Jump Charm"
 description = "Jump higher"
-icon = SubResource("AtlasTexture_wg52b")
+icon = SubResource("AtlasTexture_oth74")
 metadata/_custom_type_script = "uid://b1k6c6xtrwpkq"
