@@ -18,12 +18,6 @@ func _ready() -> void:
 	GameEvents.item_collected.connect(_on_item_collected)
 	
 	load_save_data()
-	
-	# TEST
-	var test_charm = preload("res://Systems/Resources/Charms/jump_charm.tres")
-	collected_charms.append(test_charm)
-	var golden_ring = preload("res://Systems/Resources/Charms/golden_ring.tres")
-	collected_charms.append(golden_ring)
 
 
 func add_gold(amount: int) -> void:
@@ -39,14 +33,6 @@ func equip_charm(charm: CharmItem) -> void:
 		equipped_charms.append(charm)
 		rebuild_player_stats()
 		print(charm.item_name + " équipé avec succès !")
-	
-	#var player: Player = get_tree().get_first_node_in_group("player")
-	#if player and charm.stat_modifier:
-		#charm.stat_modifier.decorated_stats = player.stats
-		#player.stats = charm.stat_modifier
-		#
-		#equipped_charms.append(charm)
-		#print(charm.item_name + " équipé avec succès !")
 
 
 func unequip_charm(charm: CharmItem) -> void:
@@ -54,13 +40,6 @@ func unequip_charm(charm: CharmItem) -> void:
 		equipped_charms.erase(charm)
 		rebuild_player_stats()
 		print(charm.item_name + " retiré !")
-	
-	#var player: Player = get_tree().get_first_node_in_group("player")
-	#if player and charm in equipped_charms:
-		#player.stats = charm.stat_modifier.decorated_stats
-		#
-		#equipped_charms.erase(charm)
-		#print(charm.item_name + " retiré !")
 
 
 func rebuild_player_stats() -> void:
@@ -80,15 +59,35 @@ func rebuild_player_stats() -> void:
 
 func load_save_data():
 	var data = SaveManager.load_game()
+	if data.is_empty():
+		return
 	
-	if not data.is_empty():
-		total_gold = data.get("gold", 0)
-		saved_player_health = data.get("health", 2)
-		
-		var pos_x = data.get("player_pos_x", 0.0)
-		var pos_y = data.get("player_pos_y", 0.0)
-		saved_player_pos = Vector2(pos_x, pos_y)
-
+	total_gold = data.get("gold", 0)
+	saved_player_health = data.get("health", 2)
+	
+	var pos_x = data.get("player_pos_x", 0.0)
+	var pos_y = data.get("player_pos_y", 0.0)
+	saved_player_pos = Vector2(pos_x, pos_y)
+	
+	# Classic inventory
+	collected_items.clear()
+	for path in data.get("collected_items", []):
+		if ResourceLoader.exists(path):
+			collected_items.append(load(path))
+	
+	# Charm inventory
+	collected_charms.clear()
+	for path in data.get("collected_charms", []):
+		if ResourceLoader.exists(path):
+			collected_charms.append(load(path))
+	
+	# Charms equipped
+	equipped_charms.clear()
+	for path in data.get("equipped_charms", []):
+		if ResourceLoader.exists(path):
+			equipped_charms.append(load(path))
+	
+	rebuild_player_stats()
 
 func _on_item_collected(new_item: ItemData) -> void:
 	if new_item is CharmItem:
