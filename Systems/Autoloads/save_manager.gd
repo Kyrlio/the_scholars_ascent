@@ -3,10 +3,19 @@ extends Node
 var save_path = "user://save_game.dat"
 
 func save_game(player_position: Vector2, current_health: int, total_gold: int) -> void:
-	var items_paths: Array = []
-	for item in GameState.collected_items:
-		if item != null and item.resource_path != "":
-			items_paths.append(item.resource_path)
+	#var items_paths: Array = []
+	#for item in GameState.collected_items:
+		#if item != null and item.resource_path != "":
+			#items_paths.append(item.resource_path)
+	
+	var items_save_data = []
+	for slot_dict in GameState.collected_items:
+		var item_res = slot_dict["item"]
+		if item_res != null and item_res.resource_path != "":
+			items_save_data.append({
+				"path": item_res.resource_path,
+				"quantity": slot_dict["quantity"]
+			})
 	
 	var charms_paths: Array = []
 	for charm in GameState.collected_charms:
@@ -23,7 +32,7 @@ func save_game(player_position: Vector2, current_health: int, total_gold: int) -
 		"player_pos_y": player_position.y,
 		"health": current_health,
 		"gold": total_gold,
-		"collected_items": items_paths,
+		"collected_items": items_save_data,
 		"collected_charms": charms_paths,
 		"equipped_charms": equipped_paths
 		# Ajouter inventaire, etc...

@@ -8,8 +8,8 @@ class_name Loot2D
 func drop() -> void:
 	var luck := randf()
 	
-	if luck <= drop_rate:
+	if luck <= drop_rate and loot_scene != null:
 		var loot = loot_scene.instantiate()
 		loot.global_position = global_position
 		
-		get_tree().current_scene.add_child(loot)
+		get_tree().current_scene.add_child.call_deferred(loot)

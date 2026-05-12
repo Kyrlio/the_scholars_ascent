@@ -16,7 +16,8 @@ extends CanvasLayer
 @onready var charm_description: RichTextLabel = %CharmDescription
 
 @onready var equipped_slots: Array = equipped_charms_grid.get_children()
-@onready var available_slots = charm_slot_grid.get_children()
+@onready var available_slots: Array = charm_slot_grid.get_children()
+@onready var inventory_slots: Array = slot_grid.get_children()
 
 
 var current_tab: int = 0
@@ -36,6 +37,9 @@ func _ready() -> void:
 	for slot in available_slots:
 		slot.focus_entered.connect(_on_slot_focused.bind(slot))
 		slot.pressed.connect(_on_available_slot_pressed.bind(slot))
+	
+	for slot in inventory_slots:
+		slot.focus_entered.connect(_on_inventory_slot_focused.bind(slot))
 
 
 func _process(delta: float) -> void:
@@ -69,36 +73,47 @@ func toggle_menu() -> void:
 	get_tree().paused = is_menu_open
 	
 	if is_menu_open:
+		update_charms_tab()
+		update_inventory_tab()
 		update_tabs()
+
+
+func update_inventory_tab() -> void:
+	for i in range(inventory_slots.size()):
+		var slot: AnimatedSlot = inventory_slots[i]
+		
+		if i < GameState.collected_items.size():
+			var slot_dict: Dictionary = GameState.collected_items[i]
+			
+			slot.quantity = slot_dict["quantity"]
+			slot.item_data = slot_dict["item"]
+		else:
+			slot.quantity = 0
+			slot.item_data = null
 
 
 func update_tabs() -> void:
 	for i in range(tabs.size()):
 		tabs[i].visible = (i == current_tab)
-		update_tab_name()
-		
-		# TODO : change opacity of other tabs
 	
-	if is_menu_open:
-		if current_tab == 0:
-			# Inventory
+	update_tab_name()
+	
+	match current_tab:
+		0: # Inventory
+			update_inventory_tab()
 			if slot_grid.get_child_count() > 0:
 				slot_grid.get_child(0).grab_focus()
 		
-		elif current_tab == 1:
-			# Charms
+		1: # Charms
 			update_charms_tab()
 			if equipped_charms_grid.get_child_count() > 0:
 				equipped_charms_grid.get_child(0).grab_focus()
 		
-		elif current_tab == 2:
-			# Settings
+		2: # Settings
 			if quit_button:
 				quit_button.grab_focus()
-		
-		
-		elif current_tab == 3:
-			# Map
+
+		3: # Map
 			pass
 
 
@@ -182,3 +197,12 @@ func _on_available_slot_pressed(slot: AnimatedSlot) -> void:
 	if slot.item_data != null:
 		GameState.equip_charm(slot.item_data)
 		update_charms_tab()
+
+
+func _on_inventory_slot_focused(slot: AnimatedSlot) -> void:
+	if slot.item_data != null:
+		item_name.text = slot.item_data.item_name
+		item_description.text = slot.item_data.description
+	else:
+		item_name.text = "Empty"
+		item_description.text = ""

@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://ca4o2fgfjyfvv" path="res://Assets/sprites/beetle.png" id="4_nf3wy"]
 [ext_resource type="PackedScene" uid="uid://b5qnhbxwsse1r" path="res://Systems/Loot/loot_2d.tscn" id="6_nf3wy"]
 [ext_resource type="PackedScene" uid="uid://dys7k0tpundus" path="res://Systems/Loot/Gold Coin/gold_coin.tscn" id="7_iypxf"]
+[ext_resource type="PackedScene" uid="uid://cgqtbhvvjwfae" path="res://Systems/Loot/bat_eye.tscn" id="9_dayxg"]
 
 [sub_resource type="Animation" id="Animation_m6xea"]
 length = 0.001
@@ -270,6 +271,13 @@ unique_name_in_owner = true
 position = Vector2(0, -4)
 target_position = Vector2(10, 0)
 
-[node name="Loot2D" parent="." unique_id=750658645 instance=ExtResource("6_nf3wy")]
+[node name="Loots" type="Node2D" parent="." unique_id=1504873949]
+unique_name_in_owner = true
+
+[node name="GoldLoot" parent="Loots" unique_id=750658645 instance=ExtResource("6_nf3wy")]
 unique_name_in_owner = true
 loot_scene = ExtResource("7_iypxf")
+
+[node name="ItemLoot" parent="Loots" unique_id=1212624167 instance=ExtResource("6_nf3wy")]
+unique_name_in_owner = true
+loot_scene = ExtResource("9_dayxg")

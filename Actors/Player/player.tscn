@@ -1352,9 +1352,6 @@ _data = {
 &"flash": SubResource("Animation_nwamd")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_sor1j"]
-radius = 6.0
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_y2lmi"]
 radius = 5.0
 height = 12.0
@@ -1455,6 +1452,9 @@ animations = [{
 "speed": 12.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_sor1j"]
+radius = 5.0
+
 [node name="Player" type="CharacterBody2D" unique_id=391222067 groups=["player"]]
 collision_layer = 2
 collision_mask = 33
@@ -1482,18 +1482,6 @@ libraries/ = SubResource("AnimationLibrary_isd1h")
 
 [node name="FlashAnimationPlayer" type="AnimationPlayer" parent="." unique_id=1975941485]
 libraries/ = SubResource("AnimationLibrary_woyfc")
-
-[node name="Hurtbox" type="Area2D" parent="." unique_id=2135399883 node_paths=PackedStringArray("health_component")]
-unique_name_in_owner = true
-collision_layer = 8
-collision_mask = 64
-script = ExtResource("5_awv0x")
-health_component = NodePath("../HealthComponent")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=377365471]
-position = Vector2(0, -6)
-shape = SubResource("CircleShape2D_sor1j")
-debug_color = Color(0.97284085, 0, 0.4415506, 0.41960785)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=303500252]
 position = Vector2(0, -5)
@@ -1533,3 +1521,15 @@ top_level = true
 sprite_frames = SubResource("SpriteFrames_5ni5v")
 animation = &"jump"
 offset = Vector2(0, -6)
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=2135399883 node_paths=PackedStringArray("health_component")]
+unique_name_in_owner = true
+collision_layer = 8
+collision_mask = 64
+script = ExtResource("5_awv0x")
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=377365471]
+position = Vector2(0, -6)
+shape = SubResource("CircleShape2D_sor1j")
+debug_color = Color(0.97284085, 0, 0.4415506, 0.41960785)

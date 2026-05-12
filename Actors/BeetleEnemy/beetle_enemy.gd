@@ -8,7 +8,8 @@ class_name BeetleEnemy
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var hurtbox_component: HurtboxComponent = $HurtboxComponent
 @onready var hitbox_component: HitboxComponent = $HitboxComponent
-@onready var loot_component: Loot2D = %Loot2D
+@onready var loots_container: Node2D = %Loots
+
 
 
 @export var speed: float = 10.0
@@ -67,8 +68,10 @@ func _on_damaged() -> void:
 
 
 func _on_died() -> void:
-	if loot_component:
-		loot_component.drop()
+	if loots_container:
+		for loot in loots_container.get_children():
+			if loot.has_method("drop"):
+				loot.drop()
 	
 	is_dead = true
 	can_move = false

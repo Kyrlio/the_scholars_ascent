@@ -10,8 +10,10 @@ class_name AnimatedSlot
 @onready var nine_patch_rect: NinePatchRect = $NinePatchRect
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var icon_sprite: Sprite2D = $IconSprite
+@onready var quantity_label: Label = $QuantityLabel
 
 var tween: Tween
+var quantity: int = 1
 
 func _ready() -> void:
 	nine_patch_rect.hide()
@@ -28,7 +30,14 @@ func update_visuals() -> void:
 	if item_data != null:
 		icon_sprite.texture = item_data.icon
 		icon_sprite.show()
+		
+		if quantity > 1:
+			quantity_label.text = str(quantity)
+			quantity_label.show()
+		else:
+			quantity_label.hide()
 	else:
+		icon_sprite.texture = null
 		icon_sprite.hide()
 
 

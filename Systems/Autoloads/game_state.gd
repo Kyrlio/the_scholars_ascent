@@ -2,7 +2,8 @@ extends Node
 
 const MAX_EQUIPPED_CHARMS: int = 3
 
-var collected_items: Array[ItemData] = []
+#var collected_items: Array[ItemData] = []
+var collected_items: Array[Dictionary] = []
 var collected_charms: Array[CharmItem] = []
 var equipped_charms: Array[CharmItem] = []
 
@@ -71,9 +72,17 @@ func load_save_data():
 	
 	# Classic inventory
 	collected_items.clear()
-	for path in data.get("collected_items", []):
-		if ResourceLoader.exists(path):
-			collected_items.append(load(path))
+	for data_slot in data.get("collected_items", []):
+		if typeof(data_slot) == TYPE_DICTIONARY and ResourceLoader.exists(data_slot["path"]):
+			var item_res = load(data_slot["path"])
+			collected_items.append({
+				"item": item_res,
+				"quantity": data_slot["quantity"]
+			})
+	
+	#for path in data.get("collected_items", []):
+		#if ResourceLoader.exists(path):
+			#collected_items.append(load(path))
 	
 	# Charm inventory
 	collected_charms.clear()
@@ -94,5 +103,17 @@ func _on_item_collected(new_item: ItemData) -> void:
 		collected_charms.append(new_item)
 		print("Charme ajouté a l'onglet des charmes")
 	else:
-		collected_items.append(new_item)
-		print("Objet ajouté a l'inventaire")
+		var found: bool = false
+		
+		for slot in collected_items:
+			if slot["item"] == new_item:
+				slot["quantity"] += 1
+				found = true
+				print(new_item.item_name + " stacké ! (Total " + str(slot["quantity"]) + " )")
+				break
+		
+		if not found:
+			collected_items.append({"item": new_item, "quantity": 1})
+			print("Objet ajouté a l'inventaire")
+			
+		
