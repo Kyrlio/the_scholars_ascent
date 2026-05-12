@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://da6nxmxi8svx5"]
 
 [ext_resource type="Texture2D" uid="uid://bbucqtflj4my0" path="res://Assets/items.png" id="1_fkonb"]
-[ext_resource type="Script" uid="uid://bpr4g7udde1b6" path="res://Systems/Resources/item_data.gd" id="1_nslfn"]
+[ext_resource type="Script" uid="uid://bpr4g7udde1b6" path="res://Systems/Resources/Items/item_data.gd" id="1_nslfn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_suukd"]
 atlas = ExtResource("1_fkonb")

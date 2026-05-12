@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CharmItem" format=3 uid="uid://ob6ebspo3twm"]
+
+[ext_resource type="Texture2D" uid="uid://bbucqtflj4my0" path="res://Assets/items.png" id="1_rtyc4"]
+[ext_resource type="Script" uid="uid://b1k6c6xtrwpkq" path="res://Systems/Resources/Charms/Stat Modifier/charm_item.gd" id="2_rtyc4"]
+[ext_resource type="Resource" uid="uid://b405o2q15jgu4" path="res://Systems/Resources/Charms/Stat Modifier/speed_multiplier.tres" id="3_ootp0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e8xjy"]
+atlas = ExtResource("1_rtyc4")
+region = Rect2(49, 49, 15, 15)
+
+[resource]
+script = ExtResource("2_rtyc4")
+stat_modifier = ExtResource("3_ootp0")
+item_name = "Golden Ring"
+description = "Runs faster"
+icon = SubResource("AtlasTexture_e8xjy")
+metadata/_custom_type_script = "uid://b1k6c6xtrwpkq"

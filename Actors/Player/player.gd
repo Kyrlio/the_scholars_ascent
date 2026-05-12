@@ -15,20 +15,16 @@ enum State {
 }
 var current_state: State = State.IDLE
 
+@export var stats: Stats
+
 @export_group("Speed")
-@export var speed: float = 125.0
 @export var acceleration: float = 600.0
 @export var friction: float = 800.0
 @export var roll_speed: float = 200.0
-@export var air_roll_speed: float = 185.0
+@export var air_roll_speed_multiplier: float = 0.85
 
 @export_group("Jump")
-@export var jump_velocity: float = -275.0
-@export var jump_cutoff: float = 0.4 #Réduction de 40% si on relâche le bouton
-
-@export_group("Gravity")
-@export var jump_gravity: float = 900.0
-@export var fall_gravity: float = 1000.0
+@export var jump_cutoff: float = 0.4 
 
 @export_group("Wall Slide and Jump")
 @export var wall_slide_speed: float = 10.0
@@ -66,6 +62,8 @@ func _ready() -> void:
 	
 	if GameState.saved_player_health != -1:
 		health_component.current_health = GameState.saved_player_health
+	
+	GameState.rebuild_player_stats()
 
 
 func _process(delta: float) -> void:
@@ -90,12 +88,12 @@ func _process(delta: float) -> void:
 func _apply_gravity(delta: float) -> void:
 	if not is_on_floor():
 		if is_on_wall_only() and velocity.y > 0:
-			velocity.y = min(velocity.y + fall_gravity * delta, wall_slide_speed)
+			velocity.y = min(velocity.y + stats.fall_gravity * delta, wall_slide_speed)
 		else:
 			if velocity.y < 0.0:
-				velocity.y += jump_gravity * delta
+				velocity.y += stats.jump_gravity * delta
 			else:
-				velocity.y += fall_gravity * delta
+				velocity.y += stats.fall_gravity * delta
 
 
 func _handle_horizontal_movement(delta: float) -> void:
@@ -106,14 +104,14 @@ func _handle_horizontal_movement(delta: float) -> void:
 			if is_on_floor():
 				velocity.x = visuals.scale.x * roll_speed
 			else:
-				velocity.x = visuals.scale.x * air_roll_speed
+				velocity.x = visuals.scale.x * (roll_speed * air_roll_speed_multiplier)
 			return
 	
 	var direction: float = Input.get_axis("move_left", "move_right")
 	
-	var active_speed := speed
+	var active_speed: float = stats.speed
 	if current_state == State.ATTACK and is_on_floor():
-		active_speed = speed * 0.6
+		active_speed = stats.speed * 0.6
 	
 	if direction != 0.0:
 		velocity.x = move_toward(velocity.x, direction * active_speed, acceleration * delta)
@@ -135,7 +133,7 @@ func _handle_jump() -> void:
 	var requested_jump: bool = (Input.is_action_just_pressed("jump") or not buffer_jump_timer.is_stopped())
 	
 	if requested_jump and can_jump:
-		velocity.y = jump_velocity
+		velocity.y = stats.jump_velocity
 		buffer_jump_timer.stop()
 		coyote_jump_timer.stop()
 		
@@ -166,7 +164,7 @@ func _handle_roll() -> void:
 
 func _apply_pogo() -> void:
 	can_air_roll = true
-	velocity.y = jump_velocity * 0.9
+	velocity.y = stats.jump_velocity * 0.9
 	
 	apply_squish(0.6, 1.5)
 	GameEvents.emit_camera_shake(0.4)
@@ -248,7 +246,7 @@ func switch_state(new_state: State) -> void:
 			if is_on_floor():
 				animation_player.play("roll")
 			else:
-				velocity.y = jump_velocity * 0.5
+				velocity.y = stats.jump_velocity * 0.5
 				animation_player.play("air_dash")
 				dust_animated_sprite.stop()
 				dust_animated_sprite.global_position = global_position

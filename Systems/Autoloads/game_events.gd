@@ -5,6 +5,7 @@ signal camera_shake_requested(trauma_amount: float)
 signal player_health_changed(current_health: int, max_health: int)
 signal inventory_item_focused(item_data: ItemData)
 signal gold_collected(amount: int)
+signal item_collected(item: ItemData)
 
 
 func emit_engine_freeze() -> void:
@@ -21,3 +22,6 @@ func emit_inventory_item_focused(item_data: ItemData) -> void:
 
 func emit_gold_collected(amount: int) -> void:
 	gold_collected.emit(amount)
+
+func emit_item_collected(item: ItemData) -> void:
+	item_collected.emit(item)

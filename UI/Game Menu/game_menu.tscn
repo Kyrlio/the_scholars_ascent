@@ -5,11 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://dg2eebu544xhu" path="res://UI/Animated Slot/animated_slot.tscn" id="3_17mpa"]
 [ext_resource type="PackedScene" uid="uid://crivg1daf13fq" path="res://UI/Animated Button/animated_button.tscn" id="3_hihkt"]
 [ext_resource type="Texture2D" uid="uid://bi6n8bjnm10ki" path="res://Assets/Vertical Separator.png" id="4_dk7y1"]
-[ext_resource type="Resource" uid="uid://c73p7mv6bkqf1" path="res://Systems/Resources/golden_ring.tres" id="4_dmh5u"]
-[ext_resource type="Resource" uid="uid://da6nxmxi8svx5" path="res://Systems/Resources/bat_eye.tres" id="5_pu6sy"]
-[ext_resource type="Resource" uid="uid://ds0ps3l0a2o67" path="res://Systems/Resources/mushroom.tres" id="6_5v0sf"]
-[ext_resource type="Resource" uid="uid://b5vqbcgqouhj4" path="res://Systems/Resources/shell.tres" id="7_32urs"]
-[ext_resource type="Resource" uid="uid://da7gktxnl8xxc" path="res://Systems/Resources/gold.tres" id="8_nmxdp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_efeg3"]
 atlas = ExtResource("2_hihkt")
@@ -43,6 +38,28 @@ region = Rect2(146, 50, 12, 12)
 [sub_resource type="AtlasTexture" id="AtlasTexture_pu6sy"]
 atlas = ExtResource("2_hihkt")
 region = Rect2(224, 83, 16, 9)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5v0sf"]
+atlas = ExtResource("2_hihkt")
+region = Rect2(85, 53, 38, 6)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_32urs"]
+texture = SubResource("AtlasTexture_5v0sf")
+texture_margin_left = 6.0
+texture_margin_top = 1.0
+texture_margin_right = 6.0
+texture_margin_bottom = 5.0
+region_rect = Rect2(0, 0, 38, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_32urs"]
+atlas = ExtResource("2_hihkt")
+region = Rect2(210, 114, 12, 12)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nmxdp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e4ttj"]
+atlas = ExtResource("2_hihkt")
+region = Rect2(226, 98, 12, 12)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ot070"]
 atlas = ExtResource("2_hihkt")
@@ -162,6 +179,7 @@ theme_override_constants/margin_bottom = 10
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab" unique_id=251348548]
 layout_mode = 2
+theme_override_constants/separation = 8
 
 [node name="SlotGrid" type="GridContainer" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer" unique_id=829004423]
 unique_name_in_owner = true
@@ -173,11 +191,9 @@ columns = 4
 
 [node name="Slot1" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer/SlotGrid" unique_id=1772062701 instance=ExtResource("3_17mpa")]
 layout_mode = 2
-item_data = ExtResource("4_dmh5u")
 
 [node name="Slot2" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer/SlotGrid" unique_id=1825537538 instance=ExtResource("3_17mpa")]
 layout_mode = 2
-item_data = ExtResource("5_pu6sy")
 
 [node name="Slot3" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer/SlotGrid" unique_id=514328080 instance=ExtResource("3_17mpa")]
 layout_mode = 2
@@ -190,30 +206,24 @@ layout_mode = 2
 
 [node name="Slot6" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer/SlotGrid" unique_id=1073940607 instance=ExtResource("3_17mpa")]
 layout_mode = 2
-item_data = ExtResource("6_5v0sf")
 
 [node name="Slot7" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer/SlotGrid" unique_id=1794692286 instance=ExtResource("3_17mpa")]
 layout_mode = 2
 
 [node name="Slot8" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer/SlotGrid" unique_id=778777256 instance=ExtResource("3_17mpa")]
 layout_mode = 2
-item_data = ExtResource("7_32urs")
 
 [node name="Slot9" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer/SlotGrid" unique_id=638369308 instance=ExtResource("3_17mpa")]
 layout_mode = 2
-item_data = ExtResource("4_dmh5u")
 
 [node name="Slot10" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer/SlotGrid" unique_id=773741064 instance=ExtResource("3_17mpa")]
 layout_mode = 2
-item_data = ExtResource("5_pu6sy")
 
 [node name="Slot11" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer/SlotGrid" unique_id=1650118496 instance=ExtResource("3_17mpa")]
 layout_mode = 2
-item_data = ExtResource("7_32urs")
 
 [node name="Slot12" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer/SlotGrid" unique_id=457225602 instance=ExtResource("3_17mpa")]
 layout_mode = 2
-item_data = ExtResource("8_nmxdp")
 
 [node name="ItemInfo" type="VBoxContainer" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer" unique_id=579452337]
 layout_mode = 2
@@ -244,8 +254,147 @@ theme_override_font_sizes/mono_font_size = 8
 text = "Item description j'ai fait caca tres fort prout prout prout
 "
 
+[node name="CharmsTab" type="MarginContainer" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent" unique_id=1242212263]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/CharmsTab" unique_id=1235989460]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/CharmsTab/HBoxContainer" unique_id=198639547]
+layout_mode = 2
+alignment = 1
+
+[node name="EquippedCharmsGrid" type="GridContainer" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/CharmsTab/HBoxContainer/VBoxContainer" unique_id=1121760584]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/h_separation = 9
+columns = 3
+
+[node name="EquippedCharm1" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/CharmsTab/HBoxContainer/VBoxContainer/EquippedCharmsGrid" unique_id=621255468 instance=ExtResource("3_17mpa")]
+layout_mode = 2
+
+[node name="EquippedCharm2" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/CharmsTab/HBoxContainer/VBoxContainer/EquippedCharmsGrid" unique_id=1081493423 instance=ExtResource("3_17mpa")]
+layout_mode = 2
+
+[node name="EquippedCharm3" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/CharmsTab/HBoxContainer/VBoxContainer/EquippedCharmsGrid" unique_id=550197203 instance=ExtResource("3_17mpa")]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/CharmsTab/HBoxContainer/VBoxContainer" unique_id=390286870]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxTexture_32urs")
+
+[node name="CharmSlotGrid" type="GridContainer" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/CharmsTab/HBoxContainer/VBoxContainer" unique_id=1297728355]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+theme_override_constants/h_separation = -2
+theme_override_constants/v_separation = -2
+columns = 4
+
+[node name="Slot1" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/CharmsTab/HBoxContainer/VBoxContainer/CharmSlotGrid" unique_id=1080997082 instance=ExtResource("3_17mpa")]
+layout_mode = 2
+
+[node name="Slot2" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/CharmsTab/HBoxContainer/VBoxContainer/CharmSlotGrid" unique_id=1959979461 instance=ExtResource("3_17mpa")]
+layout_mode = 2
+
+[node name="Slot3" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/CharmsTab/HBoxContainer/VBoxContainer/CharmSlotGrid" unique_id=1758316813 instance=ExtResource("3_17mpa")]
+layout_mode = 2
+
+[node name="Slot4" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/CharmsTab/HBoxContainer/VBoxContainer/CharmSlotGrid" unique_id=270171514 instance=ExtResource("3_17mpa")]
+layout_mode = 2
+
+[node name="Slot5" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/CharmsTab/HBoxContainer/VBoxContainer/CharmSlotGrid" unique_id=1364308936 instance=ExtResource("3_17mpa")]
+layout_mode = 2
+
+[node name="Slot6" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/CharmsTab/HBoxContainer/VBoxContainer/CharmSlotGrid" unique_id=1321508064 instance=ExtResource("3_17mpa")]
+layout_mode = 2
+
+[node name="Slot7" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/CharmsTab/HBoxContainer/VBoxContainer/CharmSlotGrid" unique_id=278575981 instance=ExtResource("3_17mpa")]
+layout_mode = 2
+
+[node name="Slot8" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/CharmsTab/HBoxContainer/VBoxContainer/CharmSlotGrid" unique_id=106795854 instance=ExtResource("3_17mpa")]
+layout_mode = 2
+
+[node name="CharmInfo" type="VBoxContainer" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/CharmsTab/HBoxContainer" unique_id=384287950]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CharmName" type="Label" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/CharmsTab/HBoxContainer/CharmInfo" unique_id=243846162]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Charm name"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/CharmsTab/HBoxContainer/CharmInfo" unique_id=340780388]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/CharmsTab/HBoxContainer/CharmInfo/HBoxContainer" unique_id=649183141]
+layout_mode = 2
+texture = ExtResource("4_dk7y1")
+stretch_mode = 4
+
+[node name="CharmDescription" type="RichTextLabel" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/CharmsTab/HBoxContainer/CharmInfo/HBoxContainer" unique_id=1449598822]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(85, 36)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_font_sizes/normal_font_size = 8
+theme_override_font_sizes/mono_font_size = 8
+text = "Charm description. Can modify player's basic stats
+"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/CharmsTab/HBoxContainer/CharmInfo" unique_id=1847887899]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+theme_override_constants/separation = 1
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/CharmsTab/HBoxContainer/CharmInfo/HBoxContainer2" unique_id=1844143568]
+layout_mode = 2
+texture = SubResource("AtlasTexture_32urs")
+stretch_mode = 5
+
+[node name="EquipLabel" type="Label" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/CharmsTab/HBoxContainer/CharmInfo/HBoxContainer2" unique_id=888808772]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Equip"
+horizontal_alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/CharmsTab/HBoxContainer/CharmInfo/HBoxContainer2" unique_id=1892877534]
+custom_minimum_size = Vector2(7, 0)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_nmxdp")
+
+[node name="TextureRect2" type="TextureRect" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/CharmsTab/HBoxContainer/CharmInfo/HBoxContainer2" unique_id=2022006748]
+layout_mode = 2
+texture = SubResource("AtlasTexture_e4ttj")
+stretch_mode = 5
+
+[node name="EquipLabel2" type="Label" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/CharmsTab/HBoxContainer/CharmInfo/HBoxContainer2" unique_id=817565446]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Something"
+horizontal_alignment = 1
+
 [node name="SettingsTab" type="MarginContainer" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent" unique_id=1835344281]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -266,6 +415,7 @@ theme_override_constants/separation = 4
 
 [node name="SaveButton" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/SettingsTab/VBoxContainer" unique_id=381347748 instance=ExtResource("3_hihkt")]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.27058825, 0.16862746, 0.24705882, 1)
 theme_override_constants/outline_size = 0

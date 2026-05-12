@@ -1,18 +1,81 @@
 extends Node
 
+const MAX_EQUIPPED_CHARMS: int = 3
+
+var collected_items: Array[ItemData] = []
+var collected_charms: Array[CharmItem] = []
+var equipped_charms: Array[CharmItem] = []
+
 var total_gold: int = 0
 
 var saved_player_pos: Vector2 = Vector2.ZERO
 var saved_player_health: int = -1
 
+var base_player_stats: Stats = preload("res://Systems/Resources/base_player_stats.tres")
+
 func _ready() -> void:
 	GameEvents.gold_collected.connect(add_gold)
+	GameEvents.item_collected.connect(_on_item_collected)
 	
 	load_save_data()
+	
+	# TEST
+	var test_charm = preload("res://Systems/Resources/Charms/jump_charm.tres")
+	collected_charms.append(test_charm)
+	var golden_ring = preload("res://Systems/Resources/Charms/golden_ring.tres")
+	collected_charms.append(golden_ring)
 
 
 func add_gold(amount: int) -> void:
 	total_gold += amount
+
+
+func equip_charm(charm: CharmItem) -> void:
+	if equipped_charms.size() >= MAX_EQUIPPED_CHARMS:
+		print("Plus de place pour équiper de nouveaux charmes !")
+		return
+	
+	if not charm in equipped_charms:
+		equipped_charms.append(charm)
+		rebuild_player_stats()
+		print(charm.item_name + " équipé avec succès !")
+	
+	#var player: Player = get_tree().get_first_node_in_group("player")
+	#if player and charm.stat_modifier:
+		#charm.stat_modifier.decorated_stats = player.stats
+		#player.stats = charm.stat_modifier
+		#
+		#equipped_charms.append(charm)
+		#print(charm.item_name + " équipé avec succès !")
+
+
+func unequip_charm(charm: CharmItem) -> void:
+	if charm in equipped_charms:
+		equipped_charms.erase(charm)
+		rebuild_player_stats()
+		print(charm.item_name + " retiré !")
+	
+	#var player: Player = get_tree().get_first_node_in_group("player")
+	#if player and charm in equipped_charms:
+		#player.stats = charm.stat_modifier.decorated_stats
+		#
+		#equipped_charms.erase(charm)
+		#print(charm.item_name + " retiré !")
+
+
+func rebuild_player_stats() -> void:
+	var player: Player = get_tree().get_first_node_in_group("player")
+	if not player:
+		return
+	
+	var current_layer: Stats = base_player_stats
+	
+	for charm in equipped_charms:
+		if charm.stat_modifier:
+			charm.stat_modifier.decorated_stats = current_layer
+			current_layer = charm.stat_modifier
+	
+	player.stats = current_layer
 
 
 func load_save_data():
@@ -25,3 +88,12 @@ func load_save_data():
 		var pos_x = data.get("player_pos_x", 0.0)
 		var pos_y = data.get("player_pos_y", 0.0)
 		saved_player_pos = Vector2(pos_x, pos_y)
+
+
+func _on_item_collected(new_item: ItemData) -> void:
+	if new_item is CharmItem:
+		collected_charms.append(new_item)
+		print("Charme ajouté a l'onglet des charmes")
+	else:
+		collected_items.append(new_item)
+		print("Objet ajouté a l'inventaire")
