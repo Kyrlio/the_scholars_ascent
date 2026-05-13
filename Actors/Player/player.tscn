@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://clogc8axblkdv" path="res://Assets/effects.png" id="3_v1key"]
 [ext_resource type="Script" uid="uid://dprjg5ilgd4ve" path="res://Systems/Components/hurtbox_component.gd" id="5_awv0x"]
 [ext_resource type="Script" uid="uid://0xe0iq737lh6" path="res://Systems/Components/hitbox_component.gd" id="6_pnakb"]
+[ext_resource type="PackedScene" uid="uid://bb6uks6vkiknu" path="res://Systems/Particles/pogo_particles.tscn" id="9_pnakb"]
 
 [sub_resource type="Animation" id="Animation_b63gh"]
 length = 0.001
@@ -143,6 +144,30 @@ tracks/10/keys = {
 "update": 0,
 "values": [Vector2(0.8, 0.8)]
 }
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Hurtbox:monitoring")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Hurtbox:monitorable")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_pnakb"]
 resource_name = "air_attack"
@@ -158,7 +183,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, -8)]
+"values": [Vector2(0, -4)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -215,10 +240,10 @@ tracks/5/path = NodePath("Visuals/Hitbox/CollisionShape2D2:disabled")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.055555556, 0.16666667),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.16666667),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [true, false, true]
+"values": [false, true]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
@@ -231,6 +256,30 @@ tracks/6/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [ExtResource("2_v1key")]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Hurtbox:monitoring")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.16666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Hurtbox:monitorable")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.16666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
 }
 
 [sub_resource type="Animation" id="Animation_sciwa"]
@@ -1489,7 +1538,7 @@ height = 12.0
 size = Vector2(19, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xk7p5"]
-size = Vector2(22, 22)
+size = Vector2(22, 26)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v1key"]
 atlas = ExtResource("3_v1key")
@@ -1586,18 +1635,29 @@ collision_layer = 2
 collision_mask = 33
 script = ExtResource("1_5ni5v")
 stats = ExtResource("2_awv0x")
+acceleration = null
+friction = null
+roll_speed = null
+air_roll_speed_multiplier = null
+jump_cutoff = null
+wall_slide_speed = null
+wall_jump_pushback = null
+wall_jump_lift = null
 
 [node name="Timers" type="Node" parent="." unique_id=1013246287]
 
 [node name="CoyoteJumpTimer" type="Timer" parent="Timers" unique_id=679403561]
+process_callback = 0
 wait_time = 0.1
 one_shot = true
 
 [node name="BufferJumpTimer" type="Timer" parent="Timers" unique_id=561362257]
+process_callback = 0
 wait_time = 0.1
 one_shot = true
 
 [node name="WallCoyoteTimer" type="Timer" parent="Timers" unique_id=441096749]
+process_callback = 0
 wait_time = 0.15
 one_shot = true
 
@@ -1658,7 +1718,7 @@ disabled = true
 debug_color = Color(0.67152274, 0.50890875, 0, 0.41960785)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Visuals/Hitbox" unique_id=175770632]
-position = Vector2(1, 2)
+position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_xk7p5")
 disabled = true
 debug_color = Color(0.67152274, 0.50890875, 0, 0.41960785)
@@ -1670,3 +1730,6 @@ top_level = true
 sprite_frames = SubResource("SpriteFrames_5ni5v")
 animation = &"jump"
 offset = Vector2(0, -6)
+
+[node name="PogoParticles" parent="." unique_id=1639302054 instance=ExtResource("9_pnakb")]
+position = Vector2(0, -5)

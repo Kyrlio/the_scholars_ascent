@@ -1,6 +1,8 @@
 class_name Player
 extends CharacterBody2D
 
+#region variables
+
 enum State {
 	IDLE,
 	RUN,
@@ -8,13 +10,16 @@ enum State {
 	FALL,
 	WALL_SLIDE,
 	ROLL,
-	ATTACK,
+	GROUND_ATTACK,
+	AIR_ATTACK,
 	HURT,
 	DEAD,
 	REST,
 	SHOW_ITEM
 }
 var current_state: State = State.IDLE
+
+const ATTACK_PUSH_FORCE: float = 100.0
 
 @export var stats: Stats
 
@@ -43,6 +48,7 @@ var current_state: State = State.IDLE
 @onready var flash_animation_player: AnimationPlayer = $FlashAnimationPlayer
 @onready var looted_item_sprite: Sprite2D = %LootedItemSprite
 @onready var wall_coyote_timer: Timer = $Timers/WallCoyoteTimer
+@onready var pogo_particles: GPUParticles2D = $PogoParticles
 
 var is_dead: bool = false
 var _was_on_floor: bool = false
@@ -51,6 +57,104 @@ var last_wall_normal: Vector2 = Vector2.ZERO
 var can_air_roll: bool = true
 
 var tween: Tween
+
+#endregion
+
+#region switch / update states
+func switch_state(new_state: State) -> void:
+	if current_state == new_state:
+		return
+	
+	var previous_state: State = current_state
+	current_state = new_state
+	
+	match current_state:
+		State.IDLE:
+			animation_player.play("idle")
+			looted_item_sprite.hide()
+			if previous_state == State.FALL:
+				apply_squish(1.3, 0.8)
+				play_landing_dust_animation()
+		
+		State.RUN:
+			animation_player.play("run")
+			if previous_state == State.FALL:
+				apply_squish(1.3, 0.6)
+				play_landing_dust_animation()
+		
+		State.JUMP:
+			animation_player.play("jump")
+			if not previous_state == State.WALL_SLIDE:
+				play_jumping_dust_animation()
+		
+		State.FALL:
+			animation_player.play("fall")
+		
+		State.WALL_SLIDE:
+			animation_player.play("wall_slide")
+			
+		State.GROUND_ATTACK:
+				animation_player.play("ground_attack")
+		
+		State.AIR_ATTACK:
+			animation_player.play("air_attack")
+		
+		State.ROLL:
+			if is_on_floor():
+				animation_player.play("roll")
+			else:
+				velocity.y = stats.jump_velocity * 0.5
+				animation_player.play("air_dash")
+				play_jumping_dust_animation()
+			apply_squish(1.3, 0.7)
+		
+		State.HURT:
+			animation_player.play("hurt")
+			velocity = Vector2.ZERO
+			GameEvents.emit_camera_shake(0.5)
+		
+		State.DEAD:
+			is_dead = true
+			animation_player.play("death")
+		
+		State.REST:
+			velocity = Vector2.ZERO
+			animation_player.play("campfire")
+		
+		State.SHOW_ITEM:
+			animation_player.play("item_chest")
+			velocity = Vector2.ZERO
+
+func _get_post_action_state() -> State:
+	if not is_on_floor():
+		if is_on_wall_only() and velocity.y > 0.0:
+			return State.WALL_SLIDE
+		if velocity.y < 0.0:
+			return State.JUMP
+		return State.FALL
+
+	if velocity.x != 0.0:
+		return State.RUN
+
+	return State.IDLE
+
+func _update_state() -> void:
+	match current_state:
+		State.GROUND_ATTACK: return
+		State.AIR_ATTACK: return
+		State.ROLL: return
+		State.HURT: return
+		State.DEAD: return
+		State.REST: return
+		State.SHOW_ITEM: return
+	
+	var next_state: State = _get_post_action_state()
+	if next_state == State.WALL_SLIDE:
+		visuals.scale.x = -sign(get_wall_normal().x)
+
+	switch_state(next_state)
+
+#endregion
 
 func _ready() -> void:
 	switch_state(State.IDLE)
@@ -118,7 +222,7 @@ func _handle_horizontal_movement(delta: float) -> void:
 	var direction: float = Input.get_axis("move_left", "move_right")
 	
 	var active_speed: float = stats.speed
-	if current_state == State.ATTACK and is_on_floor():
+	if current_state == State.GROUND_ATTACK and is_on_floor():
 		active_speed = stats.speed * 0.6
 	
 	if direction != 0.0:
@@ -157,15 +261,18 @@ func _handle_attack() -> void:
 	if current_state == State.HURT or current_state == State.REST:
 		return
 	
-	if Input.is_action_just_pressed("attack") and current_state != State.ATTACK:
-		switch_state(State.ATTACK)
+	if Input.is_action_just_pressed("attack"):
+		if is_on_floor() and current_state != State.GROUND_ATTACK:
+			switch_state(State.GROUND_ATTACK)
+		elif not is_on_floor() and current_state != State.AIR_ATTACK:
+			switch_state(State.AIR_ATTACK)
 
 
 func _handle_roll() -> void:
 	if check_common_conditions():
 		return
 	
-	if Input.is_action_just_pressed("roll") and current_state != State.ROLL and current_state != State.ATTACK:
+	if Input.is_action_just_pressed("roll") and current_state != State.ROLL and current_state != State.GROUND_ATTACK and current_state != State.AIR_ATTACK:
 		if is_on_floor() or can_air_roll:
 			if not is_on_floor():
 				can_air_roll = false
@@ -184,6 +291,7 @@ func _apply_pogo() -> void:
 	velocity.y = stats.jump_velocity * 0.9
 	
 	apply_squish(0.6, 1.5)
+	pogo_particles.restart()
 	GameEvents.emit_camera_shake(0.4)
 
 
@@ -245,7 +353,7 @@ func play_landing_dust_animation() -> void:
 	dust_animated_sprite.show() 
 	dust_animated_sprite.global_position = global_position
 	dust_animated_sprite.global_position.y -= 2
-	reset_physics_interpolation()
+	dust_animated_sprite.reset_physics_interpolation()
 	dust_animated_sprite.play("landing")
 
 
@@ -253,123 +361,12 @@ func play_jumping_dust_animation() -> void:
 	dust_animated_sprite.stop()
 	dust_animated_sprite.show() 
 	dust_animated_sprite.global_position = global_position
-	reset_physics_interpolation()
+	dust_animated_sprite.reset_physics_interpolation()
 	dust_animated_sprite.play("jump")
 
 
-func switch_state(new_state: State) -> void:
-	if current_state == new_state:
-		return
-	
-	var previous_state: State = current_state
-	current_state = new_state
-	
-	match current_state:
-		State.IDLE:
-			animation_player.play("idle")
-			if previous_state == State.FALL:
-				apply_squish(1.3, 0.8)
-				play_landing_dust_animation()
-		
-		State.RUN:
-			animation_player.play("run")
-			if previous_state == State.FALL:
-				apply_squish(1.3, 0.6)
-				play_landing_dust_animation()
-		
-		State.JUMP:
-			animation_player.play("jump")
-			if not previous_state == State.WALL_SLIDE:
-				play_jumping_dust_animation()
-		
-		State.FALL:
-			animation_player.play("fall")
-		
-		State.WALL_SLIDE:
-			animation_player.play("wall_slide")
-			
-		State.ATTACK:
-			if not is_on_floor():
-				animation_player.play("air_attack")
-			else:
-				animation_player.play("ground_attack")
-		
-		State.ROLL:
-			if is_on_floor():
-				animation_player.play("roll")
-			else:
-				velocity.y = stats.jump_velocity * 0.5
-				animation_player.play("air_dash")
-				play_jumping_dust_animation()
-			apply_squish(1.3, 0.7)
-		
-		State.HURT:
-			animation_player.play("hurt")
-			velocity = Vector2.ZERO
-			GameEvents.emit_camera_shake(0.5)
-		
-		State.DEAD:
-			is_dead = true
-			animation_player.play("death")
-		
-		State.REST:
-			velocity = Vector2.ZERO
-			animation_player.play("campfire")
-		
-		State.SHOW_ITEM:
-			animation_player.play("item_chest")
-			velocity = Vector2.ZERO
-
-
-func _on_animation_finished(animation_name: StringName) -> void:
-	match current_state:
-		State.ATTACK:
-			if animation_name == &"air_attack" or animation_name == &"ground_attack":
-				switch_state(State.IDLE)
-		State.ROLL:
-			if animation_name == &"roll" or animation_name == &"air_dash":
-				switch_state(_get_post_action_state())
-		State.HURT:
-			if animation_name == &"hurt":
-				switch_state(_get_post_action_state())
-		State.SHOW_ITEM:
-			if animation_name == &"show_item":
-				#looted_item_sprite.hide()
-				switch_state(State.IDLE)
-
-
-func _get_post_action_state() -> State:
-	if not is_on_floor():
-		if is_on_wall_only() and velocity.y > 0.0:
-			return State.WALL_SLIDE
-		if velocity.y < 0.0:
-			return State.JUMP
-		return State.FALL
-
-	if velocity.x != 0.0:
-		return State.RUN
-
-	return State.IDLE
-
-
-func _update_state() -> void:
-	match current_state:
-		State.ATTACK: return
-		State.ROLL: return
-		State.HURT: return
-		State.DEAD: return
-		State.REST: return
-		State.SHOW_ITEM: return
-	
-	var next_state: State = _get_post_action_state()
-	if next_state == State.WALL_SLIDE:
-		visuals.scale.x = -sign(get_wall_normal().x)
-
-	switch_state(next_state)
-
-
 func _update_facing_direction(direction: float) -> void:
-	if current_state == State.ATTACK:
+	if current_state == State.GROUND_ATTACK or current_state == State.AIR_ATTACK:
 		return
 	
 	visuals.scale.x = sign(direction)
@@ -389,12 +386,32 @@ func get_total_gold() -> int:
 # ------------------------------------------ _ON_ -------------------------------------------------------
 
 func _on_hitbox_hit(hurtbox: HurtboxComponent) -> void:
-	if not is_on_floor():
-		if current_state == State.ATTACK:
-			_apply_pogo()
-	else:
+	print(is_on_floor())
+	if current_state == State.AIR_ATTACK:
+		_apply_pogo()
+	elif current_state == State.GROUND_ATTACK:
 		var push_dir = sign(global_position.x - hurtbox.global_position.x)
 		if push_dir == 0.0:
 			push_dir = 1.0
 		
-		velocity.x = push_dir * 125.0
+		velocity.x = push_dir * ATTACK_PUSH_FORCE
+
+
+func _on_animation_finished(animation_name: StringName) -> void:
+	match current_state:
+		State.GROUND_ATTACK:
+			if animation_name == &"ground_attack":
+				switch_state(State.IDLE)
+		State.AIR_ATTACK:
+			if animation_name == &"air_attack":
+				switch_state(State.IDLE)
+		State.ROLL:
+			if animation_name == &"roll" or animation_name == &"air_dash":
+				switch_state(_get_post_action_state())
+		State.HURT:
+			if animation_name == &"hurt":
+				switch_state(_get_post_action_state())
+		State.SHOW_ITEM:
+			if animation_name == &"show_item":
+				#looted_item_sprite.hide()
+				switch_state(State.IDLE)

@@ -19,7 +19,8 @@ func _handle_hit(hitbox_component: HitboxComponent):
 		return
 	
 	hitbox_component.register_hurtbox_hit(self)
-	health_component.damage(hitbox_component.damage)
+	if health_component:
+		health_component.damage(hitbox_component.damage)
 	hit_by_hitbox.emit(hitbox_component)
 
 

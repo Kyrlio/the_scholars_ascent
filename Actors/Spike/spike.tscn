@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://b0bj6fi4a271y"]
+
+[ext_resource type="Texture2D" uid="uid://6kj1t27l74ae" path="res://Assets/tileset.png" id="1_sq7oo"]
+[ext_resource type="Script" uid="uid://0xe0iq737lh6" path="res://Systems/Components/hitbox_component.gd" id="2_128px"]
+[ext_resource type="Script" uid="uid://dprjg5ilgd4ve" path="res://Systems/Components/hurtbox_component.gd" id="3_128px"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rojjn"]
+atlas = ExtResource("1_sq7oo")
+region = Rect2(294, 120, 42, 12)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qjq1v"]
+radius = 2.5
+height = 35.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rojjn"]
+size = Vector2(39, 7)
+
+[node name="Spike" type="Node2D" unique_id=1973469230]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=596858329]
+texture = SubResource("AtlasTexture_rojjn")
+offset = Vector2(0, -2)
+
+[node name="HitboxComponent" type="Area2D" parent="." unique_id=1152430647]
+collision_layer = 64
+collision_mask = 8
+script = ExtResource("2_128px")
+metadata/_custom_type_script = "uid://0xe0iq737lh6"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=2043054378]
+position = Vector2(-1.5, -2.5)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_qjq1v")
+
+[node name="HurtboxComponent" type="Area2D" parent="." unique_id=1907206459]
+collision_layer = 16
+collision_mask = 32
+script = ExtResource("3_128px")
+metadata/_custom_type_script = "uid://dprjg5ilgd4ve"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=19916925]
+position = Vector2(-1.5, -3.5)
+shape = SubResource("RectangleShape2D_rojjn")
+debug_color = Color(0.90465516, 0.30619422, 0, 0.41960785)
