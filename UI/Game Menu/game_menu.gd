@@ -42,7 +42,7 @@ func _ready() -> void:
 		slot.focus_entered.connect(_on_inventory_slot_focused.bind(slot))
 
 
-func _process(delta: float) -> void:
+func _process(delta: float) -> void:	
 	if Input.is_action_just_pressed("open_menu") or Input.is_action_just_pressed("escape"):
 		toggle_menu()
 		get_viewport().set_input_as_handled()
@@ -67,6 +67,9 @@ func _process(delta: float) -> void:
 
 
 func toggle_menu() -> void:
+	if get_tree().paused and not is_menu_open:
+		return
+	
 	is_menu_open = !is_menu_open
 	visible = is_menu_open
 	

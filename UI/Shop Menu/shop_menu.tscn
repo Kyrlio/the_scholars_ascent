@@ -1,0 +1,177 @@
+[gd_scene format=3 uid="uid://bqnd10i8sh08q"]
+
+[ext_resource type="Script" uid="uid://60pynodh754b" path="res://UI/Shop Menu/shop_menu.gd" id="1_mx1ja"]
+[ext_resource type="PackedScene" uid="uid://dg2eebu544xhu" path="res://UI/Animated Slot/animated_slot.tscn" id="2_cqaqy"]
+[ext_resource type="Texture2D" uid="uid://caqd2vijw2q1g" path="res://UI/gold_icon.tres" id="3_cqaqy"]
+[ext_resource type="Texture2D" uid="uid://xi2ifg7ixo2g" path="res://Assets/ui.png" id="3_u1qcv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cqaqy"]
+atlas = ExtResource("3_u1qcv")
+region = Rect2(210, 114, 12, 12)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u1qcv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eat0k"]
+atlas = ExtResource("3_u1qcv")
+region = Rect2(226, 114, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_14gq3"]
+atlas = ExtResource("3_u1qcv")
+region = Rect2(144, 80, 48, 8)
+
+[node name="ShopMenu" type="CanvasLayer" unique_id=1405506909]
+process_mode = 3
+script = ExtResource("1_mx1ja")
+
+[node name="Panel" type="Panel" parent="." unique_id=1656618237]
+custom_minimum_size = Vector2(224, 122)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=315669431]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=1351740995]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="TitleLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer" unique_id=1524738287]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Chuck's Shop"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer" unique_id=1846300110]
+layout_mode = 2
+
+[node name="ShopSlotGrid" type="GridContainer" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1917402063]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+columns = 3
+
+[node name="AnimatedSlot" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/ShopSlotGrid" unique_id=1772062701 instance=ExtResource("2_cqaqy")]
+layout_mode = 2
+
+[node name="AnimatedSlot2" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/ShopSlotGrid" unique_id=709146442 instance=ExtResource("2_cqaqy")]
+layout_mode = 2
+
+[node name="AnimatedSlot3" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/ShopSlotGrid" unique_id=1439774833 instance=ExtResource("2_cqaqy")]
+layout_mode = 2
+
+[node name="AnimatedSlot4" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/ShopSlotGrid" unique_id=1541905061 instance=ExtResource("2_cqaqy")]
+layout_mode = 2
+
+[node name="AnimatedSlot5" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/ShopSlotGrid" unique_id=1545391106 instance=ExtResource("2_cqaqy")]
+layout_mode = 2
+
+[node name="AnimatedSlot6" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/ShopSlotGrid" unique_id=1586807669 instance=ExtResource("2_cqaqy")]
+layout_mode = 2
+
+[node name="VSeparator" type="VSeparator" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=2007315219]
+layout_mode = 2
+
+[node name="DetailsPanel" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=996318994]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ItemName" type="Label" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/DetailsPanel" unique_id=454080482]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(104, 0)
+layout_mode = 2
+text = "Jump Charm"
+
+[node name="ItemDescription" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/DetailsPanel" unique_id=1024666662]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 8
+text = "Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum "
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/DetailsPanel" unique_id=1319490182]
+layout_mode = 2
+
+[node name="PriceLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/DetailsPanel/HBoxContainer" unique_id=92065752]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "99 GOLD"
+
+[node name="PriceIcon" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/DetailsPanel/HBoxContainer" unique_id=1935960053]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_cqaqy")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer" unique_id=2084434751]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_constants/separation = 2
+
+[node name="BuyIcon" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=809615048]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("AtlasTexture_cqaqy")
+stretch_mode = 5
+
+[node name="BuyLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=201666637]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Buy"
+
+[node name="VSeparator" type="VSeparator" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=389078387]
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_u1qcv")
+
+[node name="QuitIcon" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1656605861]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("AtlasTexture_eat0k")
+stretch_mode = 5
+
+[node name="QuitLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=528561808]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Quit"
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1508965636]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -24.0
+offset_top = 24.0
+offset_right = 24.0
+offset_bottom = 37.0
+grow_horizontal = 2
+pivot_offset = Vector2(24, 7)
+texture = SubResource("AtlasTexture_14gq3")
+stretch_mode = 5

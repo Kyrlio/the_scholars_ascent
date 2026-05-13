@@ -42,10 +42,15 @@ var current_state: State = State.IDLE
 @onready var hitbox_component: HitboxComponent = %Hitbox
 @onready var flash_animation_player: AnimationPlayer = $FlashAnimationPlayer
 @onready var looted_item_sprite: Sprite2D = %LootedItemSprite
+@onready var wall_coyote_timer: Timer = $Timers/WallCoyoteTimer
 
 var is_dead: bool = false
 var _was_on_floor: bool = false
+var _was_on_wall: bool = false
+var last_wall_normal: Vector2 = Vector2.ZERO
 var can_air_roll: bool = true
+
+var tween: Tween
 
 func _ready() -> void:
 	switch_state(State.IDLE)
@@ -68,7 +73,7 @@ func _ready() -> void:
 	GameState.rebuild_player_stats()
 
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if is_dead:
 		return
 	
@@ -129,6 +134,7 @@ func _handle_jump() -> void:
 		State.REST: return
 		State.SHOW_ITEM: return
 	
+	_check_wall_coyote()
 	_check_wall_jump()
 	_check_buffer_jump()
 	_check_coyote_jump()
@@ -181,18 +187,31 @@ func _apply_pogo() -> void:
 	GameEvents.emit_camera_shake(0.4)
 
 
+func _check_wall_coyote() -> void:
+	if is_on_wall_only():
+		_was_on_wall = true
+		last_wall_normal = get_wall_normal()
+	elif _was_on_wall and not is_on_floor():
+		_was_on_wall = false
+		wall_coyote_timer.start()
+
+
 func _check_wall_jump() -> void:
-	if Input.is_action_just_pressed("jump") and is_on_wall_only():
-		var wall_normal: Vector2 = get_wall_normal()
+	if Input.is_action_just_pressed("jump"):
+		if is_on_wall_only() or not wall_coyote_timer.is_stopped():
+			var wall_normal: Vector2 = get_wall_normal()
+			
+			if not is_on_wall_only():
+				wall_normal = last_wall_normal
+			
+			wall_coyote_timer.stop()
 		
-		velocity.x = wall_normal.x * wall_jump_pushback
-		velocity.y = wall_jump_lift
-		
-		visuals.scale.x = sign(velocity.x)
-		
-		apply_squish(0.6, 1.4)
-		
-		return
+			velocity.x = wall_normal.x * wall_jump_pushback
+			velocity.y = wall_jump_lift
+			
+			visuals.scale.x = sign(velocity.x)
+			
+			apply_squish(0.6, 1.4)
 
 
 func _check_coyote_jump() -> void:
@@ -208,7 +227,10 @@ func _check_buffer_jump() -> void:
 func apply_squish(squish_x: float, squish_y: float) -> void:
 	sprite.scale = Vector2(squish_x, squish_y)
 	
-	var tween := create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	if tween != null and tween.is_running():
+		tween.kill()
+	tween = create_tween().set_parallel(true)
+	tween.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	tween.tween_property(sprite, "scale", Vector2.ONE, 0.35)
 
 
@@ -217,6 +239,22 @@ func receive_item(item: ItemData) -> void:
 		looted_item_sprite.texture = item.icon
 		looted_item_sprite.show()
 	switch_state(State.SHOW_ITEM)
+
+
+func play_landing_dust_animation() -> void:
+	dust_animated_sprite.show() 
+	dust_animated_sprite.global_position = global_position
+	dust_animated_sprite.global_position.y -= 2
+	reset_physics_interpolation()
+	dust_animated_sprite.play("landing")
+
+
+func play_jumping_dust_animation() -> void:
+	dust_animated_sprite.stop()
+	dust_animated_sprite.show() 
+	dust_animated_sprite.global_position = global_position
+	reset_physics_interpolation()
+	dust_animated_sprite.play("jump")
 
 
 func switch_state(new_state: State) -> void:
@@ -231,23 +269,18 @@ func switch_state(new_state: State) -> void:
 			animation_player.play("idle")
 			if previous_state == State.FALL:
 				apply_squish(1.3, 0.8)
-				dust_animated_sprite.global_position = global_position
-				dust_animated_sprite.global_position.y -= 2
-				dust_animated_sprite.play("landing")
+				play_landing_dust_animation()
 		
 		State.RUN:
 			animation_player.play("run")
 			if previous_state == State.FALL:
 				apply_squish(1.3, 0.6)
-				dust_animated_sprite.global_position = global_position
-				dust_animated_sprite.global_position.y -= 2
-				dust_animated_sprite.play("landing")
+				play_landing_dust_animation()
 		
 		State.JUMP:
 			animation_player.play("jump")
 			if not previous_state == State.WALL_SLIDE:
-				dust_animated_sprite.global_position = global_position
-				dust_animated_sprite.play("jump")
+				play_jumping_dust_animation()
 		
 		State.FALL:
 			animation_player.play("fall")
@@ -267,9 +300,7 @@ func switch_state(new_state: State) -> void:
 			else:
 				velocity.y = stats.jump_velocity * 0.5
 				animation_player.play("air_dash")
-				dust_animated_sprite.stop()
-				dust_animated_sprite.global_position = global_position
-				dust_animated_sprite.play("jump")
+				play_jumping_dust_animation()
 			apply_squish(1.3, 0.7)
 		
 		State.HURT:

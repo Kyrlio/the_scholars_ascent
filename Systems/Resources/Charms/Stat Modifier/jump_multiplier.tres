@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_s51gf")
-jump_multiplier = 1.5
+jump_multiplier = 1.15
 metadata/_custom_type_script = "uid://dkwvnttxu8rls"

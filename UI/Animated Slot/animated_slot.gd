@@ -9,8 +9,9 @@ class_name AnimatedSlot
 
 @onready var nine_patch_rect: NinePatchRect = $NinePatchRect
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var icon_sprite: Sprite2D = $IconSprite
-@onready var quantity_label: Label = $QuantityLabel
+@onready var icon_sprite: Sprite2D = %IconSprite
+@onready var quantity_label: Label = %QuantityLabel
+@onready var visuals: Node2D = $Visuals
 
 var tween: Tween
 var quantity: int = 1
@@ -49,8 +50,8 @@ func _on_focus_entered() -> void:
 	
 	if tween != null:
 		tween.stop()
-	tween = create_tween()
-	tween.tween_property(icon_sprite, "scale", Vector2(1.2, 1.2), 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween = create_tween().set_parallel(true)
+	tween.tween_property(visuals, "scale", Vector2(1.2, 1.2), 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 func _on_focus_exited() -> void:
 	nine_patch_rect.hide()
@@ -59,4 +60,4 @@ func _on_focus_exited() -> void:
 	if tween != null:
 		tween.stop()
 	tween = create_tween()
-	tween.tween_property(icon_sprite, "scale", Vector2.ONE, 0.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween.tween_property(visuals, "scale", Vector2.ONE, 0.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)

@@ -65,19 +65,24 @@ script = ExtResource("1_kpumt")
 root_node = NodePath("../NinePatchRect")
 libraries/ = SubResource("AnimationLibrary_8k8sl")
 
-[node name="IconSprite" type="Sprite2D" parent="." unique_id=1728223100]
+[node name="Visuals" type="Node2D" parent="." unique_id=1669248951]
 position = Vector2(12, 12)
 
-[node name="QuantityLabel" type="Label" parent="." unique_id=897344853]
+[node name="IconSprite" type="Sprite2D" parent="Visuals" unique_id=1728223100]
+unique_name_in_owner = true
+
+[node name="QuantityLabel" type="Label" parent="Visuals" unique_id=897344853]
+unique_name_in_owner = true
 visible = false
-layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -10.0
-offset_top = -8.0
+offset_left = 1.0
+offset_top = 2.0
+offset_right = 11.0
+offset_bottom = 10.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_constants/outline_size = 4

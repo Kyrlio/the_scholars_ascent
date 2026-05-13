@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ShopItem" format=3 uid="uid://bofasd2wa0s7t"]
+
+[ext_resource type="Resource" uid="uid://ds0ps3l0a2o67" path="res://Systems/Resources/Items/mushroom.tres" id="1_mmi1s"]
+[ext_resource type="Script" uid="uid://dus15ka8quity" path="res://Systems/Resources/Shop Items/shop_item.gd" id="1_sby5c"]
+
+[resource]
+script = ExtResource("1_sby5c")
+item = ExtResource("1_mmi1s")
+price = 10
+metadata/_custom_type_script = "uid://dus15ka8quity"

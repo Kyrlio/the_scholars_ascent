@@ -1,9 +1,15 @@
 [gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://ds0ps3l0a2o67"]
 
+[ext_resource type="Texture2D" uid="uid://bbucqtflj4my0" path="res://Assets/items.png" id="1_2g7nj"]
 [ext_resource type="Script" uid="uid://bpr4g7udde1b6" path="res://Systems/Resources/Items/item_data.gd" id="1_sbcy3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x1aj6"]
+atlas = ExtResource("1_2g7nj")
+region = Rect2(16, 32, 15, 16)
 
 [resource]
 script = ExtResource("1_sbcy3")
 item_name = "Mushroom"
 description = "From the shroomy enemy. It stinks."
+icon = SubResource("AtlasTexture_x1aj6")
 metadata/_custom_type_script = "uid://bpr4g7udde1b6"

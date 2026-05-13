@@ -35,7 +35,7 @@ func _ready() -> void:
 	GameEvents.camera_shake_requested.connect(add_trauma)
 
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if target:
 		_smooth_follow(delta)
 	

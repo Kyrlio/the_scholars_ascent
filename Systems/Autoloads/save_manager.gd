@@ -3,11 +3,6 @@ extends Node
 var save_path = "user://save_game.dat"
 
 func save_game(player_position: Vector2, current_health: int, total_gold: int) -> void:
-	#var items_paths: Array = []
-	#for item in GameState.collected_items:
-		#if item != null and item.resource_path != "":
-			#items_paths.append(item.resource_path)
-	
 	var items_save_data = []
 	for slot_dict in GameState.collected_items:
 		var item_res = slot_dict["item"]

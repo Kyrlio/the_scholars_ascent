@@ -306,6 +306,7 @@ theme_override_constants/v_separation = -2
 columns = 4
 
 [node name="Slot1" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/CharmsTab/HBoxContainer/VBoxContainer/CharmSlotGrid" unique_id=1080997082 instance=ExtResource("3_17mpa")]
+process_mode = 3
 layout_mode = 2
 
 [node name="Slot2" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/CharmsTab/HBoxContainer/VBoxContainer/CharmSlotGrid" unique_id=1959979461 instance=ExtResource("3_17mpa")]
