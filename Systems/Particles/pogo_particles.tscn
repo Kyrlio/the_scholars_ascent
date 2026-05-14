@@ -9,7 +9,7 @@ particles_anim_v_frames = 1
 particles_anim_loop = true
 
 [sub_resource type="Curve" id="Curve_yq8xq"]
-_data = [Vector2(0, 0.9887641), 0.5885915, 0.2488349, 0, 0, Vector2(1, 0), -2.2562683, 0.0, 0, 0]
+_data = [Vector2(0.25110132, 1), 0.5885915, -0.9738505, 0, 0, Vector2(0.9647578, 0.056179762), -0.3579739, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="CurveTexture" id="CurveTexture_v7rrx"]
@@ -20,24 +20,24 @@ lifetime_randomness = 0.2
 particle_flag_disable_z = true
 angle_min = -720.0
 angle_max = 720.0
-direction = Vector3(0, 10, 0)
-spread = 180.0
-initial_velocity_min = 150.0
-initial_velocity_max = 200.0
+direction = Vector3(0, -1, 0)
+spread = 90.0
+initial_velocity_min = 75.0
+initial_velocity_max = 150.0
 angular_velocity_min = -1.6093254e-05
 angular_velocity_max = -1.6093254e-05
-gravity = Vector3(0, 900, 0)
+gravity = Vector3(0, 500, 0)
 scale_min = 0.5
 scale_max = 0.7
 scale_curve = SubResource("CurveTexture_v7rrx")
-anim_speed_min = 1.0
+anim_speed_min = 0.5
 anim_speed_max = 1.0
 
 [node name="PogoParticles" type="GPUParticles2D" unique_id=1639302054]
 material = SubResource("CanvasItemMaterial_j5eir")
 emitting = false
 texture = ExtResource("1_1ugig")
-lifetime = 0.5
+lifetime = 0.7
 one_shot = true
 explosiveness = 0.95
 randomness = 0.8

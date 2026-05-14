@@ -26,6 +26,8 @@ const ATTACK_PUSH_FORCE: float = 100.0
 @export_group("Speed")
 @export var acceleration: float = 600.0
 @export var friction: float = 800.0
+@export var air_roll_friction: float = 1200.0
+@export var roll_friction: float = 5000.0
 @export var roll_speed: float = 200.0
 @export var air_roll_speed_multiplier: float = 0.85
 
@@ -84,7 +86,9 @@ func switch_state(new_state: State) -> void:
 		
 		State.JUMP:
 			animation_player.play("jump")
-			if not previous_state == State.WALL_SLIDE:
+			if previous_state == State.FALL:
+				return
+			if previous_state != State.WALL_SLIDE:
 				play_jumping_dust_animation()
 		
 		State.FALL:
@@ -292,7 +296,7 @@ func _apply_pogo() -> void:
 	
 	apply_squish(0.6, 1.5)
 	pogo_particles.restart()
-	GameEvents.emit_camera_shake(0.4)
+	GameEvents.emit_camera_shake(0.2)
 
 
 func _check_wall_coyote() -> void:
@@ -361,6 +365,7 @@ func play_jumping_dust_animation() -> void:
 	dust_animated_sprite.stop()
 	dust_animated_sprite.show() 
 	dust_animated_sprite.global_position = global_position
+	dust_animated_sprite.global_position.y += 2
 	dust_animated_sprite.reset_physics_interpolation()
 	dust_animated_sprite.play("jump")
 
@@ -386,7 +391,6 @@ func get_total_gold() -> int:
 # ------------------------------------------ _ON_ -------------------------------------------------------
 
 func _on_hitbox_hit(hurtbox: HurtboxComponent) -> void:
-	print(is_on_floor())
 	if current_state == State.AIR_ATTACK:
 		_apply_pogo()
 	elif current_state == State.GROUND_ATTACK:
@@ -404,9 +408,19 @@ func _on_animation_finished(animation_name: StringName) -> void:
 				switch_state(State.IDLE)
 		State.AIR_ATTACK:
 			if animation_name == &"air_attack":
-				switch_state(State.IDLE)
+				switch_state(State.FALL)
 		State.ROLL:
 			if animation_name == &"roll" or animation_name == &"air_dash":
+				var input_dir := Input.get_axis("move_left", "move_right")
+				
+				if input_dir == 0.0:
+					if not is_on_floor():
+						velocity.x = move_toward(velocity.x, 0, air_roll_friction * get_process_delta_time())
+					else:
+						velocity.x = move_toward(velocity.x, 0, roll_friction * get_process_delta_time()) 
+				else:
+					velocity.x = clamp(velocity.x, -stats.speed, stats.speed)
+				
 				switch_state(_get_post_action_state())
 		State.HURT:
 			if animation_name == &"hurt":

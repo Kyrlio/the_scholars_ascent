@@ -73,6 +73,10 @@ func toggle_menu() -> void:
 	is_menu_open = !is_menu_open
 	visible = is_menu_open
 	
+	Input.action_release("roll")
+	await get_tree().physics_frame
+	await get_tree().physics_frame
+	
 	get_tree().paused = is_menu_open
 	
 	if is_menu_open:

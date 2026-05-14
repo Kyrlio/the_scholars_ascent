@@ -44,7 +44,7 @@ func close_shop() -> void:
 	hide()
 	Input.action_release("roll")
 	await get_tree().physics_frame
-	await get_tree().process_frame
+	await get_tree().physics_frame
 	get_tree().paused = false
 
 
@@ -56,6 +56,18 @@ func populate_shop() -> void:
 			var shop_item = current_inventory[i]
 			slot.item_data = shop_item.item 
 			slot.show()
+			
+			if shop_item.stock == 0:
+				slot.modulate = Color(0.5, 0.5, 0.5, 1.0)
+				slot.disabled = true
+			elif shop_item.stock > 0:
+				slot.modulate = Color(1, 1, 1, 1)
+				# slot.set_stock_texte("Stock: " + str(shop_item.stock))
+				slot.disabled = false
+			else:
+				slot.modulate = Color(1, 1, 1, 1)
+				# slot.set_stock_texte("Stock: Infinite")
+				slot.disabled = false
 		else:
 			slot.item_data = null
 			slot.hide() 
@@ -86,10 +98,16 @@ func _on_slot_pressed(index: int) -> void:
 func buy_selected_item() -> void:
 	if selected_item == null: return
 	
+	if selected_item.stock == 0:
+		print("No stock for ", selected_item.item.item_name)
+		return
+	
 	if selected_item.currency_item == null:
 		if GameState.total_gold >= selected_item.price:
 			GameState.total_gold -= selected_item.price
 			GameEvents.emit_item_collected(selected_item.item)
+			if selected_item.stock > 0:
+				selected_item.stock -= 1
 			print(selected_item.item.item_name + " buyed with gold")
 		else:
 			print("Not enough money")
@@ -105,8 +123,11 @@ func buy_selected_item() -> void:
 		
 		if has_enough:
 			GameEvents.emit_item_collected(selected_item.item)
-			print(selected_item.item.item_name + " buyed with")
+			if selected_item.stock > 0:
+				selected_item.stock -= 1
+			print(selected_item.item.item_name + " buyed with ", selected_item.currency_item.item_name)
 		else:
-			print("prout")
+			print("Not enough ", selected_item.currency_item.item_name, " to buy")
 	
 	GameEvents.emit_gold_collected(0)
+	populate_shop()

@@ -1,12 +1,11 @@
 [gd_resource type="Resource" script_class="ShopItem" format=3 uid="uid://cjl3jpl5y114n"]
 
 [ext_resource type="Script" uid="uid://dus15ka8quity" path="res://Systems/Resources/Shop Items/shop_item.gd" id="1_aafvu"]
-[ext_resource type="Resource" uid="uid://da6nxmxi8svx5" path="res://Systems/Resources/Items/bat_eye.tres" id="1_bol64"]
 [ext_resource type="Resource" uid="uid://bj5t60ys37ri6" path="res://Systems/Resources/Charms/jump_charm.tres" id="2_aaxbw"]
 
 [resource]
 script = ExtResource("1_aafvu")
 item = ExtResource("2_aaxbw")
-price = 1
-currency_item = ExtResource("1_bol64")
+price = 5
+stock = 1
 metadata/_custom_type_script = "uid://dus15ka8quity"

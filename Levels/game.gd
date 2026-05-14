@@ -12,9 +12,7 @@ var player: Player
 var is_pause_menu_open: bool = false
 var loading_finished_emitted: bool = false
 
-func _ready() -> void:
-	
-	
+func _ready() -> void:	
 	player = level_container.find_child("Player", true, false)
 	if not player:
 		player = get_tree().get_first_node_in_group("player")
@@ -45,6 +43,9 @@ func has_loading_finished() -> bool:
 
 
 func freeze_engine() -> void:
+	if Engine.time_scale != 1.0:
+		return
+	
 	Engine.time_scale = freeze_slow
 	await get_tree().create_timer(freeze_time * freeze_slow).timeout
 	Engine.time_scale = 1.0

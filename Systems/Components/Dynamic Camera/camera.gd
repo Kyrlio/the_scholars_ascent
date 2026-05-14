@@ -8,14 +8,13 @@ class_name DynamicCamera
 @export var lookahead_distance: float = 25.0
 @export var lookahead_speed: float = 2.0
 
-@export_group("Vertical Looking")
-@export var look_delay: float = 0.5
-@export var look_offset: float = 50.0
-
 @export_group("Camera Shake (trauma)")
 @export var max_offset: Vector2 = Vector2(30, 30)
 @export var max_roll: float = 0.1
 @export var trauma_reduction_rate: float = 1.0
+
+@export_group("TileMap")
+@export var tilemap: TileMapLayer
 
 var trauma: float = 0.0
 var time: float = 0.0
@@ -27,6 +26,15 @@ var current_lookahead: float = 0.0
 
 
 func _ready() -> void:
+	if tilemap:
+		var map_size := tilemap.get_used_rect()
+		var cell_size := tilemap.tile_set.tile_size
+		
+		limit_left = (map_size.position.x + 2) * cell_size.x
+		limit_right = (map_size.end.x + 2) * cell_size.x
+		limit_top = map_size.position.y * cell_size.y
+		limit_bottom = map_size.end.y * cell_size.y
+	
 	noise.noise_type = FastNoiseLite.TYPE_PERLIN
 	noise.seed = randi()
 	noise.frequency = 0.5
@@ -53,19 +61,6 @@ func _smooth_follow(delta: float) -> void:
 	current_lookahead = lerp(current_lookahead, target_lookahead, lookahead_blend)
 	
 	target_pos.x += current_lookahead
-	
-	if Input.is_action_pressed("ui_up"):
-		look_direction = -1.0
-		current_look_time += delta
-	elif Input.is_action_pressed("ui_down"):
-		look_direction = 1.0
-		current_look_time += delta
-	else:
-		current_look_time = 0.0
-		look_direction = 0.0
-	
-	if current_look_time > look_delay:
-		target_pos.y += look_direction * look_offset
 	
 	var blend_factor = 1.0 - exp(-follow_speed * delta)
 	global_position = global_position.lerp(target_pos, blend_factor)

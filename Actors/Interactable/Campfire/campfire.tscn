@@ -206,6 +206,15 @@ _data = {
 &"show": SubResource("Animation_r3206")
 }
 
+[sub_resource type="Gradient" id="Gradient_1yluu"]
+offsets = PackedFloat32Array(0, 0.14285715, 0.3877551, 0.5346939)
+colors = PackedColorArray(1, 1, 1, 1, 0.41783845, 0.41783845, 0.41783845, 1, 0.19847327, 0.19847327, 0.19847327, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_m2dea"]
+gradient = SubResource("Gradient_1yluu")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
 [node name="Campfire" type="Area2D" unique_id=1793744179]
 collision_layer = 0
 collision_mask = 2
@@ -254,3 +263,8 @@ horizontal_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Label" unique_id=1537362493]
 libraries/ = SubResource("AnimationLibrary_8qa3m")
+
+[node name="CampfireLight" type="PointLight2D" parent="." unique_id=452483666]
+position = Vector2(0, -5)
+color = Color(0.98039216, 0.7490196, 0.38039216, 1)
+texture = SubResource("GradientTexture2D_m2dea")

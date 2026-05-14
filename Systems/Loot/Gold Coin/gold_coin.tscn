@@ -211,6 +211,15 @@ radius = 6.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_jtfmc"]
 radius = 6.0
 
+[sub_resource type="Gradient" id="Gradient_m6f6w"]
+offsets = PackedFloat32Array(0, 0.14285715, 0.3877551, 0.5346939)
+colors = PackedColorArray(1, 1, 1, 1, 0.41783845, 0.41783845, 0.41783845, 1, 0.19847327, 0.19847327, 0.19847327, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jtfmc"]
+gradient = SubResource("Gradient_m6f6w")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
 [node name="GoldCoin" type="RigidBody2D" unique_id=525774278]
 collision_layer = 128
 lock_rotation = true
@@ -227,6 +236,9 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickUpArea" unique_id=557765196]
 shape = SubResource("CircleShape2D_thn8b")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1298289987]
+shape = SubResource("CircleShape2D_jtfmc")
+
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1518372291]
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("1_e770e")
@@ -234,7 +246,9 @@ hframes = 4
 region_enabled = true
 region_rect = Rect2(320, 112, 64, 16)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1298289987]
-shape = SubResource("CircleShape2D_jtfmc")
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1938910685]
+color = Color(0.9607843, 0.93333334, 0.6901961, 1)
+energy = 0.5
+texture = SubResource("GradientTexture2D_jtfmc")
 
 [connection signal="body_entered" from="PickUpArea" to="." method="_on_pick_up_area_body_entered"]

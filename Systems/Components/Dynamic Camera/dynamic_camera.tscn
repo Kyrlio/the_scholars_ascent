@@ -4,5 +4,5 @@
 
 [node name="DynamicCamera" type="Camera2D" unique_id=138968710]
 process_callback = 0
+drag_vertical_offset = -1.0
 script = ExtResource("1_yavdc")
-look_delay = 1.0

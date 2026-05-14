@@ -79,34 +79,34 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ccg74"]
 size = Vector2(44, 17)
 
-[sub_resource type="Animation" id="Animation_cimpx"]
+[sub_resource type="Animation" id="Animation_43nlh"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
+tracks/0/path = NodePath(".:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0.5, 0.5)]
+"update": 1,
+"values": [false]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".:visible")
+tracks/1/path = NodePath(".:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_srtig"]
+[sub_resource type="Animation" id="Animation_ccg74"]
 resource_name = "hide"
 length = 0.2
 step = 0.05
@@ -130,12 +130,12 @@ tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
+"transitions": PackedFloat32Array(1, 0.5, 1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(0, 0)]
+"values": [Vector2(1, 1), Vector2(1.1, 1.1), Vector2(0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_i4dxc"]
+[sub_resource type="Animation" id="Animation_vk042"]
 resource_name = "pressed"
 length = 0.3
 step = 0.05
@@ -158,13 +158,13 @@ tracks/1/path = NodePath(".:scale")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.2, 0.3),
-"transitions": PackedFloat32Array(0.5, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(2, 0.5, 1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(0.75, 0.75), Vector2(1.2, 1.2), Vector2(1, 1)]
+"values": [Vector2(1, 1), Vector2(0.5, 0.5), Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_lxa5d"]
+[sub_resource type="Animation" id="Animation_7pwof"]
 resource_name = "show"
 length = 0.4
 step = 0.05
@@ -188,18 +188,27 @@ tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1),
+"transitions": PackedFloat32Array(0.5, 1, 1),
 "update": 0,
-"values": [Vector2(1e-05, 1e-05), Vector2(1.2, 1.2), Vector2(1, 1)]
+"values": [Vector2(1.001358e-05, 1.001358e-05), Vector2(1.1, 1.1), Vector2(1, 1)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_wwmw2"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vk042"]
 _data = {
-&"RESET": SubResource("Animation_cimpx"),
-&"hide": SubResource("Animation_srtig"),
-&"pressed": SubResource("Animation_i4dxc"),
-&"show": SubResource("Animation_lxa5d")
+&"RESET": SubResource("Animation_43nlh"),
+&"hide": SubResource("Animation_ccg74"),
+&"pressed": SubResource("Animation_vk042"),
+&"show": SubResource("Animation_7pwof")
 }
+
+[sub_resource type="Gradient" id="Gradient_qyu18"]
+offsets = PackedFloat32Array(0, 0.14285715, 0.3877551, 0.5346939)
+colors = PackedColorArray(1, 1, 1, 1, 0.41783845, 0.41783845, 0.41783845, 1, 0.19847327, 0.19847327, 0.19847327, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wwmw2"]
+gradient = SubResource("Gradient_qyu18")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [node name="Chest" type="Area2D" unique_id=12775994]
 collision_layer = 0
@@ -224,10 +233,15 @@ region_rect = Rect2(48, 176, 160, 16)
 [node name="InteractSprite" type="Sprite2D" parent="." unique_id=376385184]
 visible = false
 position = Vector2(0, -19)
-scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_qyu18")
 region_enabled = true
 region_rect = Rect2(226, 98, 12, 12)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="InteractSprite" unique_id=678280740]
-libraries/ = SubResource("AnimationLibrary_wwmw2")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="InteractSprite" unique_id=941753780]
+libraries/ = SubResource("AnimationLibrary_vk042")
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=867885801]
+position = Vector2(0, -6)
+color = Color(1, 0.95686275, 0.8745098, 1)
+energy = 0.75
+texture = SubResource("GradientTexture2D_wwmw2")
