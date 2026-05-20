@@ -8,5 +8,6 @@
 script = ExtResource("1_sby5c")
 item = ExtResource("1_mmi1s")
 price = 2
+stock = 4
 currency_item = ExtResource("1_4qgap")
 metadata/_custom_type_script = "uid://dus15ka8quity"

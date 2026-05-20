@@ -3,10 +3,7 @@
 [ext_resource type="Script" uid="uid://ddybbwsffo8ri" path="res://Actors/Chuck/chuck.gd" id="1_abpf2"]
 [ext_resource type="Texture2D" uid="uid://di1g36qdn6o0u" path="res://Assets/sprites/chuck.png" id="1_ldnif"]
 [ext_resource type="PackedScene" uid="uid://bqnd10i8sh08q" path="res://UI/Shop Menu/shop_menu.tscn" id="2_1c4me"]
-[ext_resource type="Resource" uid="uid://cjl3jpl5y114n" path="res://Systems/Resources/Shop Items/feather_charm.tres" id="2_4khxn"]
-[ext_resource type="Script" uid="uid://dus15ka8quity" path="res://Systems/Resources/Shop Items/shop_item.gd" id="2_ec1ef"]
 [ext_resource type="Texture2D" uid="uid://vsgmrqgvil2s" path="res://Assets/ui-2.png" id="3_camrx"]
-[ext_resource type="Resource" uid="uid://bofasd2wa0s7t" path="res://Systems/Resources/Shop Items/health_potion.tres" id="3_ec1ef"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_camrx"]
 size = Vector2(34, 20)
@@ -210,7 +207,6 @@ fill_from = Vector2(0.5, 0.5)
 collision_layer = 0
 collision_mask = 3
 script = ExtResource("1_abpf2")
-inventory = Array[ExtResource("2_ec1ef")]([ExtResource("2_4khxn"), ExtResource("3_ec1ef")])
 
 [node name="ShopMenu" parent="." unique_id=1405506909 instance=ExtResource("2_1c4me")]
 visible = false

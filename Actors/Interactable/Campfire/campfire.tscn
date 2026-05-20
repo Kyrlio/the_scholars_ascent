@@ -267,4 +267,5 @@ libraries/ = SubResource("AnimationLibrary_8qa3m")
 [node name="CampfireLight" type="PointLight2D" parent="." unique_id=452483666]
 position = Vector2(0, -5)
 color = Color(0.98039216, 0.7490196, 0.38039216, 1)
+shadow_enabled = true
 texture = SubResource("GradientTexture2D_m2dea")

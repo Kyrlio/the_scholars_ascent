@@ -241,6 +241,15 @@ height = 22.0
 radius = 4.0
 height = 18.0
 
+[sub_resource type="Gradient" id="Gradient_m6f6w"]
+offsets = PackedFloat32Array(0, 0.11020408, 0.27755103, 0.5346939)
+colors = PackedColorArray(1, 1, 1, 1, 0.41783845, 0.41783845, 0.41783845, 1, 0.19847327, 0.19847327, 0.19847327, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_iypxf"]
+gradient = SubResource("Gradient_m6f6w")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
 [node name="BeetleEnemy" type="CharacterBody2D" unique_id=1367831147]
 collision_layer = 4
 script = ExtResource("1_m6xea")
@@ -317,3 +326,9 @@ loot_scene = ExtResource("7_iypxf")
 [node name="ItemLoot" parent="Loots" unique_id=1212624167 instance=ExtResource("6_nf3wy")]
 unique_name_in_owner = true
 loot_scene = ExtResource("9_dayxg")
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1285724043]
+position = Vector2(0, -5)
+color = Color(0.8352941, 0.79607844, 0.7607843, 1)
+energy = 0.5
+texture = SubResource("GradientTexture2D_iypxf")

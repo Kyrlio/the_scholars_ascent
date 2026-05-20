@@ -2,10 +2,11 @@ extends Node
 
 const MAX_EQUIPPED_CHARMS: int = 3
 
-#var collected_items: Array[ItemData] = []
 var collected_items: Array[Dictionary] = []
 var collected_charms: Array[CharmItem] = []
 var equipped_charms: Array[CharmItem] = []
+var collected_coins: Array = []
+var shop_stocks: Dictionary = {}
 
 var opened_chests: Array = []
 
@@ -66,6 +67,7 @@ func load_save_data():
 		return
 	
 	total_gold = data.get("gold", 0)
+	collected_coins = data.get("collected_coins", [])
 	saved_player_health = data.get("health", 2)
 	
 	var pos_x = data.get("player_pos_x", 0.0)
@@ -94,7 +96,15 @@ func load_save_data():
 		if ResourceLoader.exists(path):
 			equipped_charms.append(load(path))
 	
+	# Chests opened
 	opened_chests = data.get("opened_chests", [])
+	
+	# Shop stocks
+	shop_stocks = data.get("shop_stocks", {})
+	for path in shop_stocks:
+		if ResourceLoader.exists(path):
+			var shop_item = load(path)
+			shop_item.stock = shop_stocks[path]
 	
 	rebuild_player_stats()
 

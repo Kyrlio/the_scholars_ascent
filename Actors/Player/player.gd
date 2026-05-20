@@ -182,10 +182,11 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	_apply_gravity(delta)
+	
 	if is_dead:
 		return
 	
-	_apply_gravity(delta)
 	_handle_horizontal_movement(delta)
 	_handle_jump()
 	_handle_attack()
@@ -426,6 +427,6 @@ func _on_animation_finished(animation_name: StringName) -> void:
 			if animation_name == &"hurt":
 				switch_state(_get_post_action_state())
 		State.SHOW_ITEM:
-			if animation_name == &"show_item":
-				#looted_item_sprite.hide()
+			if animation_name == &"item_chest":
+				looted_item_sprite.hide()
 				switch_state(State.IDLE)

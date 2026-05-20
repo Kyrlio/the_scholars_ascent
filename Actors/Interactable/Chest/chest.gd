@@ -3,16 +3,28 @@ class_name Chest
 
 @export var item_content: ItemData
 @export var chest_id: String = ""
+@export var is_locked: bool = false
+@export var required_key: ItemData = preload("uid://fg4610ldofq0")
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var interact_sprite: Sprite2D = $InteractSprite
 @onready var interact_animation_player: AnimationPlayer = $InteractSprite/AnimationPlayer
+@onready var locked_sprite: Sprite2D = $LockedSprite
+@onready var locked_animation_player: AnimationPlayer = $LockedSprite/LockedAnimationPlayer
 
 var is_opened: bool = false
 var player_in_zone: Player = null
 
 
 func _ready() -> void:
+	if is_locked:
+		locked_sprite.show()
+	else:
+		locked_sprite.hide()
+	
+	if chest_id == "":
+		chest_id = str(get_path())
+	
 	if chest_id != "" and chest_id in GameState.opened_chests:
 		is_opened = true
 		animation_player.play("opened")
@@ -24,8 +36,37 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if player_in_zone and event.is_action_pressed("interact") and not is_opened:
-		open_chest()
-		get_viewport().set_input_as_handled()
+		if is_locked:
+			if has_required_key():
+				consume_key()
+				locked_animation_player.play("unlock")
+				is_locked = false
+			else:
+				locked_animation_player.play("locked")
+				print("You need a key")
+		else:
+			open_chest()
+			get_viewport().set_input_as_handled()
+
+
+func has_required_key() -> bool:
+	if required_key == null:
+		return false
+	
+	for slot in GameState.collected_items:
+		if slot["item"] == required_key and slot["quantity"] > 0:
+			return true
+	
+	return false
+
+
+func consume_key() -> void:
+	for slot in GameState.collected_items:
+		if slot["item"] == required_key:
+			slot["quantity"] -= 1
+			if slot["quantity"] <= 0:
+				GameState.collected_items.erase(slot)
+			break
 
 
 func open_chest() -> void:

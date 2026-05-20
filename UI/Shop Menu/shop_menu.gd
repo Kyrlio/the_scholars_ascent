@@ -50,10 +50,11 @@ func close_shop() -> void:
 
 func populate_shop() -> void:
 	for i in range(shop_slots.size()):
-		var slot = shop_slots[i]
+		var slot: AnimatedSlot = shop_slots[i]
 		
 		if i < current_inventory.size():
 			var shop_item = current_inventory[i]
+			slot.quantity = shop_item.stock
 			slot.item_data = shop_item.item 
 			slot.show()
 			
@@ -62,11 +63,9 @@ func populate_shop() -> void:
 				slot.disabled = true
 			elif shop_item.stock > 0:
 				slot.modulate = Color(1, 1, 1, 1)
-				# slot.set_stock_texte("Stock: " + str(shop_item.stock))
 				slot.disabled = false
 			else:
 				slot.modulate = Color(1, 1, 1, 1)
-				# slot.set_stock_texte("Stock: Infinite")
 				slot.disabled = false
 		else:
 			slot.item_data = null
@@ -108,6 +107,10 @@ func buy_selected_item() -> void:
 			GameEvents.emit_item_collected(selected_item.item)
 			if selected_item.stock > 0:
 				selected_item.stock -= 1
+			
+			if selected_item.resource_path != "":
+				GameState.shop_stocks[selected_item.resource_path] = selected_item.stock
+			
 			print(selected_item.item.item_name + " buyed with gold")
 		else:
 			print("Not enough money")
@@ -125,6 +128,10 @@ func buy_selected_item() -> void:
 			GameEvents.emit_item_collected(selected_item.item)
 			if selected_item.stock > 0:
 				selected_item.stock -= 1
+			
+			if selected_item.resource_path != "":
+				GameState.shop_stocks[selected_item.resource_path] = selected_item.stock
+			
 			print(selected_item.item.item_name + " buyed with ", selected_item.currency_item.item_name)
 		else:
 			print("Not enough ", selected_item.currency_item.item_name, " to buy")
