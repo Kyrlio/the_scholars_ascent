@@ -135,6 +135,7 @@ _data = {
 }
 
 [node name="Trapdoor" type="AnimatableBody2D" unique_id=1769901696]
+position = Vector2(1, 0)
 script = ExtResource("1_mghpm")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1931740299]

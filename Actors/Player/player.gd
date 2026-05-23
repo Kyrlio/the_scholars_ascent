@@ -160,56 +160,16 @@ func _update_state() -> void:
 
 #endregion
 
-func _ready() -> void:
-	switch_state(State.IDLE)
-	animation_player.animation_finished.connect(_on_animation_finished)
-	
-	health_component.health_changed.connect(func(current_health, max_health): GameEvents.emit_player_health_changed(current_health, max_health))
-	health_component.damaged.connect(func(): switch_state(State.HURT))
-	health_component.died.connect(func(): switch_state(State.DEAD))
-	
-	hitbox_component.hit_hurtbox.connect(_on_hitbox_hit)
-	
-	GameEvents.player_health_changed.emit(health_component.current_health, health_component.max_health)
-	
-	if GameState.saved_player_pos != Vector2.ZERO:
-		global_position = GameState.saved_player_pos
-	
-	if GameState.saved_player_health != -1:
-		health_component.current_health = GameState.saved_player_health
-	
-	GameState.rebuild_player_stats()
 
+#region _handle
 
-func _physics_process(delta: float) -> void:
-	_apply_gravity(delta)
-	
-	if is_dead:
+func _handle_oneway_drop_through() -> void:
+	if current_state == State.IDLE or current_state == State.RUN:
+		if Input.is_action_pressed("down") and Input.is_action_just_pressed("jump"):
+			print("aooo")
+			global_position.y += 1
+	else:
 		return
-	
-	_handle_horizontal_movement(delta)
-	_handle_jump()
-	_handle_attack()
-	_handle_roll()
-	
-	if is_on_floor():
-		can_air_roll = true
-	_was_on_floor = is_on_floor()
-	
-	move_and_slide()
-	
-	_update_state()
-
-
-func _apply_gravity(delta: float) -> void:
-	if not is_on_floor():
-		if is_on_wall_only() and velocity.y > 0:
-			velocity.y = min(velocity.y + stats.fall_gravity * delta, wall_slide_speed)
-		else:
-			if velocity.y < 0.0:
-				velocity.y += stats.jump_gravity * delta
-			else:
-				velocity.y += stats.fall_gravity * delta
 
 
 func _handle_horizontal_movement(delta: float) -> void:
@@ -242,6 +202,10 @@ func _handle_jump() -> void:
 		State.HURT: return
 		State.REST: return
 		State.SHOW_ITEM: return
+	
+	if current_state == State.IDLE or current_state == State.RUN:
+		if Input.is_action_pressed("down"):
+			return
 	
 	_check_wall_coyote()
 	_check_wall_jump()
@@ -282,6 +246,60 @@ func _handle_roll() -> void:
 			if not is_on_floor():
 				can_air_roll = false
 			switch_state(State.ROLL)
+
+#endregion
+
+func _ready() -> void:
+	switch_state(State.IDLE)
+	animation_player.animation_finished.connect(_on_animation_finished)
+	
+	health_component.health_changed.connect(func(current_health, max_health): GameEvents.emit_player_health_changed(current_health, max_health))
+	health_component.damaged.connect(func(): switch_state(State.HURT))
+	health_component.died.connect(func(): switch_state(State.DEAD))
+	
+	hitbox_component.hit_hurtbox.connect(_on_hitbox_hit)
+	
+	GameEvents.player_health_changed.emit(health_component.current_health, health_component.max_health)
+	
+	if GameState.saved_player_pos != Vector2.ZERO:
+		global_position = GameState.saved_player_pos
+	
+	if GameState.saved_player_health != -1:
+		health_component.current_health = GameState.saved_player_health
+	
+	GameState.rebuild_player_stats()
+
+
+func _physics_process(delta: float) -> void:
+	_apply_gravity(delta)
+	
+	if is_dead:
+		return
+	
+	_handle_horizontal_movement(delta)
+	_handle_jump()
+	_handle_attack()
+	_handle_roll()
+	_handle_oneway_drop_through()
+	
+	if is_on_floor():
+		can_air_roll = true
+	_was_on_floor = is_on_floor()
+	
+	move_and_slide()
+	
+	_update_state()
+
+
+func _apply_gravity(delta: float) -> void:
+	if not is_on_floor():
+		if is_on_wall_only() and velocity.y > 0:
+			velocity.y = min(velocity.y + stats.fall_gravity * delta, wall_slide_speed)
+		else:
+			if velocity.y < 0.0:
+				velocity.y += stats.jump_gravity * delta
+			else:
+				velocity.y += stats.fall_gravity * delta
 
 
 func check_common_conditions() -> bool:
