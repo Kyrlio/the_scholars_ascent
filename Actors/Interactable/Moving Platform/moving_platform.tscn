@@ -2,7 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://cd4qh5of2k141" path="res://Assets/animations/animations.png" id="1_e3rx4"]
 [ext_resource type="Script" uid="uid://df3jah5ardrkq" path="res://Actors/Interactable/Moving Platform/moving_platform.gd" id="1_mx1mf"]
+[ext_resource type="Texture2D" uid="uid://c7vyqw0c3lqqv" path="res://Assets/sprites/rails/rail_begin.png" id="2_lwwk3"]
 [ext_resource type="Texture2D" uid="uid://6kj1t27l74ae" path="res://Assets/tileset.png" id="3_1cysw"]
+[ext_resource type="Texture2D" uid="uid://u73ygp0dcxh2" path="res://Assets/sprites/rails/rail_middle.png" id="3_h11eh"]
+[ext_resource type="Texture2D" uid="uid://dhdrvwin637w6" path="res://Assets/sprites/rails/rail_end.png" id="4_aqflx"]
 
 [sub_resource type="Animation" id="Animation_mx1mf"]
 length = 0.001
@@ -48,6 +51,9 @@ size = Vector2(32, 8)
 
 [node name="MovingPlatform" type="Node2D" unique_id=645689895]
 script = ExtResource("1_mx1mf")
+rail_start = ExtResource("2_lwwk3")
+rail_middle = ExtResource("3_h11eh")
+rail_end = ExtResource("4_aqflx")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1690936475]
 libraries/ = SubResource("AnimationLibrary_u06l4")

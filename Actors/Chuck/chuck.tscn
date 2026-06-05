@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://t8wylmbftndo"]
 
 [ext_resource type="Script" uid="uid://ddybbwsffo8ri" path="res://Actors/Chuck/chuck.gd" id="1_abpf2"]
-[ext_resource type="Texture2D" uid="uid://di1g36qdn6o0u" path="res://Assets/sprites/chuck.png" id="1_ldnif"]
+[ext_resource type="Texture2D" uid="uid://di1g36qdn6o0u" path="res://Assets/sprites/characters/chuck.png" id="1_ldnif"]
 [ext_resource type="PackedScene" uid="uid://bqnd10i8sh08q" path="res://UI/Shop Menu/shop_menu.tscn" id="2_1c4me"]
-[ext_resource type="Texture2D" uid="uid://vsgmrqgvil2s" path="res://Assets/ui-2.png" id="3_camrx"]
+[ext_resource type="Texture2D" uid="uid://vsgmrqgvil2s" path="res://Assets/ui/ui-2.png" id="3_camrx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_camrx"]
 size = Vector2(34, 20)

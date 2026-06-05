@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://crivg1daf13fq"]
 
 [ext_resource type="Script" uid="uid://cabngevb8i7nl" path="res://UI/Animated Button/animated_button.gd" id="1_holrr"]
-[ext_resource type="Texture2D" uid="uid://bcgxmoy0y68mw" path="res://Assets/grab_focus.png" id="2_v7yl4"]
+[ext_resource type="Texture2D" uid="uid://bcgxmoy0y68mw" path="res://Assets/ui/grab_focus.png" id="2_v7yl4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dbgo8"]
 atlas = ExtResource("2_v7yl4")

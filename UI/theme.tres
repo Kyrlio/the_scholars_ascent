@@ -1,8 +1,8 @@
 [gd_resource type="Theme" format=3 uid="uid://dlc0jbn608i7j"]
 
-[ext_resource type="FontFile" uid="uid://b65ixipts6e50" path="res://Assets/glyphmesss.ttf" id="1_wsa4l"]
-[ext_resource type="Texture2D" uid="uid://xi2ifg7ixo2g" path="res://Assets/ui.png" id="2_oieh5"]
-[ext_resource type="Texture2D" uid="uid://bi6n8bjnm10ki" path="res://Assets/Vertical Separator.png" id="3_oieh5"]
+[ext_resource type="FontFile" uid="uid://b65ixipts6e50" path="res://Assets/ui/glyphmesss.ttf" id="1_wsa4l"]
+[ext_resource type="Texture2D" uid="uid://xi2ifg7ixo2g" path="res://Assets/ui/ui.png" id="2_oieh5"]
+[ext_resource type="Texture2D" uid="uid://bi6n8bjnm10ki" path="res://Assets/ui/Vertical Separator.png" id="3_oieh5"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wsa4l"]
 load_path = "res://.godot/imported/ui.png-9852ca86a9258f1bb84490edfbc4ad38.ctex"
