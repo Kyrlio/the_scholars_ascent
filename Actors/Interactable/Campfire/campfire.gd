@@ -33,14 +33,15 @@ func rest_at_campfire() -> void:
 			hp_comp.current_health += 1
 			await get_tree().create_timer(0.2).timeout
 		
+		GameState.defeated_enemies.clear() # Respawn enemies
+		
 		SaveManager.save_game(player.global_position, player.get_current_health(), GameState.total_gold)
 		
 		print("Repos : Santé restaurée et partie sauvegardée !")
 		spawn_save_label()
 		
 		await get_tree().create_timer(2.5).timeout
-		player.switch_state(Player.State.IDLE)
-
+		SceneManager.reload_current_room_for_rest(player)
 
 func spawn_save_label() -> void:
 	label_animation_player.play("show")

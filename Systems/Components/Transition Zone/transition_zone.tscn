@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://lwx1ufc0bndp"]
+
+[ext_resource type="Script" uid="uid://bnfy2fu3hul2t" path="res://Systems/Components/Transition Zone/transition_zone.gd" id="1_5aeve"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_347ag"]
+size = Vector2(15, 24)
+
+[node name="TransitionZone" type="Area2D" unique_id=2134984359]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_5aeve")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1915848413]
+shape = SubResource("RectangleShape2D_347ag")
+debug_color = Color(0.14509805, 1, 0.85490197, 0.41960785)
+
+[node name="SpawnPoint" type="Marker2D" parent="." unique_id=1278852891]
+position = Vector2(-17, 0)

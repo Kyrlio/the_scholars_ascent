@@ -12,10 +12,14 @@ var player: Player
 var is_pause_menu_open: bool = false
 var loading_finished_emitted: bool = false
 
-func _ready() -> void:	
+func _ready() -> void:
 	player = level_container.find_child("Player", true, false)
 	if not player:
 		player = get_tree().get_first_node_in_group("player")
+	
+	var camera = get_tree().get_first_node_in_group("camera")
+	var room_tilemap = find_child("Ground", true, false)
+	camera.update_limits(room_tilemap)
 	
 	# Game Events signals
 	GameEvents.engine_freeze_requested.connect(freeze_engine)

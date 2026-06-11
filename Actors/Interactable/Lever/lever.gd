@@ -18,23 +18,30 @@ func _ready() -> void:
 		hurtbox_component.hit_by_hitbox.connect(_on_hit)
 	
 	if lever_id == "":
-		lever_id = str(get_path())
+		if owner != null and owner.scene_file_path != "":
+			lever_id = owner.scene_file_path + "::" + str(owner.get_path_to(self))
+		else:
+			lever_id = str(get_path())
 	
-	if lever_id in GameState.activated_levers:
-		is_activated = true
-		animation_player.play("activate")
-		lever_activated.emit.call_deferred()
+	if GameState.activated_levers.has(lever_id):
+		is_activated = GameState.activated_levers[lever_id]
+	else:
+		GameState.activated_levers[lever_id] = is_activated
 	
 	if is_activated:
-		activate_lever()
+		animation_player.play("activate")
+		lever_activated.emit.call_deferred()
+	else:
+		animation_player.play("deactivate")
+		lever_deactivated.emit.call_deferred()
 
 
 func activate_lever() -> void:
 	is_activated = true
 	animation_player.play("activate")
 		
-	if lever_id != "" and not lever_id in GameState.activated_levers:
-		GameState.activated_levers.append(lever_id)
+	if lever_id != "":
+		GameState.activated_levers[lever_id] = true
 	
 	lever_activated.emit.call_deferred()
 
@@ -43,8 +50,8 @@ func deactivate_lever() -> void:
 	is_activated = false
 	animation_player.play("deactivate")
 	
-	if lever_id != "" and lever_id in GameState.activated_levers:
-		GameState.activated_levers.erase(lever_id) 
+	if lever_id != "":
+		GameState.activated_levers[lever_id] = false
 	
 	lever_deactivated.emit.call_deferred()
 

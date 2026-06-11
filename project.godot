@@ -23,6 +23,8 @@ config/icon="uid://bph264oqd5fj7"
 GameEvents="*uid://csiibtx6njk06"
 SaveManager="*uid://30sj3yuheh2v"
 GameState="*uid://o505eexxhqsa"
+SceneManager="*uid://co8xt2s6gjkvw"
+TeleportData="*uid://f2c50plt1tap"
 
 [display]
 
@@ -46,6 +48,8 @@ folder_colors={
 [global_group]
 
 player=""
+enemy=""
+camera=""
 
 [gui]
 

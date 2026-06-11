@@ -41,10 +41,12 @@ func open_shop(inventory: Array[ShopItem]) -> void:
 		shop_slots.front().grab_focus()
 
 func close_shop() -> void:
+	if not visible:
+		return
 	hide()
 	Input.action_release("roll")
-	await get_tree().physics_frame
-	await get_tree().physics_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
 	get_tree().paused = false
 
 
@@ -54,6 +56,10 @@ func populate_shop() -> void:
 		
 		if i < current_inventory.size():
 			var shop_item = current_inventory[i]
+			
+			if shop_item.resource_path != "" and GameState.shop_stocks.has(shop_item.resource_path):
+				shop_item.stock = GameState.shop_stocks[shop_item.resource_path]
+			
 			slot.quantity = shop_item.stock
 			slot.item_data = shop_item.item 
 			slot.show()
@@ -109,6 +115,7 @@ func buy_selected_item() -> void:
 				selected_item.stock -= 1
 			
 			if selected_item.resource_path != "":
+				print(selected_item.resource_path)
 				GameState.shop_stocks[selected_item.resource_path] = selected_item.stock
 			
 			print(selected_item.item.item_name + " buyed with gold")

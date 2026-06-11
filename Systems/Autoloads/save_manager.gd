@@ -33,7 +33,8 @@ func save_game(player_position: Vector2, current_health: int, total_gold: int) -
 		"opened_chests": GameState.opened_chests,
 		"collected_coins": GameState.collected_coins,
 		"shop_stocks": GameState.shop_stocks,
-		"activated_levers": GameState.activated_levers
+		"activated_levers": GameState.activated_levers,
+		"defeated_enemies": GameState.defeated_enemies
 	}
 	
 	var file = FileAccess.open(save_path, FileAccess.WRITE)

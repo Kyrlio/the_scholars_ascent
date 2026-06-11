@@ -14,7 +14,7 @@ size = Vector2(5, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rojjn"]
 size = Vector2(16, 6)
 
-[node name="Spike" type="Node2D" unique_id=1973469230]
+[node name="Spike" type="Node2D" unique_id=1973469230 groups=["enemy"]]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=596858329]
 texture = SubResource("AtlasTexture_rojjn")

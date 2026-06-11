@@ -9,14 +9,26 @@ var activated: bool = false
 
 func _ready() -> void:
 	if lever:
-		lever.lever_activated.connect(activate_trapdoor)
-		lever.lever_deactivated.connect(activate_trapdoor)
+		lever.lever_activated.connect(_on_lever_activated)
+		lever.lever_deactivated.connect(_on_lever_deactivated)
+		
+		# Sync initial state instantly
+		if lever.is_activated:
+			animation_player.play("open")
+			animation_player.advance(100.0)
+			activated = true
+		else:
+			animation_player.play("RESET")
+			activated = false
 
 
-func activate_trapdoor() -> void:
+func _on_lever_activated() -> void:
 	if not activated:
 		animation_player.play("open")
 		activated = true
-	else:
+
+
+func _on_lever_deactivated() -> void:
+	if activated:
 		animation_player.play("close")
 		activated = false

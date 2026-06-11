@@ -11,7 +11,7 @@ class_name BeetleEnemy
 @onready var loots_container: Node2D = %Loots
 
 
-
+@export var enemy_id: String = ""
 @export var speed: float = 10.0
 @export var gravity: float = 500.0
 @export var hit_stop_duration: float = 0.25
@@ -23,6 +23,13 @@ var can_move: bool = true
 
 
 func _ready() -> void:
+	if enemy_id == "":
+		enemy_id = str(get_path())
+	
+	if enemy_id in GameState.defeated_enemies:
+		queue_free()
+		return
+	
 	if health_component:
 		health_component.died.connect(_on_died)
 		health_component.damaged.connect(_on_damaged)
@@ -68,6 +75,9 @@ func _on_damaged() -> void:
 
 
 func _on_died() -> void:
+	if enemy_id != "" and not enemy_id in GameState.defeated_enemies:
+		GameState.defeated_enemies.append(enemy_id)
+	
 	if loots_container:
 		for loot in loots_container.get_children():
 			if loot.has_method("drop"):

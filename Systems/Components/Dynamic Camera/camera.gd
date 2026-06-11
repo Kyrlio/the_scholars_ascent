@@ -25,16 +25,7 @@ var look_direction: float = 0.0
 var current_lookahead: float = 0.0
 
 
-func _ready() -> void:
-	if tilemap:
-		var map_size := tilemap.get_used_rect()
-		var cell_size := tilemap.tile_set.tile_size
-		
-		limit_left = (map_size.position.x + 2) * cell_size.x
-		limit_right = (map_size.end.x + 2) * cell_size.x
-		limit_top = map_size.position.y * cell_size.y
-		limit_bottom = map_size.end.y * cell_size.y
-	
+func _ready() -> void:	
 	noise.noise_type = FastNoiseLite.TYPE_PERLIN
 	noise.seed = randi()
 	noise.frequency = 0.5
@@ -49,7 +40,22 @@ func _physics_process(delta: float) -> void:
 	
 	if trauma > 0:
 		_apply_shake(delta)
+
+
+func update_limits(new_tilemap: TileMapLayer) -> void:
+	if not new_tilemap:
+		return
 	
+	tilemap = new_tilemap
+	
+	var map_size := tilemap.get_used_rect()
+	var cell_size := tilemap.tile_set.tile_size
+	
+	limit_left = (map_size.position.x + 2) * cell_size.x
+	limit_right = (map_size.end.x + 2) * cell_size.x
+	limit_top = map_size.position.y * cell_size.y
+	limit_bottom = map_size.end.y * cell_size.y
+
 
 func _smooth_follow(delta: float) -> void:
 	var target_pos = target.global_position

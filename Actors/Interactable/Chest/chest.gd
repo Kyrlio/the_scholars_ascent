@@ -23,7 +23,10 @@ func _ready() -> void:
 		locked_sprite.hide()
 	
 	if chest_id == "":
-		chest_id = str(get_path())
+		if owner != null and owner.scene_file_path != "":
+			chest_id = owner.scene_file_path + "::" + str(owner.get_path_to(self))
+		else:
+			chest_id = str(get_path())
 	
 	if chest_id != "" and chest_id in GameState.opened_chests:
 		is_opened = true

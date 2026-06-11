@@ -250,7 +250,7 @@ gradient = SubResource("Gradient_m6f6w")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
-[node name="BeetleEnemy" type="CharacterBody2D" unique_id=1367831147]
+[node name="BeetleEnemy" type="CharacterBody2D" unique_id=1367831147 groups=["enemy"]]
 collision_layer = 4
 script = ExtResource("1_m6xea")
 gravity = 900.0

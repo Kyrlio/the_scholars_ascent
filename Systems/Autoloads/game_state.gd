@@ -7,7 +7,8 @@ var collected_charms: Array[CharmItem] = []
 var equipped_charms: Array[CharmItem] = []
 var collected_coins: Array = []
 var shop_stocks: Dictionary = {}
-var activated_levers: Array = []
+var activated_levers: Dictionary = {}
+var defeated_enemies: Array = []
 
 var opened_chests: Array = []
 
@@ -70,7 +71,14 @@ func load_save_data():
 	total_gold = data.get("gold", 0)
 	collected_coins = data.get("collected_coins", [])
 	saved_player_health = data.get("health", 2)
-	activated_levers = data.get("activated_levers", [])
+	var raw_levers = data.get("activated_levers", {})
+	if typeof(raw_levers) == TYPE_ARRAY:
+		activated_levers = {}
+		for id in raw_levers:
+			activated_levers[id] = true
+	else:
+		activated_levers = raw_levers
+	shop_stocks = data.get("shop_stocks", {})
 	
 	var pos_x = data.get("player_pos_x", 0.0)
 	var pos_y = data.get("player_pos_y", 0.0)

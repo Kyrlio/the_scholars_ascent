@@ -312,9 +312,8 @@ func check_common_conditions() -> bool:
 func _apply_pogo() -> void:
 	can_air_roll = true
 	velocity.y = stats.jump_velocity * 0.9
-	
-	apply_squish(0.6, 1.5)
 	pogo_particles.restart()
+	apply_squish(0.6, 1.5)
 	GameEvents.emit_camera_shake(0.2)
 
 

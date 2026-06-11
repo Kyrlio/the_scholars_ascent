@@ -13,7 +13,10 @@ func _ready() -> void:
 		gravity_scale = 0.0
 	
 	if coin_id == "":
-		coin_id = str(get_path())
+		if owner != null and owner.scene_file_path != "":
+			coin_id = owner.scene_file_path + "::" + str(owner.get_path_to(self))
+		else:
+			coin_id = str(get_path())
 	
 	if coin_id != "" and coin_id in GameState.collected_coins:
 		queue_free()
