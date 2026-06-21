@@ -82,6 +82,12 @@ position = Vector2(165, 149)
 
 [node name="Player" parent="LevelContainer" unique_id=391222067 instance=ExtResource("1_uxjsv")]
 position = Vector2(42, 142)
+debug_sword = true
+debug_pogo = true
+debug_wall_slide = true
+debug_wall_jump = true
+debug_roll = true
+debug_air_roll = true
 
 [node name="DynamicCamera" parent="LevelContainer" unique_id=138968710 node_paths=PackedStringArray("target") groups=["camera"] instance=ExtResource("5_uda3f")]
 target = NodePath("../Player")

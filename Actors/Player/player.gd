@@ -11,6 +11,7 @@ enum State {
 	WALL_SLIDE,
 	ROLL,
 	GROUND_ATTACK,
+	UP_ATTACK,
 	AIR_ATTACK,
 	HURT,
 	DEAD,
@@ -44,6 +45,11 @@ const ATTACK_PUSH_FORCE: float = 100.0
 	set(value):
 		debug_sword = value
 		_toggle_ability("sword", value)
+
+@export var debug_pogo: bool = false:
+	set(value):
+		debug_pogo = value
+		_toggle_ability("pogo", value)
 
 @export var debug_wall_slide: bool = false:
 	set(value):
@@ -135,7 +141,10 @@ func switch_state(new_state: State) -> void:
 			animation_player.play("wall_slide")
 			
 		State.GROUND_ATTACK:
-				animation_player.play("ground_attack")
+			animation_player.play("ground_attack")
+		
+		State.UP_ATTACK:
+			animation_player.play("up_attack")
 		
 		State.AIR_ATTACK:
 			animation_player.play("air_attack")
@@ -183,6 +192,7 @@ func _update_state() -> void:
 	match current_state:
 		State.GROUND_ATTACK: return
 		State.AIR_ATTACK: return
+		State.UP_ATTACK: return
 		State.ROLL: return
 		State.HURT: return
 		State.DEAD: return
@@ -222,7 +232,7 @@ func _handle_horizontal_movement(delta: float) -> void:
 	var direction: float = Input.get_axis("move_left", "move_right")
 	
 	var active_speed: float = stats.speed
-	if current_state == State.GROUND_ATTACK and is_on_floor():
+	if (current_state == State.GROUND_ATTACK or current_state == State.UP_ATTACK) and is_on_floor():
 		active_speed = stats.speed * 0.6
 	
 	if direction != 0.0:
@@ -266,10 +276,23 @@ func _handle_attack() -> void:
 		return
 	
 	if Input.is_action_just_pressed("attack") and GameState.has_ability("sword"):
-		if is_on_floor() and current_state != State.GROUND_ATTACK:
-			switch_state(State.GROUND_ATTACK)
-		elif not is_on_floor() and current_state != State.AIR_ATTACK:
-			switch_state(State.AIR_ATTACK)
+		var is_up_pressed: bool = Input.is_action_pressed("up")
+		
+		if is_on_floor():
+			if is_up_pressed and current_state != State.UP_ATTACK:
+				switch_state(State.UP_ATTACK)
+			elif not is_up_pressed and current_state != State.GROUND_ATTACK:
+				switch_state(State.GROUND_ATTACK)
+		else:
+			if is_up_pressed and current_state != State.UP_ATTACK:
+				switch_state(State.UP_ATTACK)
+			elif not is_up_pressed and current_state != State.AIR_ATTACK:
+				switch_state(State.AIR_ATTACK)
+		
+		#if is_on_floor() and current_state != State.GROUND_ATTACK:
+			#switch_state(State.GROUND_ATTACK)
+		#elif not is_on_floor() and current_state != State.AIR_ATTACK and GameState.has_ability("pogo"):
+			#switch_state(State.AIR_ATTACK)
 
 
 func _handle_roll() -> void:
@@ -317,6 +340,7 @@ func _ready() -> void:
 	
 	# Debug synchronisation
 	debug_sword = GameState.has_ability("sword")
+	debug_pogo = GameState.has_ability("pogo")
 	debug_wall_slide = GameState.has_ability("wall_slide")
 	debug_wall_jump = GameState.has_ability("wall_jump")
 	debug_roll = GameState.has_ability("roll")
@@ -442,7 +466,7 @@ func play_jumping_dust_animation() -> void:
 
 
 func _update_facing_direction(direction: float) -> void:
-	if current_state == State.GROUND_ATTACK or current_state == State.AIR_ATTACK:
+	if current_state == State.GROUND_ATTACK or current_state == State.AIR_ATTACK or current_state == State.UP_ATTACK:
 		return
 	
 	visuals.scale.x = sign(direction)
@@ -480,6 +504,12 @@ func _on_animation_finished(animation_name: StringName) -> void:
 		State.AIR_ATTACK:
 			if animation_name == &"air_attack":
 				switch_state(State.FALL)
+		State.UP_ATTACK:
+			if animation_name == &"up_attack":
+				if not is_on_floor():
+					switch_state(State.FALL)
+				else:
+					switch_state(State.IDLE)
 		State.ROLL:
 			if animation_name == &"roll" or animation_name == &"air_dash":
 				var input_dir := Input.get_axis("move_left", "move_right")
