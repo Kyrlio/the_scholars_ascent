@@ -1,0 +1,94 @@
+[gd_scene format=3 uid="uid://uh8me0shidj0"]
+
+[ext_resource type="Texture2D" uid="uid://cd4qh5of2k141" path="res://Assets/animations/animations.png" id="1_krmx7"]
+[ext_resource type="Script" uid="uid://b3k68pfwibf28" path="res://Systems/Loot/HeartContainer/heart_container.gd" id="1_shxki"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shxki"]
+atlas = ExtResource("1_krmx7")
+region = Rect2(256, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q1n1y"]
+atlas = ExtResource("1_krmx7")
+region = Rect2(272, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hrytc"]
+atlas = ExtResource("1_krmx7")
+region = Rect2(288, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pqpbp"]
+atlas = ExtResource("1_krmx7")
+region = Rect2(304, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p1vp5"]
+atlas = ExtResource("1_krmx7")
+region = Rect2(256, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m5car"]
+atlas = ExtResource("1_krmx7")
+region = Rect2(272, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dho70"]
+atlas = ExtResource("1_krmx7")
+region = Rect2(288, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jcpre"]
+atlas = ExtResource("1_krmx7")
+region = Rect2(304, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ntc1v"]
+atlas = ExtResource("1_krmx7")
+region = Rect2(384, 96, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0thxj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shxki")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q1n1y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hrytc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pqpbp")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p1vp5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m5car")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dho70")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jcpre")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ntc1v")
+}],
+"loop": 0,
+"name": &"recolted",
+"speed": 12.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x416w"]
+
+[node name="HeartContainer" type="Area2D" unique_id=136598257]
+collision_layer = 128
+collision_mask = 2
+script = ExtResource("1_shxki")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1170640251]
+sprite_frames = SubResource("SpriteFrames_0thxj")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=504128079]
+shape = SubResource("CircleShape2D_x416w")

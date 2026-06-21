@@ -13,6 +13,8 @@ var defeated_enemies: Array = []
 var opened_chests: Array = []
 
 var total_gold: int = 0
+var unlocked_max_health: int = 2
+var collected_heart_containers: Array = []
 
 var saved_player_pos: Vector2 = Vector2.ZERO
 var saved_player_health: int = -1
@@ -71,6 +73,8 @@ func load_save_data():
 	total_gold = data.get("gold", 0)
 	collected_coins = data.get("collected_coins", [])
 	saved_player_health = data.get("health", 2)
+	unlocked_max_health = data.get("unlocked_max_health", 2)
+	collected_heart_containers = data.get("collected_heart_containers", [])
 	var raw_levers = data.get("activated_levers", {})
 	if typeof(raw_levers) == TYPE_ARRAY:
 		activated_levers = {}

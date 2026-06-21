@@ -192,6 +192,6 @@ target_zone_name = "SpawnLeft"
 position = Vector2(2.5, -2)
 
 [node name="SpawnPoint" parent="Spawn" index="1" unique_id=1278852891]
-position = Vector2(19, 10)
+position = Vector2(38, 9)
 
 [editable path="Spawn"]

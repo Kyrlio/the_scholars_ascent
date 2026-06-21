@@ -1590,7 +1590,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_8gtf5")
 }],
-"loop": false,
+"loop": 0,
 "name": &"jump",
 "speed": 12.0
 }, {
@@ -1613,7 +1613,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_wmrsf")
 }],
-"loop": false,
+"loop": 0,
 "name": &"landing",
 "speed": 12.0
 }]
@@ -1635,6 +1635,7 @@ collision_mask = 33
 script = ExtResource("1_5ni5v")
 stats = ExtResource("2_awv0x")
 jump_cutoff = 0.5
+wall_jump_pushback = 115.0
 
 [node name="Timers" type="Node" parent="." unique_id=1013246287]
 
@@ -1656,7 +1657,7 @@ one_shot = true
 [node name="HealthComponent" type="Node" parent="." unique_id=1948954194]
 unique_name_in_owner = true
 script = ExtResource("2_8gtf5")
-max_health = 10
+max_health = 2
 metadata/_custom_type_script = "uid://bexah18irylv2"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=786794207]

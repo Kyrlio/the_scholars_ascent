@@ -26,6 +26,8 @@ func save_game(player_position: Vector2, current_health: int, total_gold: int) -
 		"player_pos_x": player_position.x,
 		"player_pos_y": player_position.y,
 		"health": current_health,
+		"unlocked_max_health": GameState.unlocked_max_health,
+		"collected_heart_containers": GameState.collected_heart_containers,
 		"gold": total_gold,
 		"collected_items": items_save_data,
 		"collected_charms": charms_paths,

@@ -166,7 +166,6 @@ func _update_state() -> void:
 func _handle_oneway_drop_through() -> void:
 	if current_state == State.IDLE or current_state == State.RUN:
 		if Input.is_action_pressed("down") and Input.is_action_just_pressed("jump"):
-			print("aooo")
 			global_position.y += 1
 	else:
 		return
@@ -256,16 +255,20 @@ func _ready() -> void:
 	health_component.health_changed.connect(func(current_health, max_health): GameEvents.emit_player_health_changed(current_health, max_health))
 	health_component.damaged.connect(func(): switch_state(State.HURT))
 	health_component.died.connect(func(): switch_state(State.DEAD))
+	health_component.set_max_health(GameState.unlocked_max_health, false)
 	
 	hitbox_component.hit_hurtbox.connect(_on_hitbox_hit)
-	
-	GameEvents.player_health_changed.emit(health_component.current_health, health_component.max_health)
 	
 	if GameState.saved_player_pos != Vector2.ZERO:
 		global_position = GameState.saved_player_pos
 	
 	if GameState.saved_player_health != -1:
 		health_component.current_health = GameState.saved_player_health
+	else:
+		# New game
+		health_component.current_health = health_component.max_health
+	
+	GameEvents.player_health_changed.emit(health_component.current_health, health_component.max_health)
 	
 	GameState.rebuild_player_stats()
 
