@@ -21,6 +21,8 @@ var saved_player_health: int = -1
 
 var base_player_stats: Stats = preload("res://Systems/Resources/base_player_stats.tres")
 
+var unlocked_abitilities: Array[String] = []
+
 func _ready() -> void:
 	GameEvents.gold_collected.connect(add_gold)
 	GameEvents.item_collected.connect(_on_item_collected)
@@ -30,6 +32,10 @@ func _ready() -> void:
 
 func add_gold(amount: int) -> void:
 	total_gold += amount
+
+
+func has_ability(ability_name: String) -> bool:
+	return ability_name in unlocked_abitilities
 
 
 func equip_charm(charm: CharmItem) -> void:
@@ -119,6 +125,10 @@ func load_save_data():
 		if ResourceLoader.exists(path):
 			var shop_item = load(path)
 			shop_item.stock = shop_stocks[path]
+	
+	# Abilities
+	var loaded_abilities = data.get("unlocked_abilities", [])
+	unlocked_abitilities.assign(loaded_abilities)
 	
 	rebuild_player_stats()
 

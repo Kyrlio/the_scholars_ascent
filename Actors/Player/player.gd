@@ -39,6 +39,43 @@ const ATTACK_PUSH_FORCE: float = 100.0
 @export var wall_jump_pushback: float = 175.0
 @export var wall_jump_lift: float = -250.0
 
+@export_group("Debug Abilities")
+@export var debug_sword: bool = false:
+	set(value):
+		debug_sword = value
+		_toggle_ability("sword", value)
+
+@export var debug_wall_slide: bool = false:
+	set(value):
+		debug_wall_slide = value
+		_toggle_ability("wall_slide", value)
+
+@export var debug_wall_jump: bool = false:
+	set(value):
+		debug_wall_jump = value
+		_toggle_ability("wall_jump", value)
+
+@export var debug_roll: bool = false:
+	set(value):
+		debug_roll = value
+		_toggle_ability("roll", value)
+
+@export var debug_air_roll: bool = false:
+	set(value):
+		debug_air_roll = value
+		_toggle_ability("air_roll", value)
+
+func _toggle_ability(ability_name: String, is_unlocked: bool) -> void:
+	if not is_inside_tree() or Engine.is_editor_hint():
+		return
+	
+	if is_unlocked and not GameState.has_ability(ability_name):
+		GameState.unlocked_abitilities.append(ability_name)
+		print("DEBUG: Compétence ajoutée -> ", ability_name)
+	elif not is_unlocked and GameState.has_ability(ability_name):
+		GameState.unlocked_abitilities.erase(ability_name)
+		print("DEBUG: Compétence retirée -> ", ability_name)
+
 @onready var visuals: Node2D = $Visuals
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var coyote_jump_timer: Timer = $Timers/CoyoteJumpTimer
@@ -131,7 +168,7 @@ func switch_state(new_state: State) -> void:
 
 func _get_post_action_state() -> State:
 	if not is_on_floor():
-		if is_on_wall_only() and velocity.y > 0.0:
+		if is_on_wall_only() and velocity.y > 0.0 and GameState.has_ability("wall_slide"):
 			return State.WALL_SLIDE
 		if velocity.y < 0.0:
 			return State.JUMP
@@ -159,7 +196,6 @@ func _update_state() -> void:
 	switch_state(next_state)
 
 #endregion
-
 
 #region _handle
 
@@ -229,7 +265,7 @@ func _handle_attack() -> void:
 	if current_state == State.HURT or current_state == State.REST:
 		return
 	
-	if Input.is_action_just_pressed("attack"):
+	if Input.is_action_just_pressed("attack") and GameState.has_ability("sword"):
 		if is_on_floor() and current_state != State.GROUND_ATTACK:
 			switch_state(State.GROUND_ATTACK)
 		elif not is_on_floor() and current_state != State.AIR_ATTACK:
@@ -240,11 +276,18 @@ func _handle_roll() -> void:
 	if check_common_conditions():
 		return
 	
-	if Input.is_action_just_pressed("roll") and current_state != State.ROLL and current_state != State.GROUND_ATTACK and current_state != State.AIR_ATTACK:
-		if is_on_floor() or can_air_roll:
-			if not is_on_floor():
-				can_air_roll = false
+	if Input.is_action_just_pressed("roll") and current_state != State.ROLL and current_state != State.GROUND_ATTACK and current_state != State.AIR_ATTACK and GameState.has_ability("roll"):
+		#if is_on_floor() or can_air_roll:
+			#if not is_on_floor():
+				#can_air_roll = false
+			#switch_state(State.ROLL)
+		if is_on_floor():
 			switch_state(State.ROLL)
+		else:
+			if GameState.has_ability("air_roll") and can_air_roll:
+				if not is_on_floor():
+					can_air_roll = false
+				switch_state(State.ROLL)
 
 #endregion
 
@@ -271,6 +314,13 @@ func _ready() -> void:
 	GameEvents.player_health_changed.emit(health_component.current_health, health_component.max_health)
 	
 	GameState.rebuild_player_stats()
+	
+	# Debug synchronisation
+	debug_sword = GameState.has_ability("sword")
+	debug_wall_slide = GameState.has_ability("wall_slide")
+	debug_wall_jump = GameState.has_ability("wall_jump")
+	debug_roll = GameState.has_ability("roll")
+	debug_air_roll = GameState.has_ability("air_roll")
 
 
 func _physics_process(delta: float) -> void:
@@ -296,7 +346,7 @@ func _physics_process(delta: float) -> void:
 
 func _apply_gravity(delta: float) -> void:
 	if not is_on_floor():
-		if is_on_wall_only() and velocity.y > 0:
+		if is_on_wall_only() and velocity.y > 0 and GameState.has_ability("wall_slide"):
 			velocity.y = min(velocity.y + stats.fall_gravity * delta, wall_slide_speed)
 		else:
 			if velocity.y < 0.0:
@@ -330,7 +380,7 @@ func _check_wall_coyote() -> void:
 
 
 func _check_wall_jump() -> void:
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed("jump") and GameState.has_ability("wall_jump"):
 		if is_on_wall_only() or not wall_coyote_timer.is_stopped():
 			var wall_normal: Vector2 = get_wall_normal()
 			
