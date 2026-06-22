@@ -221,6 +221,7 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 
 [node name="GoldCoin" type="RigidBody2D" unique_id=525774278]
+z_index = 1
 collision_layer = 128
 lock_rotation = true
 script = ExtResource("1_jtfmc")

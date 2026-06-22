@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bdcpl82u4p3ki" path="res://Actors/Interactable/Moving Platform/moving_platform.tscn" id="4_8ykr8"]
 [ext_resource type="PackedScene" uid="uid://b1k8da547si5m" path="res://Actors/Interactable/Chest/chest.tscn" id="5_w8di0"]
 [ext_resource type="Resource" uid="uid://bj5t60ys37ri6" path="res://Systems/Resources/Charms/jump_charm.tres" id="6_qyg5i"]
-[ext_resource type="Resource" uid="uid://ob6ebspo3twm" path="res://Systems/Resources/Charms/golden_ring.tres" id="7_fro2y"]
+[ext_resource type="Resource" uid="uid://nqgp0fpajmtj" path="res://Systems/Resources/Charms/triple_jump_charm.tres" id="7_lpjhx"]
 [ext_resource type="PackedScene" uid="uid://ctgcuxn4avkgf" path="res://Actors/Interactable/Sign/sign.tscn" id="8_04a68"]
 [ext_resource type="PackedScene" uid="uid://d1qf1x2cl5xpi" path="res://Actors/Interactable/Campfire/campfire.tscn" id="9_y141m"]
 [ext_resource type="PackedScene" uid="uid://uec5sa3yyp7m" path="res://Actors/Interactable/Trapdoor/trapdoor.tscn" id="10_nma1x"]
@@ -93,7 +93,7 @@ is_locked = true
 
 [node name="Chest2" parent="Interactable" unique_id=1477726282 instance=ExtResource("5_w8di0")]
 position = Vector2(67, 80)
-item_content = ExtResource("7_fro2y")
+item_content = ExtResource("7_lpjhx")
 chest_id = "2"
 
 [node name="Sign" parent="Interactable" unique_id=530247221 instance=ExtResource("8_04a68")]

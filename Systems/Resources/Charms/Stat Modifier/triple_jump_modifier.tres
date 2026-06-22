@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="GenericCharmDecorator" format=3 uid="uid://b4m1e81ni4ejy"]
+
+[ext_resource type="Script" uid="uid://dkwvnttxu8rls" path="res://Systems/Resources/Charms/Stat Modifier/generic_charm_decorator.gd" id="1_tl7vo"]
+
+[resource]
+script = ExtResource("1_tl7vo")
+extra_jumps_bonus = 1
+metadata/_custom_type_script = "uid://dkwvnttxu8rls"

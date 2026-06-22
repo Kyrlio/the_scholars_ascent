@@ -26,3 +26,9 @@ func get_fall_gravity() -> float:
 		return decorated_stats.fall_gravity
 	else:
 		return super()
+
+func get_extra_jumps() -> int:
+	if decorated_stats:
+		return decorated_stats.extra_jumps
+	else:
+		return super()

@@ -5,6 +5,7 @@ class_name GenericCharmDecorator
 @export var jump_multiplier: float = 1.0
 @export var attack_multiplier: float = 1.0
 @export var fall_multiplier: float = 1.0
+@export var extra_jumps_bonus: int = 0
 
 
 func get_speed() -> float:
@@ -15,3 +16,6 @@ func get_jump_velocity() -> float:
 
 func get_fall_gravity() -> float:
 	return decorated_stats.fall_gravity * fall_multiplier if decorated_stats else super()
+
+func get_extra_jumps() -> int:
+	return (decorated_stats.extra_jumps + extra_jumps_bonus) if decorated_stats else super()

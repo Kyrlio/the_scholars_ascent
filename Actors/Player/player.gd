@@ -66,6 +66,11 @@ const ATTACK_PUSH_FORCE: float = 100.0
 		debug_roll = value
 		_toggle_ability("roll", value)
 
+@export var debug_double_jump: bool = false:
+	set(value):
+		debug_double_jump = value
+		_toggle_ability("double_jump", value)
+
 @export var debug_air_roll: bool = false:
 	set(value):
 		debug_air_roll = value
@@ -100,6 +105,7 @@ var _was_on_floor: bool = false
 var _was_on_wall: bool = false
 var last_wall_normal: Vector2 = Vector2.ZERO
 var can_air_roll: bool = true
+var jump_count: int = 0
 
 var tween: Tween
 
@@ -253,19 +259,37 @@ func _handle_jump() -> void:
 			return
 	
 	_check_wall_coyote()
-	_check_wall_jump()
+	if _check_wall_jump():
+		return
 	_check_buffer_jump()
 	_check_coyote_jump()
 	
 	var can_jump: bool = is_on_floor() or not coyote_jump_timer.is_stopped()
 	var requested_jump: bool = (Input.is_action_just_pressed("jump") or not buffer_jump_timer.is_stopped())
 	
-	if requested_jump and can_jump:
-		velocity.y = stats.jump_velocity
-		buffer_jump_timer.stop()
-		coyote_jump_timer.stop()
-		
-		apply_squish(0.5, 1.5)
+	var max_jumps: int = 1
+	if GameState.has_ability("double_jump"):
+		max_jumps = 2
+	max_jumps += stats.extra_jumps
+	
+	if requested_jump:
+		if can_jump:
+			velocity.y = stats.jump_velocity
+			jump_count = 1
+			buffer_jump_timer.stop()
+			coyote_jump_timer.stop()
+			apply_squish(0.5, 1.5)
+			if current_state != State.JUMP:
+				switch_state(State.JUMP)
+		elif jump_count > 0 and jump_count < max_jumps and GameState.has_ability("double_jump"):
+			velocity.y = stats.jump_velocity * 0.85
+			jump_count += 1
+			buffer_jump_timer.stop()
+			apply_squish(0.6, 1.4)
+			if current_state != State.JUMP:
+				switch_state(State.JUMP)
+			
+			# TODO particles effects
 	
 	if Input.is_action_just_released("jump") and velocity.y < 0.0:
 		velocity.y *= jump_cutoff
@@ -359,11 +383,12 @@ func _physics_process(delta: float) -> void:
 	_handle_roll()
 	_handle_oneway_drop_through()
 	
+	move_and_slide()
+	
 	if is_on_floor():
 		can_air_roll = true
+		jump_count = 0
 	_was_on_floor = is_on_floor()
-	
-	move_and_slide()
 	
 	_update_state()
 
@@ -403,7 +428,7 @@ func _check_wall_coyote() -> void:
 		wall_coyote_timer.start()
 
 
-func _check_wall_jump() -> void:
+func _check_wall_jump() -> bool:
 	if Input.is_action_just_pressed("jump") and GameState.has_ability("wall_jump"):
 		if is_on_wall_only() or not wall_coyote_timer.is_stopped():
 			var wall_normal: Vector2 = get_wall_normal()
@@ -412,13 +437,15 @@ func _check_wall_jump() -> void:
 				wall_normal = last_wall_normal
 			
 			wall_coyote_timer.stop()
-		
 			velocity.x = wall_normal.x * wall_jump_pushback
 			velocity.y = wall_jump_lift
-			
+			jump_count = 1
 			visuals.scale.x = sign(velocity.x)
-			
 			apply_squish(0.6, 1.4)
+			
+			return true
+		
+	return false
 
 
 func _check_coyote_jump() -> void:
