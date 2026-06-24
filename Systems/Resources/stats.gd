@@ -9,7 +9,7 @@ class_name Stats
 
 @export_group("Water Ball")
 @export var max_water_ammo: int = 3 : set = set_max_water_ammo, get = get_max_water_ammo
-@export var ammo_regen_time: float = 2.0 : set = set_ammo_regen_time, get = get_ammo_regen_time
+@export var ammo_regen_time: float = 2.5 : set = set_ammo_regen_time, get = get_ammo_regen_time
 
 func set_speed(value: float) -> void: speed = value
 func get_speed() -> float: return speed

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cds8p53ulwiak"]
 
 [ext_resource type="Script" uid="uid://cbjvfqt0nwoyy" path="res://Systems/Loot/AbilityUnlocker/ability_unlocker.gd" id="1_c7ek6"]
-[ext_resource type="Texture2D" uid="uid://bbucqtflj4my0" path="res://Assets/items.png" id="1_p5atp"]
+[ext_resource type="Texture2D" uid="uid://bbucqtflj4my0" path="res://Assets/items/items.png" id="1_p5atp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0thxj"]
 atlas = ExtResource("1_p5atp")

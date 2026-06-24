@@ -4,6 +4,8 @@
 [ext_resource type="TileSet" uid="uid://kfnw62y6y32u" path="res://Systems/Resources/background_tileset.tres" id="2_713rd"]
 [ext_resource type="TileSet" uid="uid://dwci46dnir3i8" path="res://Systems/Resources/ground_tileset.tres" id="3_7yynh"]
 [ext_resource type="PackedScene" uid="uid://cds8p53ulwiak" path="res://Systems/Loot/AbilityUnlocker/ability_unlocker.tscn" id="4_h8qtk"]
+[ext_resource type="Texture2D" uid="uid://ds05v8rxt5pg5" path="res://Assets/items/sword.png" id="5_lp7jv"]
+[ext_resource type="Script" uid="uid://buf1beh7iq202" path="res://Systems/scripts/floating_animation.gd" id="6_ndfuv"]
 [ext_resource type="PackedScene" uid="uid://lwx1ufc0bndp" path="res://Systems/Components/Transition Zone/transition_zone.tscn" id="18_ofier"]
 
 [node name="Room1b" type="Node2D" unique_id=1279373450]
@@ -70,6 +72,10 @@ shadow_filter_smooth = 8.0
 [node name="AbilityUnlocker" parent="Interactable" unique_id=523632769 instance=ExtResource("4_h8qtk")]
 position = Vector2(-8, 133)
 ability_to_unlock = "sword"
+ability_texture = ExtResource("5_lp7jv")
+
+[node name="FloatingAnimation" type="Node2D" parent="Interactable/AbilityUnlocker" unique_id=1212735517]
+script = ExtResource("6_ndfuv")
 
 [node name="Golds Coin" type="Node2D" parent="." unique_id=347002585]
 

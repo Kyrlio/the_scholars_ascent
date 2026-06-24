@@ -1837,6 +1837,8 @@ script = ExtResource("1_5ni5v")
 stats = ExtResource("2_awv0x")
 jump_cutoff = 0.5
 wall_jump_pushback = 115.0
+debug_sword = true
+debug_water_ball = true
 
 [node name="Timers" type="Node" parent="." unique_id=1013246287]
 
@@ -1857,6 +1859,7 @@ one_shot = true
 
 [node name="AmmoRegenTimer" type="Timer" parent="Timers" unique_id=463511044]
 process_callback = 0
+wait_time = 0.1
 one_shot = true
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1948954194]

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="CharmItem" format=3 uid="uid://ob6ebspo3twm"]
 
-[ext_resource type="Texture2D" uid="uid://bbucqtflj4my0" path="res://Assets/items.png" id="1_rtyc4"]
+[ext_resource type="Texture2D" uid="uid://bbucqtflj4my0" path="res://Assets/items/items.png" id="1_rtyc4"]
 [ext_resource type="Script" uid="uid://b1k6c6xtrwpkq" path="res://Systems/Resources/Charms/Stat Modifier/charm_item.gd" id="2_rtyc4"]
 [ext_resource type="Resource" uid="uid://b405o2q15jgu4" path="res://Systems/Resources/Charms/Stat Modifier/speed_multiplier.tres" id="3_ootp0"]
 

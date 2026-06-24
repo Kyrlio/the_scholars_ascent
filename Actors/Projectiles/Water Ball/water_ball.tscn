@@ -62,6 +62,7 @@ flip_h = true
 collision_layer = 32
 collision_mask = 16
 script = ExtResource("2_1bo2x")
+damage = 5
 metadata/_custom_type_script = "uid://0xe0iq737lh6"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=1096907685]

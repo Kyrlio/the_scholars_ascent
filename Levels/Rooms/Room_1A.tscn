@@ -18,6 +18,7 @@
 [ext_resource type="Resource" uid="uid://bofasd2wa0s7t" path="res://Systems/Resources/Shop Items/health_potion.tres" id="16_q516i"]
 [ext_resource type="Resource" uid="uid://bmop7roq04rc0" path="res://Systems/Resources/Shop Items/shop_chest_key.tres" id="17_0j2py"]
 [ext_resource type="PackedScene" uid="uid://lwx1ufc0bndp" path="res://Systems/Components/Transition Zone/transition_zone.tscn" id="18_d6a8m"]
+[ext_resource type="PackedScene" uid="uid://uh8me0shidj0" path="res://Systems/Loot/HeartContainer/heart_container.tscn" id="19_xfsjo"]
 
 [node name="Room1a" type="Node2D" unique_id=1279373450]
 
@@ -84,6 +85,9 @@ shadow_filter = 1
 shadow_filter_smooth = 8.0
 
 [node name="Interactable" type="Node2D" parent="." unique_id=1202138244]
+
+[node name="HeartContainer" parent="Interactable" unique_id=136598257 instance=ExtResource("19_xfsjo")]
+position = Vector2(165, 149)
 
 [node name="Chest" parent="Interactable" unique_id=12775994 instance=ExtResource("5_w8di0")]
 position = Vector2(281, 432)

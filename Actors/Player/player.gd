@@ -341,17 +341,14 @@ func _handle_attack() -> void:
 			if is_up_pressed and current_state != State.UP_ATTACK:
 				switch_state(State.UP_ATTACK)
 			elif not is_up_pressed and current_state != State.AIR_ATTACK:
-				switch_state(State.AIR_ATTACK)
+				if GameState.has_ability("pogo"):
+					switch_state(State.AIR_ATTACK)
 
 func _handle_roll() -> void:
 	if check_common_conditions():
 		return
 	
 	if Input.is_action_just_pressed("roll") and current_state != State.ROLL and current_state != State.GROUND_ATTACK and current_state != State.AIR_ATTACK and GameState.has_ability("roll"):
-		#if is_on_floor() or can_air_roll:
-			#if not is_on_floor():
-				#can_air_roll = false
-			#switch_state(State.ROLL)
 		if is_on_floor():
 			switch_state(State.ROLL)
 		else:
@@ -460,6 +457,8 @@ func _apply_gravity(delta: float) -> void:
 
 
 func _apply_pogo() -> void:
+	if not GameState.has_ability("pogo"):
+		return
 	can_air_roll = true
 	velocity.y = stats.jump_velocity * 0.9
 	pogo_particles.restart()
@@ -542,6 +541,8 @@ func consume_ammo() -> void:
 
 
 func _fire_projectile(direction: Vector2) -> void:
+	GameEvents.emit_engine_freeze()
+	GameEvents.emit_camera_shake(0.6)
 	var projectile: WaterBall = object_pool_projectile.spawn()
 	projectile.start(global_position, direction)
 

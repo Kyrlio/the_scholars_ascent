@@ -61,11 +61,11 @@ func change_room(room_name: String) -> void:
 	if room_container:
 		if room_container.get_child_count() > 0:
 			var old_room = room_container.get_child(0)
-			#room_container.remove_child.call_deferred(old_room)
+			room_container.remove_child(old_room)
 			old_room.queue_free()
 		
 		new_room.name = room_name
-		room_container.add_child.call_deferred(new_room)
+		room_container.add_child(new_room)
 		
 		var camera = game_scene.find_child("DynamicCamera", true, false)
 		if camera:
@@ -111,6 +111,7 @@ func reload_current_room_for_rest(player: Node2D) -> void:
 		return
 	
 	var new_room = packed_scene.instantiate()
+	room_container.remove_child(current_room)
 	current_room.queue_free()
 	
 	# Determine original dictionary key by matching scene path
@@ -121,7 +122,7 @@ func reload_current_room_for_rest(player: Node2D) -> void:
 			break
 	
 	new_room.name = room_name
-	room_container.add_child.call_deferred(new_room)
+	room_container.add_child(new_room)
 	
 	var camera = game_scene.find_child("DynamicCamera", true, false)
 	if camera:
