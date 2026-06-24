@@ -16,6 +16,14 @@ region = Rect2(34, 50, 13, 11)
 atlas = ExtResource("1_ne75i")
 region = Rect2(50, 50, 13, 11)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_37nk1"]
+atlas = ExtResource("1_ne75i")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nba10"]
+atlas = ExtResource("1_ne75i")
+region = Rect2(48, 32, 16, 16)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_ne75i"]
 atlas = ExtResource("1_ne75i")
 region = Rect2(20, 20, 24, 24)
@@ -28,11 +36,25 @@ region = Rect2(18, 50, 13, 11)
 atlas = ExtResource("3_ucjis")
 region = Rect2(14, 1, 35, 15)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ucjis"]
+atlas = ExtResource("1_ne75i")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_svsjs"]
+atlas = ExtResource("1_ne75i")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yeclc"]
+atlas = ExtResource("1_ne75i")
+region = Rect2(48, 16, 16, 16)
+
 [node name="HUD" type="CanvasLayer" unique_id=769427318]
 script = ExtResource("1_bytes")
 tex_heart_full = SubResource("AtlasTexture_bytes")
 tex_heart_half = SubResource("AtlasTexture_b1lf8")
 tex_heart_empty = SubResource("AtlasTexture_rnl6m")
+tex_ammo_full = SubResource("AtlasTexture_37nk1")
+tex_ammo_empty = SubResource("AtlasTexture_nba10")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=901280781]
 custom_minimum_size = Vector2(63, 0)
@@ -130,3 +152,34 @@ theme_override_font_sizes/font_size = 8
 text = "999"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
+
+[node name="WaterAmmoUI" type="Control" parent="MarginContainer" unique_id=1472710584]
+layout_mode = 2
+
+[node name="Ammo1" type="TextureRect" parent="MarginContainer/WaterAmmoUI" unique_id=2004232708]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -6.0
+offset_top = 15.0
+offset_right = 10.0
+offset_bottom = 31.0
+texture = SubResource("AtlasTexture_ucjis")
+
+[node name="Ammo2" type="TextureRect" parent="MarginContainer/WaterAmmoUI" unique_id=534719401]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 1.0
+offset_top = 21.0
+offset_right = 17.0
+offset_bottom = 37.0
+texture = SubResource("AtlasTexture_svsjs")
+flip_h = true
+
+[node name="Ammo3" type="TextureRect" parent="MarginContainer/WaterAmmoUI" unique_id=1512269906]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -6.0
+offset_top = 27.0
+offset_right = 10.0
+offset_bottom = 43.0
+texture = SubResource("AtlasTexture_yeclc")

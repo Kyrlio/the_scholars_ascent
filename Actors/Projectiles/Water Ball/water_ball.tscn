@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://d3cs8gk4nva42"]
+
+[ext_resource type="Script" uid="uid://bvyb18w65t44t" path="res://Actors/Projectiles/Water Ball/water_ball.gd" id="1_1bo2x"]
+[ext_resource type="Texture2D" uid="uid://cd4qh5of2k141" path="res://Assets/animations/animations.png" id="1_ulojo"]
+[ext_resource type="Script" uid="uid://0xe0iq737lh6" path="res://Systems/Components/hitbox_component.gd" id="2_1bo2x"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_psbrw"]
+atlas = ExtResource("1_ulojo")
+region = Rect2(239, 240, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ma3t"]
+atlas = ExtResource("1_ulojo")
+region = Rect2(271, 240, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ni0b5"]
+atlas = ExtResource("1_ulojo")
+region = Rect2(303, 240, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0fmf8"]
+atlas = ExtResource("1_ulojo")
+region = Rect2(335, 240, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0thxj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_psbrw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ma3t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ni0b5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0fmf8")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x416w"]
+radius = 8.0
+height = 26.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0thxj"]
+radius = 5.0
+
+[node name="WaterBall" type="Area2D" unique_id=1744261615]
+collision_layer = 0
+script = ExtResource("1_1bo2x")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2098906602]
+sprite_frames = SubResource("SpriteFrames_0thxj")
+autoplay = "default"
+frame_progress = 0.13259272
+offset = Vector2(-6, 0)
+flip_h = true
+
+[node name="HitboxComponent" type="Area2D" parent="." unique_id=1267998147]
+collision_layer = 32
+collision_mask = 16
+script = ExtResource("2_1bo2x")
+metadata/_custom_type_script = "uid://0xe0iq737lh6"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=1096907685]
+position = Vector2(-6, 0)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_x416w")
+debug_color = Color(0.98347324, 0, 0.35703626, 0.41960785)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=798751150]
+shape = SubResource("CircleShape2D_0thxj")

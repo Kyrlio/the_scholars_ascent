@@ -1,17 +1,31 @@
 extends CanvasLayer
 
-
+@export_group("Heart Textures")
 @export var tex_heart_full: Texture2D
 @export var tex_heart_half: Texture2D
 @export var tex_heart_empty: Texture2D
 
+@export_group("Water Ball Textures")
+@export var tex_ammo_full: Texture2D
+@export var tex_ammo_empty: Texture2D
+
 @onready var hearts = [%Heart1, %Heart2, %Heart3, %Heart4, %Heart5]
 @onready var gold_label: Label = %GoldLabel
+@onready var water_ammos: Array = [%Ammo1, %Ammo2, %Ammo3]
+@onready var water_ammo_container: Control = $MarginContainer/WaterAmmoUI
 
 var previous_hp: int = -1
 var total_gold: int = 0
+var previous_ammo: int = -1
 
 func _ready() -> void:
+	if GameState.has_ability("water_ball"):
+		water_ammo_container.show()
+	else:
+		water_ammo_container.hide()
+	
+	GameEvents.water_ammo_changed.connect(update_ammo_ui)
+	GameEvents.ability_unlocked.connect(_on_ability_unlocked)
 	GameEvents.player_health_changed.connect(update_health_ui)
 	GameEvents.gold_collected.connect(add_gold)
 	
@@ -22,12 +36,39 @@ func _ready() -> void:
 
 
 func add_gold(_amount: int) -> void:
-	#total_gold += amount
 	gold_label.text = str(GameState.total_gold)
 	
 	var tw = create_tween()
 	gold_label.scale = Vector2(1.5, 1.5)
 	tw.tween_property(gold_label, "scale", Vector2.ONE, 0.3).set_trans(Tween.TRANS_BOUNCE)
+
+
+func update_ammo_ui(current_ammo: int, max_ammo: int) -> void:
+	if previous_ammo != -1 and current_ammo < previous_ammo:
+		var affected_ammo_index = previous_ammo - 1
+		
+		if affected_ammo_index >= 0 and affected_ammo_index < water_ammos.size():
+			juice_heart(water_ammos[affected_ammo_index], Color.RED)
+	elif previous_ammo != -1 and current_ammo > previous_ammo:
+		var affected_ammo_index = current_ammo - 1
+		
+		if affected_ammo_index < water_ammos.size():
+			juice_heart(water_ammos[affected_ammo_index], Color.WHITE_SMOKE)
+	
+	previous_ammo = current_ammo
+	
+	for i in range(water_ammos.size()):
+		var ammo = water_ammos[i]
+		
+		if i < max_ammo:
+			ammo.show()
+		else:
+			ammo.hide()
+		
+		if i < current_ammo:
+			ammo.texture = tex_ammo_full
+		else:
+			ammo.texture = tex_ammo_empty
 
 
 func update_health_ui(current_hp: int, max_hearts: int) -> void:
@@ -76,3 +117,9 @@ func juice_heart(heart: TextureRect, color: Color) -> void:
 	await tw.finished
 	
 	heart.z_index = 0
+
+
+
+func _on_ability_unlocked(ability_name: String) -> void:
+	if ability_name == "water_ball":
+		water_ammo_container.show()

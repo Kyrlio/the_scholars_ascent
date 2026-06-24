@@ -89,6 +89,7 @@ debug_wall_jump = true
 debug_roll = true
 debug_double_jump = true
 debug_air_roll = true
+debug_water_ball = true
 
 [node name="DynamicCamera" parent="LevelContainer" unique_id=138968710 node_paths=PackedStringArray("target") groups=["camera"] instance=ExtResource("5_uda3f")]
 target = NodePath("../Player")

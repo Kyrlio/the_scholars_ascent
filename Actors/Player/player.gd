@@ -16,7 +16,8 @@ enum State {
 	HURT,
 	DEAD,
 	REST,
-	SHOW_ITEM
+	SHOW_ITEM,
+	CAST_SPELL
 }
 var current_state: State = State.IDLE
 
@@ -76,12 +77,18 @@ const ATTACK_PUSH_FORCE: float = 100.0
 		debug_air_roll = value
 		_toggle_ability("air_roll", value)
 
+@export var debug_water_ball: bool = false:
+	set(value):
+		debug_water_ball = value
+		_toggle_ability("water_ball", value)
+
 func _toggle_ability(ability_name: String, is_unlocked: bool) -> void:
 	if not is_inside_tree() or Engine.is_editor_hint():
 		return
 	
 	if is_unlocked and not GameState.has_ability(ability_name):
 		GameState.unlocked_abitilities.append(ability_name)
+		GameEvents.emit_ability_unlocked(ability_name)
 		print("DEBUG: Compétence ajoutée -> ", ability_name)
 	elif not is_unlocked and GameState.has_ability(ability_name):
 		GameState.unlocked_abitilities.erase(ability_name)
@@ -99,6 +106,9 @@ func _toggle_ability(ability_name: String, is_unlocked: bool) -> void:
 @onready var looted_item_sprite: Sprite2D = %LootedItemSprite
 @onready var wall_coyote_timer: Timer = $Timers/WallCoyoteTimer
 @onready var pogo_particles: GPUParticles2D = $PogoParticles
+@onready var ammo_regen_timer: Timer = $Timers/AmmoRegenTimer
+@onready var object_pool_projectile: Node = $ObjectPool_Projectile
+
 
 var is_dead: bool = false
 var _was_on_floor: bool = false
@@ -106,12 +116,14 @@ var _was_on_wall: bool = false
 var last_wall_normal: Vector2 = Vector2.ZERO
 var can_air_roll: bool = true
 var jump_count: int = 0
+var current_water_ammo: int = 0
 
 var tween: Tween
 
 #endregion
 
 #region switch / update states
+
 func switch_state(new_state: State) -> void:
 	if current_state == new_state:
 		return
@@ -180,6 +192,10 @@ func switch_state(new_state: State) -> void:
 		State.SHOW_ITEM:
 			animation_player.play("item_chest")
 			velocity = Vector2.ZERO
+		
+		State.CAST_SPELL:
+			animation_player.play("cast_spell")
+			velocity = Vector2.ZERO
 
 func _get_post_action_state() -> State:
 	if not is_on_floor():
@@ -188,10 +204,10 @@ func _get_post_action_state() -> State:
 		if velocity.y < 0.0:
 			return State.JUMP
 		return State.FALL
-
+	
 	if velocity.x != 0.0:
 		return State.RUN
-
+	
 	return State.IDLE
 
 func _update_state() -> void:
@@ -204,12 +220,20 @@ func _update_state() -> void:
 		State.DEAD: return
 		State.REST: return
 		State.SHOW_ITEM: return
+		State.CAST_SPELL: return
 	
 	var next_state: State = _get_post_action_state()
 	if next_state == State.WALL_SLIDE:
 		visuals.scale.x = -sign(get_wall_normal().x)
-
+	
 	switch_state(next_state)
+
+
+func _update_facing_direction(direction: float) -> void:
+	if current_state == State.GROUND_ATTACK or current_state == State.AIR_ATTACK or current_state == State.UP_ATTACK:
+		return
+	
+	visuals.scale.x = sign(direction)
 
 #endregion
 
@@ -221,7 +245,6 @@ func _handle_oneway_drop_through() -> void:
 			global_position.y += 1
 	else:
 		return
-
 
 func _handle_horizontal_movement(delta: float) -> void:
 	match current_state:
@@ -246,7 +269,6 @@ func _handle_horizontal_movement(delta: float) -> void:
 		_update_facing_direction(direction)
 	else:
 		velocity.x = move_toward(velocity.x, 0, friction * delta)
-
 
 func _handle_jump() -> void:
 	match current_state:
@@ -281,19 +303,27 @@ func _handle_jump() -> void:
 			apply_squish(0.5, 1.5)
 			if current_state != State.JUMP:
 				switch_state(State.JUMP)
-		elif jump_count > 0 and jump_count < max_jumps and GameState.has_ability("double_jump"):
-			velocity.y = stats.jump_velocity * 0.85
-			jump_count += 1
-			buffer_jump_timer.stop()
-			apply_squish(0.6, 1.4)
-			if current_state != State.JUMP:
-				switch_state(State.JUMP)
+		elif GameState.has_ability("double_jump"):
+			var can_double_jump: bool = false
+			if jump_count > 0 and jump_count < max_jumps:
+				jump_count += 1
+				can_double_jump = true
+			elif jump_count == 0 and not is_on_floor() and coyote_jump_timer.is_stopped():
+				jump_count = 2
+				can_double_jump = true
 			
-			# TODO particles effects
+			if can_double_jump:
+				velocity.y = stats.jump_velocity * 0.85
+				buffer_jump_timer.stop()
+				apply_squish(0.6, 1.4)
+				if current_state != State.JUMP:
+					switch_state(State.JUMP)
+				
+				play_jumping_dust_animation()
+				# TODO particles effects
 	
 	if Input.is_action_just_released("jump") and velocity.y < 0.0:
 		velocity.y *= jump_cutoff
-
 
 func _handle_attack() -> void:
 	if current_state == State.HURT or current_state == State.REST:
@@ -312,12 +342,6 @@ func _handle_attack() -> void:
 				switch_state(State.UP_ATTACK)
 			elif not is_up_pressed and current_state != State.AIR_ATTACK:
 				switch_state(State.AIR_ATTACK)
-		
-		#if is_on_floor() and current_state != State.GROUND_ATTACK:
-			#switch_state(State.GROUND_ATTACK)
-		#elif not is_on_floor() and current_state != State.AIR_ATTACK and GameState.has_ability("pogo"):
-			#switch_state(State.AIR_ATTACK)
-
 
 func _handle_roll() -> void:
 	if check_common_conditions():
@@ -335,6 +359,31 @@ func _handle_roll() -> void:
 				if not is_on_floor():
 					can_air_roll = false
 				switch_state(State.ROLL)
+
+func _handle_spell() -> void:
+	if current_state == State.HURT or current_state == State.REST:
+		return
+	
+	if Input.is_action_just_pressed("cast_spell") and GameState.has_ability("water_ball") and current_water_ammo > 0:
+		var aim_dir := Vector2.ZERO
+		
+		if Input.is_action_pressed("up"):
+			aim_dir = Vector2.UP
+		elif Input.is_action_pressed("down") and not is_on_floor():
+			aim_dir = Vector2.DOWN
+		elif Input.is_action_pressed("move_right"):
+			aim_dir = Vector2.RIGHT
+		elif Input.is_action_pressed("move_left"):
+			aim_dir = Vector2.LEFT
+		else:
+			aim_dir = Vector2.RIGHT if visuals.scale.x > 0 else Vector2.LEFT
+		
+		consume_ammo()
+		
+		if current_state != State.CAST_SPELL and current_state != State.ROLL:
+			switch_state(State.CAST_SPELL)
+		
+		_fire_projectile(aim_dir)
 
 #endregion
 
@@ -360,6 +409,10 @@ func _ready() -> void:
 	
 	GameEvents.player_health_changed.emit(health_component.current_health, health_component.max_health)
 	
+	ammo_regen_timer.timeout.connect(_on_ammo_regen_timeout)
+	current_water_ammo = stats.max_water_ammo
+	
+	
 	GameState.rebuild_player_stats()
 	
 	# Debug synchronisation
@@ -380,18 +433,20 @@ func _physics_process(delta: float) -> void:
 	_handle_horizontal_movement(delta)
 	_handle_jump()
 	_handle_attack()
+	_handle_spell()
 	_handle_roll()
 	_handle_oneway_drop_through()
 	
+	_was_on_floor = is_on_floor()
 	move_and_slide()
 	
 	if is_on_floor():
 		can_air_roll = true
 		jump_count = 0
-	_was_on_floor = is_on_floor()
 	
 	_update_state()
 
+#region _apply
 
 func _apply_gravity(delta: float) -> void:
 	if not is_on_floor():
@@ -404,19 +459,32 @@ func _apply_gravity(delta: float) -> void:
 				velocity.y += stats.fall_gravity * delta
 
 
-func check_common_conditions() -> bool:
-	return current_state == State.HURT or \
-		current_state == State.REST or \
-		current_state == State.WALL_SLIDE or \
-		current_state == State.SHOW_ITEM
-
-
 func _apply_pogo() -> void:
 	can_air_roll = true
 	velocity.y = stats.jump_velocity * 0.9
 	pogo_particles.restart()
 	apply_squish(0.6, 1.5)
 	GameEvents.emit_camera_shake(0.2)
+
+
+func apply_squish(squish_x: float, squish_y: float) -> void:
+	sprite.scale = Vector2(squish_x, squish_y)
+	
+	if tween != null and tween.is_running():
+		tween.kill()
+	tween = create_tween().set_parallel(true)
+	tween.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_property(sprite, "scale", Vector2.ONE, 0.35)
+
+#endregion
+
+#region _check
+
+func check_common_conditions() -> bool:
+	return current_state == State.HURT or \
+		current_state == State.REST or \
+		current_state == State.WALL_SLIDE or \
+		current_state == State.SHOW_ITEM
 
 
 func _check_wall_coyote() -> void:
@@ -458,15 +526,7 @@ func _check_buffer_jump() -> void:
 		Input.is_action_just_pressed("jump") and buffer_jump_timer.is_stopped()):
 			buffer_jump_timer.start()
 
-func apply_squish(squish_x: float, squish_y: float) -> void:
-	sprite.scale = Vector2(squish_x, squish_y)
-	
-	if tween != null and tween.is_running():
-		tween.kill()
-	tween = create_tween().set_parallel(true)
-	tween.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	tween.tween_property(sprite, "scale", Vector2.ONE, 0.35)
-
+#endregion
 
 func receive_item(item: ItemData) -> void:
 	if item != null and item.icon != null:
@@ -475,10 +535,21 @@ func receive_item(item: ItemData) -> void:
 	switch_state(State.SHOW_ITEM)
 
 
+func consume_ammo() -> void:
+	current_water_ammo -= 1
+	GameEvents.water_ammo_changed.emit(current_water_ammo, stats.max_water_ammo)
+	ammo_regen_timer.start(stats.ammo_regen_time)
+
+
+func _fire_projectile(direction: Vector2) -> void:
+	var projectile: WaterBall = object_pool_projectile.spawn()
+	projectile.start(global_position, direction)
+
+
 func play_landing_dust_animation() -> void:
 	dust_animated_sprite.show() 
 	dust_animated_sprite.global_position = global_position
-	dust_animated_sprite.global_position.y -= 2
+	#dust_animated_sprite.global_position.y -= 2
 	dust_animated_sprite.reset_physics_interpolation()
 	dust_animated_sprite.play("landing")
 
@@ -487,19 +558,12 @@ func play_jumping_dust_animation() -> void:
 	dust_animated_sprite.stop()
 	dust_animated_sprite.show() 
 	dust_animated_sprite.global_position = global_position
-	dust_animated_sprite.global_position.y += 2
+	#dust_animated_sprite.global_position.y += 2
 	dust_animated_sprite.reset_physics_interpolation()
 	dust_animated_sprite.play("jump")
 
 
-func _update_facing_direction(direction: float) -> void:
-	if current_state == State.GROUND_ATTACK or current_state == State.AIR_ATTACK or current_state == State.UP_ATTACK:
-		return
-	
-	visuals.scale.x = sign(direction)
-
-
-# ------------------------------------------ GETTERS -------------------------------------------------------
+#region getters
 
 func get_facing_direction() -> int:
 	return visuals.scale.x
@@ -510,7 +574,9 @@ func get_current_health() -> int:
 func get_total_gold() -> int:
 	return GameState.total_gold
 
-# ------------------------------------------ _ON_ -------------------------------------------------------
+#endregion
+
+#region _ON
 
 func _on_hitbox_hit(hurtbox: HurtboxComponent) -> void:
 	if current_state == State.AIR_ATTACK:
@@ -521,6 +587,14 @@ func _on_hitbox_hit(hurtbox: HurtboxComponent) -> void:
 			push_dir = 1.0
 		
 		velocity.x = push_dir * ATTACK_PUSH_FORCE
+
+
+func _on_ammo_regen_timeout() -> void:
+	if current_water_ammo < stats.max_water_ammo:
+		current_water_ammo += 1
+		GameEvents.water_ammo_changed.emit(current_water_ammo, stats.max_water_ammo)
+		if current_water_ammo < stats.max_water_ammo:
+			ammo_regen_timer.start(stats.ammo_regen_time)
 
 
 func _on_animation_finished(animation_name: StringName) -> void:
@@ -557,3 +631,8 @@ func _on_animation_finished(animation_name: StringName) -> void:
 			if animation_name == &"item_chest":
 				looted_item_sprite.hide()
 				switch_state(State.IDLE)
+		State.CAST_SPELL:
+			if animation_name == &"cast_spell":
+				switch_state(State.IDLE)
+
+#endregion

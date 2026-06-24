@@ -21,6 +21,7 @@ func _ready() -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player:
 		GameState.unlocked_abitilities.append(ability_to_unlock)
+		GameEvents.emit_ability_unlocked(ability_to_unlock)
 		print("Compétence débloquée : ", ability_to_unlock)
 		
 		# to show a popup
