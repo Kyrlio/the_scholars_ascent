@@ -320,7 +320,6 @@ func _handle_jump() -> void:
 					switch_state(State.JUMP)
 				
 				play_jumping_dust_animation()
-				# TODO particles effects
 	
 	if Input.is_action_just_released("jump") and velocity.y < 0.0:
 		velocity.y *= jump_cutoff

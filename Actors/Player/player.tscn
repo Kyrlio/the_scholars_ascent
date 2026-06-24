@@ -1838,6 +1838,12 @@ stats = ExtResource("2_awv0x")
 jump_cutoff = 0.5
 wall_jump_pushback = 115.0
 debug_sword = true
+debug_pogo = true
+debug_wall_slide = true
+debug_wall_jump = true
+debug_roll = true
+debug_double_jump = true
+debug_air_roll = true
 debug_water_ball = true
 
 [node name="Timers" type="Node" parent="." unique_id=1013246287]

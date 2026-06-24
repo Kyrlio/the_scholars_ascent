@@ -6,6 +6,8 @@ class_name WaterBall
 @onready var hitbox_component: HitboxComponent = $HitboxComponent
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
+const HIT_PARTICLES = preload("uid://bb6uks6vkiknu")
+
 func _ready() -> void:
 	visible = false
 	collision_shape.set_deferred("disabled", true)
@@ -55,4 +57,8 @@ func _deactivate() -> void:
 	if hitbox_component:
 		hitbox_component.get_node("CollisionShape2D").set_deferred("disabled", true)
 	
-	# TODO : Impact particles
+	var particles: GPUParticles2D = HIT_PARTICLES.instantiate()
+	particles.global_position = global_position
+	get_tree().current_scene.add_child(particles)
+	particles.emitting = true
+	particles.finished.connect(particles.queue_free)

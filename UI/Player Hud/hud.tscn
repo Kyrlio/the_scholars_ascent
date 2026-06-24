@@ -163,6 +163,7 @@ offset_left = -6.0
 offset_top = 15.0
 offset_right = 10.0
 offset_bottom = 31.0
+pivot_offset = Vector2(8, 8)
 texture = SubResource("AtlasTexture_ucjis")
 
 [node name="Ammo2" type="TextureRect" parent="MarginContainer/WaterAmmoUI" unique_id=534719401]
@@ -172,6 +173,7 @@ offset_left = 1.0
 offset_top = 21.0
 offset_right = 17.0
 offset_bottom = 37.0
+pivot_offset = Vector2(8, 8)
 texture = SubResource("AtlasTexture_svsjs")
 flip_h = true
 
@@ -182,4 +184,5 @@ offset_left = -6.0
 offset_top = 27.0
 offset_right = 10.0
 offset_bottom = 43.0
+pivot_offset = Vector2(8, 8)
 texture = SubResource("AtlasTexture_yeclc")
