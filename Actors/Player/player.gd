@@ -184,6 +184,7 @@ func switch_state(new_state: State) -> void:
 		State.DEAD:
 			is_dead = true
 			animation_player.play("death")
+			GameEvents.emit_player_died()
 		
 		State.REST:
 			velocity = Vector2.ZERO
@@ -380,6 +381,8 @@ func _handle_spell() -> void:
 			switch_state(State.CAST_SPELL)
 		
 		_fire_projectile(aim_dir)
+		if not is_on_floor():
+			_apply_pogo()
 
 #endregion
 

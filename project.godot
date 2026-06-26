@@ -25,6 +25,7 @@ SaveManager="*uid://30sj3yuheh2v"
 GameState="*uid://o505eexxhqsa"
 SceneManager="*uid://co8xt2s6gjkvw"
 TeleportData="*uid://f2c50plt1tap"
+DeathScreen="*uid://d3tv35ym3r2y"
 
 [display]
 
@@ -34,6 +35,10 @@ window/size/always_on_top=true
 window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="canvas_items"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/project-time-tracker/plugin.cfg")
 
 [file_customization]
 

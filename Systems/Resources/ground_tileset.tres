@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://6kj1t27l74ae" path="res://Assets/tileset.png" id="1_8ovo8"]
 [ext_resource type="PackedScene" uid="uid://b0bj6fi4a271y" path="res://Actors/Spike/spike.tscn" id="2_qhmyr"]
+[ext_resource type="PackedScene" uid="uid://bfwv45tlehwe3" path="res://Actors/Interactable/Destructible Platform/destructible_platform.tscn" id="3_8jbhq"]
 [ext_resource type="Texture2D" uid="uid://cd4qh5of2k141" path="res://Assets/animations/animations.png" id="3_qhmyr"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_qhmyr"]
@@ -810,6 +811,7 @@ texture = ExtResource("1_8ovo8")
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_4lug0"]
 scenes/1/scene = ExtResource("2_qhmyr")
+scenes/2/scene = ExtResource("3_8jbhq")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8jbhq"]
 texture = ExtResource("3_qhmyr")

@@ -3,6 +3,7 @@ extends Node
 signal engine_freeze_requested
 signal camera_shake_requested(trauma_amount: float)
 signal player_health_changed(current_health: int, max_health: int)
+signal player_died
 signal inventory_item_focused(item_data: ItemData)
 signal gold_collected(amount: int)
 signal item_collected(item: ItemData)
@@ -33,3 +34,6 @@ func emit_ability_unlocked(ability_name: String) -> void:
 
 func emit_water_ammo_changed(current_water_ammo: int) -> void:
 	water_ammo_changed.emit(current_water_ammo)
+
+func emit_player_died() -> void:
+	player_died.emit()

@@ -1,0 +1,148 @@
+[gd_scene format=3 uid="uid://d3tv35ym3r2y"]
+
+[ext_resource type="Script" uid="uid://rgd5qgqxos26" path="res://UI/Death Screen/death_screen.gd" id="1_24nwk"]
+[ext_resource type="PackedScene" uid="uid://crivg1daf13fq" path="res://UI/Animated Button/animated_button.tscn" id="2_24nwk"]
+
+[sub_resource type="Animation" id="Animation_24nwk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.023529412, 0.007843138, 0.019607844, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("VBoxContainer:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_qrix1"]
+resource_name = "play"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.023529412, 0.007843138, 0.019607844, 0), Color(0.023529412, 0.007843138, 0.019607844, 0.49803922)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2, 0.5, 0.6),
+"transitions": PackedFloat32Array(0.5, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("VBoxContainer:modulate")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eawmj"]
+_data = {
+&"RESET": SubResource("Animation_24nwk"),
+&"play": SubResource("Animation_qrix1")
+}
+
+[node name="DeathScreen" type="CanvasLayer" unique_id=1534149499]
+process_mode = 3
+script = ExtResource("1_24nwk")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1149850275]
+libraries/ = SubResource("AnimationLibrary_eawmj")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1380221069]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.023529412, 0.007843138, 0.019607844, 0)
+
+[node name="Label" type="Label" parent="." unique_id=1721292497]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -114.0
+offset_top = 45.0
+offset_right = 114.00012
+offset_bottom = 77.00007
+grow_horizontal = 2
+scale = Vector2(1e-05, 1e-05)
+pivot_offset = Vector2(114, 16)
+theme_override_colors/font_color = Color(0.9411765, 0.35686275, 0.35686275, 1)
+theme_override_font_sizes/font_size = 32
+text = "YOU ARE DEAD"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=2118483150]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = 2.0
+offset_right = 60.0
+offset_bottom = 62.00003
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ReloadButton" parent="VBoxContainer" unique_id=1772062701 instance=ExtResource("2_24nwk")]
+unique_name_in_owner = true
+process_mode = 3
+layout_mode = 2
+text = "Reload Save"
+
+[node name="QuitButton" parent="VBoxContainer" unique_id=905472593 instance=ExtResource("2_24nwk")]
+unique_name_in_owner = true
+process_mode = 3
+layout_mode = 2
+text = "Quit Game"
+
+[connection signal="pressed" from="VBoxContainer/ReloadButton" to="." method="_on_reload_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

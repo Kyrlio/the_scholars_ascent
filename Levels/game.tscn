@@ -62,6 +62,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2054175000]
 environment = SubResource("Environment_4lug0")
@@ -78,14 +79,6 @@ process_mode = 1
 
 [node name="Player" parent="LevelContainer" unique_id=391222067 instance=ExtResource("1_uxjsv")]
 position = Vector2(42, 142)
-debug_sword = true
-debug_pogo = true
-debug_wall_slide = true
-debug_wall_jump = true
-debug_roll = true
-debug_double_jump = true
-debug_air_roll = true
-debug_water_ball = true
 
 [node name="DynamicCamera" parent="LevelContainer" unique_id=138968710 node_paths=PackedStringArray("target") groups=["camera"] instance=ExtResource("5_uda3f")]
 target = NodePath("../Player")

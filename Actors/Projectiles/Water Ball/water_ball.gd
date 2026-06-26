@@ -24,6 +24,7 @@ func start(pos: Vector2, dir: Vector2) -> void:
 	rotation = dir.angle()
 	visible = true
 	reset_physics_interpolation()
+	spawn_particles()
 	
 	collision_shape.set_deferred("disabled", false)
 	if hitbox_component:
@@ -57,6 +58,10 @@ func _deactivate() -> void:
 	if hitbox_component:
 		hitbox_component.get_node("CollisionShape2D").set_deferred("disabled", true)
 	
+	spawn_particles()
+
+
+func spawn_particles() -> void:
 	var particles: GPUParticles2D = HIT_PARTICLES.instantiate()
 	particles.global_position = global_position
 	get_tree().current_scene.add_child(particles)
