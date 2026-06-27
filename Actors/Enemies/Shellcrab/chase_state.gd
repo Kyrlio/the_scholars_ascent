@@ -36,15 +36,20 @@ func physics_update(delta: float) -> void:
 			context.set_state($"../PatrolState")
 			return
 	
-	context.direction = sign(context.player.global_position.x - context.global_position.x)
 	context.update_facing()
 	
 	if is_player_in_melee and context.attack_timer.is_stopped():
 		context.set_state($"../AttackState")
 		return
 	
-	context.velocity.x = context.chase_speed * context.direction
-	context.update_direction()
+	var is_blocked: bool = context.wall_detection_ray.is_colliding() or not context.ledge_detection_ray.is_colliding()
+	
+	if is_blocked:
+		context.velocity.x = 0.0
+		context.animation_player.play("idle")
+	else:
+		context.velocity.x = context.chase_speed * context.direction
+		context.animation_player.play("walk")
 
 
 func exit() -> void:

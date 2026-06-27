@@ -81,6 +81,10 @@ func update_direction() -> void:
 	visuals.scale = Vector2(direction, 1)
 
 func update_facing() -> void:
+	if is_instance_valid(player):
+		var diff_x = player.global_position.x - global_position.x
+		if abs(diff_x) > 5.0:
+			direction = sign(diff_x)
 	visuals.scale.x = direction
 
 

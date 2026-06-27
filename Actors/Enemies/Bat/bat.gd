@@ -62,8 +62,9 @@ func _physics_process(delta: float) -> void:
 
 
 func update_facing(target_pos: Vector2) -> void:
-	direction = sign(target_pos.x - global_position.x)
-	if direction != 0:
+	var diff_x = target_pos.x - global_position.x
+	if abs(diff_x) > 5.0:
+		direction = sign(diff_x)
 		visuals.scale.x = direction
 
 
