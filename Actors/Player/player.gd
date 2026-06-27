@@ -108,6 +108,7 @@ func _toggle_ability(ability_name: String, is_unlocked: bool) -> void:
 @onready var pogo_particles: GPUParticles2D = $PogoParticles
 @onready var ammo_regen_timer: Timer = $Timers/AmmoRegenTimer
 @onready var object_pool_projectile: Node = $ObjectPool_Projectile
+@onready var hurtbox: HurtboxComponent = %Hurtbox
 
 
 var is_dead: bool = false
@@ -134,6 +135,8 @@ func switch_state(new_state: State) -> void:
 	match current_state:
 		State.IDLE:
 			animation_player.play("idle")
+			hurtbox.set_deferred("monitoring", true)
+			hurtbox.set_deferred("monitorable", true)
 			looted_item_sprite.hide()
 			if previous_state == State.FALL:
 				apply_squish(1.3, 0.8)

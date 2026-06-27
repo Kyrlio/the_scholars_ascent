@@ -12,8 +12,9 @@
 [ext_resource type="PackedScene" uid="uid://uec5sa3yyp7m" path="res://Actors/Interactable/Trapdoor/trapdoor.tscn" id="10_nma1x"]
 [ext_resource type="PackedScene" uid="uid://bsg2twb245xa3" path="res://Actors/Interactable/Lever/lever.tscn" id="11_o61cx"]
 [ext_resource type="PackedScene" uid="uid://dys7k0tpundus" path="res://Systems/Loot/Gold Coin/gold_coin.tscn" id="12_41pah"]
-[ext_resource type="PackedScene" uid="uid://cq443ehieft8v" path="res://Actors/BeetleEnemy/beetle_enemy.tscn" id="13_to22m"]
+[ext_resource type="PackedScene" uid="uid://cq443ehieft8v" path="res://Actors/Enemies/BeetleEnemy/beetle_enemy.tscn" id="13_to22m"]
 [ext_resource type="PackedScene" uid="uid://t8wylmbftndo" path="res://Actors/Chuck/chuck.tscn" id="14_3uvjl"]
+[ext_resource type="PackedScene" uid="uid://u7r7frl2j2n8" path="res://Actors/Enemies/Shellcrab/shellcrab.tscn" id="15_cnuay"]
 [ext_resource type="Script" uid="uid://dus15ka8quity" path="res://Systems/Resources/Shop Items/shop_item.gd" id="15_mg3nf"]
 [ext_resource type="Resource" uid="uid://bofasd2wa0s7t" path="res://Systems/Resources/Shop Items/health_potion.tres" id="16_q516i"]
 [ext_resource type="Resource" uid="uid://bmop7roq04rc0" path="res://Systems/Resources/Shop Items/shop_chest_key.tres" id="17_0j2py"]
@@ -180,6 +181,9 @@ position = Vector2(656, 175)
 
 [node name="BeetleEnemy2" parent="Enemies" unique_id=96782536 instance=ExtResource("13_to22m")]
 position = Vector2(428, 239)
+
+[node name="Shellcrab" parent="Enemies" unique_id=548489442 instance=ExtResource("15_cnuay")]
+position = Vector2(201, 160)
 
 [node name="Chucks" type="Node2D" parent="." unique_id=1624931028]
 

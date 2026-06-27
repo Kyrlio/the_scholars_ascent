@@ -13,9 +13,6 @@ func _ready() -> void:
 		else:
 			container_id = str(get_path())
 	
-	#print(container_id)
-	#print(GameState.collected_heart_containers)
-	
 	if container_id != "" and container_id in GameState.collected_heart_containers:
 		queue_free()
 		return

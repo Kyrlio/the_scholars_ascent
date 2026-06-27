@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cq443ehieft8v"]
 
 [ext_resource type="Script" uid="uid://bexah18irylv2" path="res://Systems/Components/health_component.gd" id="1_1upg6"]
-[ext_resource type="Script" uid="uid://bytvf1c85yb2v" path="res://Actors/BeetleEnemy/beetle_enemy.gd" id="1_m6xea"]
+[ext_resource type="Script" uid="uid://bytvf1c85yb2v" path="res://Actors/Enemies/BeetleEnemy/beetle_enemy.gd" id="1_m6xea"]
 [ext_resource type="Script" uid="uid://dprjg5ilgd4ve" path="res://Systems/Components/hurtbox_component.gd" id="2_m6xea"]
 [ext_resource type="Script" uid="uid://0xe0iq737lh6" path="res://Systems/Components/hitbox_component.gd" id="3_t2ndb"]
 [ext_resource type="Texture2D" uid="uid://ca4o2fgfjyfvv" path="res://Assets/sprites/characters/beetle.png" id="4_nf3wy"]

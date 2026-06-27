@@ -242,7 +242,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2ukrj"]
-size = Vector2(22, 18)
+size = Vector2(22, 12)
 
 [node name="Lever" type="Node2D" unique_id=896549022]
 script = ExtResource("1_q34vm")
@@ -257,7 +257,7 @@ script = ExtResource("2_q34vm")
 metadata/_custom_type_script = "uid://dprjg5ilgd4ve"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=1197621238]
-position = Vector2(3, -1)
+position = Vector2(3, 2)
 shape = SubResource("RectangleShape2D_2ukrj")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1613318178]

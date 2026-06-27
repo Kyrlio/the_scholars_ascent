@@ -14,8 +14,13 @@ func _ready() -> void:
 
 
 func _handle_hit(hitbox_component: HitboxComponent):
-	if hitbox_component.is_hit_handled or disable_collisions or is_invincible:
+	if hitbox_component.is_hit_handled or disable_collisions:
 		# Hit only one enemy
+		return
+	
+	if is_invincible:
+		hitbox_component.register_hurtbox_hit(self)
+		hit_by_hitbox.emit(hitbox_component)
 		return
 	
 	hitbox_component.register_hurtbox_hit(self)
