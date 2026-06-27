@@ -130,6 +130,9 @@ func load_save_data():
 	var loaded_abilities = data.get("unlocked_abilities", [])
 	unlocked_abitilities.assign(loaded_abilities)
 	
+	# Defeated enemies
+	defeated_enemies = data.get("defeated_enemies", [])
+	
 	rebuild_player_stats()
 
 func _on_item_collected(new_item: ItemData) -> void:

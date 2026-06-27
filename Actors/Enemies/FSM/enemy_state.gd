@@ -1,7 +1,7 @@
 extends Node
 class_name EnemyState
 
-var context: Shellcrab
+var context: CharacterBody2D
 var previous_state: EnemyState
 
 func enter() -> void:

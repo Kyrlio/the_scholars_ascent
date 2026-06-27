@@ -1,0 +1,227 @@
+[gd_scene format=3 uid="uid://b1ttmwn8g2yb1"]
+
+[ext_resource type="Script" uid="uid://dprjg5ilgd4ve" path="res://Systems/Components/hurtbox_component.gd" id="1_247g7"]
+[ext_resource type="Script" uid="uid://cxijsbgs16p3h" path="res://Actors/Enemies/Bat/bat.gd" id="1_kffd5"]
+[ext_resource type="Script" uid="uid://bexah18irylv2" path="res://Systems/Components/health_component.gd" id="1_n5g0b"]
+[ext_resource type="Script" uid="uid://0xe0iq737lh6" path="res://Systems/Components/hitbox_component.gd" id="2_hvebe"]
+[ext_resource type="Script" uid="uid://7kkdvmscqn0p" path="res://Actors/Enemies/Bat/idle_state.gd" id="3_0cg2u"]
+[ext_resource type="PackedScene" uid="uid://bm8u12hb614ld" path="res://Systems/Particles/hit_particles.tscn" id="3_kffd5"]
+[ext_resource type="Script" uid="uid://mqkjohmw6acb" path="res://Actors/Enemies/Bat/chase_state.gd" id="4_rf2n4"]
+[ext_resource type="Texture2D" uid="uid://barb8wchkc54o" path="res://Assets/sprites/characters/bat.png" id="5_jr6a1"]
+[ext_resource type="Script" uid="uid://cj2yiylofx1jv" path="res://Actors/Enemies/Bat/attack_state.gd" id="5_rf2n4"]
+[ext_resource type="Script" uid="uid://cgc75ann4hqky" path="res://Actors/Enemies/Bat/hit_state.gd" id="6_hq1ob"]
+[ext_resource type="Script" uid="uid://dh8nurt33txs7" path="res://Actors/Enemies/Bat/dead_state.gd" id="7_svfi1"]
+
+[sub_resource type="Animation" id="Animation_kffd5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_svfi1"]
+resource_name = "charge"
+length = 0.5
+step = 0.125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(4, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_5elqi"]
+resource_name = "dash"
+length = 0.8
+step = 0.125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(2, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_jr6a1"]
+resource_name = "death"
+length = 0.6250125
+step = 0.125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0), Vector2i(4, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_0cg2u"]
+resource_name = "hit"
+length = 0.2500083407841623
+step = 0.083333336
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.083333336, 0.16666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2i(1, 1), Vector2i(2, 1), Vector2i(3, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_rf2n4"]
+resource_name = "idle"
+length = 0.6250125
+loop_mode = 1
+step = 0.125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 2), Vector2i(1, 2), Vector2i(2, 2), Vector2i(3, 2), Vector2i(4, 2)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hq1ob"]
+_data = {
+&"RESET": SubResource("Animation_kffd5"),
+&"charge": SubResource("Animation_svfi1"),
+&"dash": SubResource("Animation_5elqi"),
+&"death": SubResource("Animation_jr6a1"),
+&"hit": SubResource("Animation_0cg2u"),
+&"idle": SubResource("Animation_rf2n4")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kuh4e"]
+radius = 5.0990195
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0thxj"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x416w"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f72hx"]
+radius = 116.00431
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5nt3a"]
+radius = 50.039986
+
+[node name="Bat" type="CharacterBody2D" unique_id=1942546404]
+collision_layer = 4
+script = ExtResource("1_kffd5")
+
+[node name="AttackTimer" type="Timer" parent="." unique_id=1831582958]
+process_callback = 0
+wait_time = 2.5
+one_shot = true
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1457295660]
+script = ExtResource("1_n5g0b")
+max_health = 2
+metadata/_custom_type_script = "uid://bexah18irylv2"
+
+[node name="States" type="Node" parent="." unique_id=1408420279]
+
+[node name="IdleState" type="Node" parent="States" unique_id=1084130946]
+script = ExtResource("3_0cg2u")
+
+[node name="ChaseState" type="Node" parent="States" unique_id=357510346]
+script = ExtResource("4_rf2n4")
+
+[node name="AttackState" type="Node" parent="States" unique_id=122795180]
+script = ExtResource("5_rf2n4")
+
+[node name="HitState" type="Node" parent="States" unique_id=2081356732]
+script = ExtResource("6_hq1ob")
+
+[node name="DeadState" type="Node" parent="States" unique_id=1091909903]
+script = ExtResource("7_svfi1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1650462516]
+libraries/ = SubResource("AnimationLibrary_hq1ob")
+autoplay = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1320539322]
+shape = SubResource("CircleShape2D_kuh4e")
+
+[node name="HurtboxComponent" type="Area2D" parent="." unique_id=409134361 node_paths=PackedStringArray("health_component")]
+collision_layer = 16
+collision_mask = 32
+script = ExtResource("1_247g7")
+health_component = NodePath("../HealthComponent")
+hit_particles_scene = ExtResource("3_kffd5")
+metadata/_custom_type_script = "uid://dprjg5ilgd4ve"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=466246781]
+shape = SubResource("CircleShape2D_0thxj")
+debug_color = Color(3.778264e-06, 0.6481219, 0.20026603, 0.41960785)
+
+[node name="HitboxComponent" type="Area2D" parent="." unique_id=1952452147]
+collision_layer = 64
+collision_mask = 8
+monitoring = false
+script = ExtResource("2_hvebe")
+metadata/_custom_type_script = "uid://0xe0iq737lh6"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=1413142731]
+shape = SubResource("CircleShape2D_x416w")
+debug_color = Color(0.96779925, 6.738305e-07, 0.47500032, 0.41960785)
+
+[node name="VisionArea2D" type="Area2D" parent="." unique_id=1501338308]
+collision_layer = 0
+collision_mask = 34
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VisionArea2D" unique_id=1310110865]
+shape = SubResource("CircleShape2D_f72hx")
+debug_color = Color(0.6117647, 0.36078432, 1, 0.11764706)
+
+[node name="AttackArea2D" type="Area2D" parent="." unique_id=1407910270]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea2D" unique_id=918247768]
+shape = SubResource("CircleShape2D_5nt3a")
+debug_color = Color(0.98039216, 0, 0.3882353, 0.12941177)
+
+[node name="Visuals" type="Node2D" parent="." unique_id=604102264]
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals" unique_id=1397357645]
+texture = ExtResource("5_jr6a1")
+offset = Vector2(0, -2)
+hframes = 5
+vframes = 3
+frame = 10
+region_enabled = true
+region_rect = Rect2(16, 0, 240, 96)

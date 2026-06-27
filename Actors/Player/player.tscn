@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://b6nx82w7ogcy8" path="res://Assets/sprites/characters/todd-up-attack.png" id="6_g1lo4"]
 [ext_resource type="Script" uid="uid://0xe0iq737lh6" path="res://Systems/Components/hitbox_component.gd" id="6_pnakb"]
 [ext_resource type="PackedScene" uid="uid://bb6uks6vkiknu" path="res://Systems/Particles/pogo_particles.tscn" id="9_pnakb"]
+[ext_resource type="PackedScene" uid="uid://bm8u12hb614ld" path="res://Systems/Particles/hit_particles.tscn" id="10_wmrsf"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_w553y"]
 load_path = "res://.godot/imported/todd.png-c0d3bfafa3bb1eac97c486d183b0341d.ctex"
@@ -1891,6 +1892,7 @@ collision_layer = 8
 collision_mask = 64
 script = ExtResource("5_awv0x")
 health_component = NodePath("../HealthComponent")
+hit_particles_scene = ExtResource("10_wmrsf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=377365471]
 position = Vector2(0, -6)

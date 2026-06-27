@@ -1,0 +1,244 @@
+[gd_scene format=3 uid="uid://bl4a7jbqm1376"]
+
+[ext_resource type="Script" uid="uid://docgy576wvr6i" path="res://Actors/Enemies/Slime/slime.gd" id="1_rno1o"]
+[ext_resource type="Script" uid="uid://bexah18irylv2" path="res://Systems/Components/health_component.gd" id="1_us0cg"]
+[ext_resource type="Texture2D" uid="uid://bq71x2lc2gsb0" path="res://Assets/sprites/characters/slime.png" id="2_rno1o"]
+[ext_resource type="Script" uid="uid://bmo66s8etakcx" path="res://Actors/Enemies/Slime/patrol_state.gd" id="3_6amh0"]
+[ext_resource type="Script" uid="uid://dprjg5ilgd4ve" path="res://Systems/Components/hurtbox_component.gd" id="3_i0fjy"]
+[ext_resource type="PackedScene" uid="uid://bm8u12hb614ld" path="res://Systems/Particles/hit_particles.tscn" id="4_6amh0"]
+[ext_resource type="Script" uid="uid://buk0kvooi3lk2" path="res://Actors/Enemies/Slime/chase_state.gd" id="4_y5udt"]
+[ext_resource type="Script" uid="uid://btxxvuhtpv1s2" path="res://Actors/Enemies/Slime/hit_state.gd" id="5_jjpj2"]
+[ext_resource type="Script" uid="uid://0xe0iq737lh6" path="res://Systems/Components/hitbox_component.gd" id="5_y5udt"]
+[ext_resource type="Script" uid="uid://bkhdrgg0fy7qh" path="res://Actors/Enemies/Slime/dead_state.gd" id="6_jjpj2"]
+
+[sub_resource type="Animation" id="Animation_jjpj2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/Sprite2D:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -16)]
+}
+
+[sub_resource type="Animation" id="Animation_ut4hl"]
+resource_name = "death"
+length = 0.7500125
+step = 0.125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5, 0.625),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1), Vector2i(3, 1), Vector2i(4, 1), Vector2i(5, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_6issj"]
+resource_name = "hit"
+length = 0.3333416766010225
+step = 0.083333336
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.083333336, 0.16666666, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(1, 3), Vector2i(2, 3), Vector2i(3, 3), Vector2i(4, 3)]
+}
+
+[sub_resource type="Animation" id="Animation_j130i"]
+resource_name = "idle"
+length = 0.750025
+loop_mode = 1
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 2), Vector2i(1, 2), Vector2i(2, 2)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/Sprite2D:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -16)]
+}
+
+[sub_resource type="Animation" id="Animation_hb5ud"]
+resource_name = "jump"
+length = 0.5000125
+step = 0.125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(2, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/Sprite2D:offset")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -15)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ut4hl"]
+_data = {
+&"RESET": SubResource("Animation_jjpj2"),
+&"death": SubResource("Animation_ut4hl"),
+&"hit": SubResource("Animation_6issj"),
+&"idle": SubResource("Animation_j130i"),
+&"jump": SubResource("Animation_hb5ud")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5nt3a"]
+radius = 95.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5nt3a"]
+radius = 5.0
+height = 18.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_us0cg"]
+radius = 4.0
+height = 14.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x416w"]
+radius = 3.0
+height = 10.0
+
+[node name="Slime" type="CharacterBody2D" unique_id=2049558590]
+collision_layer = 4
+script = ExtResource("1_rno1o")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1276724055]
+script = ExtResource("1_us0cg")
+metadata/_custom_type_script = "uid://bexah18irylv2"
+
+[node name="States" type="Node" parent="." unique_id=1838571083]
+
+[node name="PatrolState" type="Node" parent="States" unique_id=89660327]
+script = ExtResource("3_6amh0")
+
+[node name="ChaseState" type="Node" parent="States" unique_id=320420418]
+script = ExtResource("4_y5udt")
+
+[node name="HitState" type="Node" parent="States" unique_id=1270253435]
+script = ExtResource("5_jjpj2")
+
+[node name="DeadState" type="Node" parent="States" unique_id=1984874021]
+script = ExtResource("6_jjpj2")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1165124753]
+libraries/ = SubResource("AnimationLibrary_ut4hl")
+autoplay = &"idle"
+
+[node name="VisionArea2D" type="Area2D" parent="." unique_id=1929500567]
+collision_layer = 0
+collision_mask = 34
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VisionArea2D" unique_id=1998326197]
+position = Vector2(0, -3)
+shape = SubResource("CircleShape2D_5nt3a")
+debug_color = Color(0.70980394, 0.2627451, 1, 0.12156863)
+
+[node name="HurtboxComponent" type="Area2D" parent="." unique_id=1586004086 node_paths=PackedStringArray("health_component")]
+collision_layer = 16
+collision_mask = 32
+script = ExtResource("3_i0fjy")
+health_component = NodePath("../HealthComponent")
+hit_particles_scene = ExtResource("4_6amh0")
+metadata/_custom_type_script = "uid://dprjg5ilgd4ve"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=755668204]
+position = Vector2(0, -5)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_5nt3a")
+debug_color = Color(0, 0.6497044, 0.14537767, 0.41960785)
+
+[node name="HitboxComponent" type="Area2D" parent="." unique_id=560522262]
+collision_layer = 64
+collision_mask = 8
+script = ExtResource("5_y5udt")
+metadata/_custom_type_script = "uid://0xe0iq737lh6"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=1061438590]
+position = Vector2(0, -4)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_us0cg")
+debug_color = Color(0.9995958, 0, 0.17041376, 0.41960785)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=254455108]
+position = Vector2(0, -3)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_x416w")
+
+[node name="Visuals" type="Node2D" parent="." unique_id=134763130]
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals" unique_id=1403644565]
+texture = ExtResource("2_rno1o")
+offset = Vector2(0, -16)
+hframes = 6
+vframes = 4
+region_enabled = true
+region_rect = Rect2(16, 0, 288, 128)
+
+[node name="Raycasts" type="Node2D" parent="Visuals" unique_id=2100707918]
+
+[node name="LedgeDetectionRay" type="RayCast2D" parent="Visuals/Raycasts" unique_id=569704047]
+unique_name_in_owner = true
+position = Vector2(8, -3)
+target_position = Vector2(0, 100)
+
+[node name="WallDetectionRay" type="RayCast2D" parent="Visuals/Raycasts" unique_id=972471853]
+unique_name_in_owner = true
+position = Vector2(0, -4)
+target_position = Vector2(10, 0)

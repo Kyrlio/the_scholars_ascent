@@ -16,13 +16,14 @@ point_count = 2
 curve = SubResource("Curve_yq8xq")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sc8ey"]
-lifetime_randomness = 0.2
+lifetime_randomness = 0.5
 particle_flag_disable_z = true
 angle_min = -720.0
 angle_max = 720.0
 direction = Vector3(1, -1, 0)
-initial_velocity_min = 75.0
-initial_velocity_max = 150.0
+spread = 60.0
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
 angular_velocity_min = -1.6093254e-05
 angular_velocity_max = -1.6093254e-05
 gravity = Vector3(0, 500, 0)
@@ -33,6 +34,7 @@ anim_speed_min = 0.5
 anim_speed_max = 1.0
 
 [node name="HitParticles" type="GPUParticles2D" unique_id=1639302054]
+modulate = Color(1.353256, 1.353256, 1.353256, 1)
 material = SubResource("CanvasItemMaterial_j5eir")
 emitting = false
 texture = ExtResource("1_uempd")

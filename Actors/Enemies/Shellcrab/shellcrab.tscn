@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://dhfcqa88by8le" path="res://Actors/Enemies/Shellcrab/hit_state.gd" id="6_id1ku"]
 [ext_resource type="Script" uid="uid://ccskbh5ljipcg" path="res://Actors/Enemies/Shellcrab/dead_state.gd" id="7_fcgta"]
 [ext_resource type="Script" uid="uid://btljlcgnp18xe" path="res://Actors/Enemies/Shellcrab/defense_state.gd" id="8_d0rnw"]
+[ext_resource type="PackedScene" uid="uid://bm8u12hb614ld" path="res://Systems/Particles/hit_particles.tscn" id="10_sxqwr"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0thxj"]
 radius = 5.0
@@ -587,6 +588,7 @@ collision_layer = 16
 collision_mask = 32
 script = ExtResource("3_lf0vf")
 health_component = NodePath("../HealthComponent")
+hit_particles_scene = ExtResource("10_sxqwr")
 metadata/_custom_type_script = "uid://dprjg5ilgd4ve"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=1613206382]

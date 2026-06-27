@@ -4,6 +4,7 @@ extends Area2D
 signal hit_by_hitbox(hitbox_component: HitboxComponent)
 
 @export var health_component: HealthComponent
+@export var hit_particles_scene: PackedScene
 
 var peer_id_filter: int = -1
 var disable_collisions: bool
@@ -14,7 +15,7 @@ func _ready() -> void:
 
 
 func _handle_hit(hitbox_component: HitboxComponent):
-	if hitbox_component.is_hit_handled or disable_collisions:
+	if not is_instance_valid(hitbox_component) or hitbox_component.is_hit_handled or disable_collisions:
 		# Hit only one enemy
 		return
 	
@@ -27,6 +28,26 @@ func _handle_hit(hitbox_component: HitboxComponent):
 	GameEvents.emit_engine_freeze()
 	if health_component:
 		health_component.damage(hitbox_component.damage)
+	
+	# Instantiate hit particles if configured
+	if hit_particles_scene:
+		var particles: GPUParticles2D = hit_particles_scene.instantiate()
+		
+		# Determine hit direction (away from hitbox)
+		var diff_x = global_position.x - hitbox_component.global_position.x
+		var hit_dir_x = sign(diff_x) if diff_x != 0.0 else 1.0
+		
+		# Apply scale and position
+		particles.scale.x = hit_dir_x
+		particles.global_position = global_position
+		
+		# Add to the current scene so they aren't affected by parent's transform/deletion
+		var scene_root = get_tree().current_scene
+		if scene_root:
+			scene_root.add_child(particles)
+			particles.emitting = true
+			particles.finished.connect(particles.queue_free)
+	
 	hit_by_hitbox.emit(hitbox_component)
 
 

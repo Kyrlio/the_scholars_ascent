@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://dprjg5ilgd4ve" path="res://Systems/Components/hurtbox_component.gd" id="2_m6xea"]
 [ext_resource type="Script" uid="uid://0xe0iq737lh6" path="res://Systems/Components/hitbox_component.gd" id="3_t2ndb"]
 [ext_resource type="Texture2D" uid="uid://ca4o2fgfjyfvv" path="res://Assets/sprites/characters/beetle.png" id="4_nf3wy"]
+[ext_resource type="PackedScene" uid="uid://bm8u12hb614ld" path="res://Systems/Particles/hit_particles.tscn" id="4_w6vw4"]
 [ext_resource type="PackedScene" uid="uid://b5qnhbxwsse1r" path="res://Systems/Loot/loot_2d.tscn" id="6_nf3wy"]
 [ext_resource type="PackedScene" uid="uid://dys7k0tpundus" path="res://Systems/Loot/Gold Coin/gold_coin.tscn" id="7_iypxf"]
 [ext_resource type="PackedScene" uid="uid://cgqtbhvvjwfae" path="res://Systems/Loot/bat_eye.tscn" id="9_dayxg"]
@@ -274,6 +275,7 @@ collision_layer = 16
 collision_mask = 32
 script = ExtResource("2_m6xea")
 health_component = NodePath("../HealthComponent")
+hit_particles_scene = ExtResource("4_w6vw4")
 metadata/_custom_type_script = "uid://dprjg5ilgd4ve"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=657828571]
