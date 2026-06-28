@@ -258,7 +258,7 @@ gravity = 900.0
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1130520108]
 script = ExtResource("1_1upg6")
-max_health = 3
+max_health = 4
 metadata/_custom_type_script = "uid://bexah18irylv2"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=95933542]

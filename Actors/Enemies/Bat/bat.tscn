@@ -149,7 +149,7 @@ one_shot = true
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1457295660]
 script = ExtResource("1_n5g0b")
-max_health = 2
+max_health = 3
 metadata/_custom_type_script = "uid://bexah18irylv2"
 
 [node name="States" type="Node" parent="." unique_id=1408420279]
