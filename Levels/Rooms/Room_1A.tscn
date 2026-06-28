@@ -21,6 +21,7 @@
 [ext_resource type="Resource" uid="uid://bmop7roq04rc0" path="res://Systems/Resources/Shop Items/shop_chest_key.tres" id="17_0j2py"]
 [ext_resource type="PackedScene" uid="uid://bl4a7jbqm1376" path="res://Actors/Enemies/Slime/slime.tscn" id="17_w8di0"]
 [ext_resource type="PackedScene" uid="uid://lwx1ufc0bndp" path="res://Systems/Components/Transition Zone/transition_zone.tscn" id="18_d6a8m"]
+[ext_resource type="PackedScene" uid="uid://4qdfh74hosww" path="res://Actors/Enemies/Shroomy/shroomy.tscn" id="18_qyg5i"]
 [ext_resource type="PackedScene" uid="uid://uh8me0shidj0" path="res://Systems/Loot/HeartContainer/heart_container.tscn" id="19_xfsjo"]
 
 [node name="Room1a" type="Node2D" unique_id=1279373450]
@@ -185,7 +186,7 @@ position = Vector2(656, 175)
 position = Vector2(428, 239)
 
 [node name="Shellcrab" parent="Enemies" unique_id=548489442 instance=ExtResource("15_cnuay")]
-position = Vector2(201, 160)
+position = Vector2(297, 160)
 
 [node name="Bat" parent="Enemies" unique_id=1942546404 instance=ExtResource("16_8ykr8")]
 position = Vector2(352, 104)
@@ -198,6 +199,9 @@ position = Vector2(499, -15)
 
 [node name="Slime" parent="Enemies" unique_id=2049558590 instance=ExtResource("17_w8di0")]
 position = Vector2(166, 81)
+
+[node name="Shroomy" parent="Enemies" unique_id=451511869 instance=ExtResource("18_qyg5i")]
+position = Vector2(185, 160)
 
 [node name="Chucks" type="Node2D" parent="." unique_id=1624931028]
 
