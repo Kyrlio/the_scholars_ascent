@@ -1,0 +1,260 @@
+[gd_scene format=3 uid="uid://dooyey8iqsgl6"]
+
+[ext_resource type="Texture2D" uid="uid://c2dcnwticrd10" path="res://Assets/items/star_holder.png" id="1_tim4p"]
+[ext_resource type="Script" uid="uid://c1e0fl6eupeil" path="res://Actors/Interactable/Star Door/star_door.gd" id="1_xmjvr"]
+[ext_resource type="Texture2D" uid="uid://cd4qh5of2k141" path="res://Assets/animations/animations.png" id="2_ho0md"]
+[ext_resource type="Texture2D" uid="uid://vsgmrqgvil2s" path="res://Assets/ui/ui-2.png" id="4_apemj"]
+
+[sub_resource type="Animation" id="Animation_xmjvr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_apemj"]
+resource_name = "closed"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_qx1kj"]
+resource_name = "locked"
+
+[sub_resource type="Animation" id="Animation_hpcry"]
+resource_name = "open"
+length = 0.16666667
+step = 0.16666667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="Animation" id="Animation_fe3pg"]
+resource_name = "opening"
+length = 0.8333500248357654
+step = 0.16666667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.33333334, 0.5, 0.6666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qx1kj"]
+_data = {
+&"RESET": SubResource("Animation_xmjvr"),
+&"closed": SubResource("Animation_apemj"),
+&"locked": SubResource("Animation_qx1kj"),
+&"open": SubResource("Animation_hpcry"),
+&"opening": SubResource("Animation_fe3pg")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0thxj"]
+size = Vector2(66, 20)
+
+[sub_resource type="Animation" id="Animation_43nlh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ccg74"]
+resource_name = "hide"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 0.5, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 1.1), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_vk042"]
+resource_name = "pressed"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(2, 0.5, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.5, 0.5), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_7pwof"]
+resource_name = "show"
+length = 0.4
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(0.5, 1, 1),
+"update": 0,
+"values": [Vector2(1.001358e-05, 1.001358e-05), Vector2(1.1, 1.1), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8lbb0"]
+_data = {
+&"RESET": SubResource("Animation_43nlh"),
+&"hide": SubResource("Animation_ccg74"),
+&"pressed": SubResource("Animation_vk042"),
+&"show": SubResource("Animation_7pwof")
+}
+
+[node name="StarDoor" type="Area2D" unique_id=285599977]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_xmjvr")
+
+[node name="DoorAnimationPlayer" type="AnimationPlayer" parent="." unique_id=1954015901]
+libraries/ = SubResource("AnimationLibrary_qx1kj")
+autoplay = &"closed"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1234354249]
+position = Vector2(0, -10)
+shape = SubResource("RectangleShape2D_0thxj")
+
+[node name="StarsContainer" type="Node2D" parent="." unique_id=337180108]
+
+[node name="Star1" type="Sprite2D" parent="StarsContainer" unique_id=643474814]
+position = Vector2(-26, -23)
+texture = ExtResource("1_tim4p")
+
+[node name="Star2" type="Sprite2D" parent="StarsContainer" unique_id=1896170797]
+position = Vector2(-16, -36)
+texture = ExtResource("1_tim4p")
+
+[node name="Star3" type="Sprite2D" parent="StarsContainer" unique_id=506210112]
+position = Vector2(0, -42)
+texture = ExtResource("1_tim4p")
+
+[node name="Star4" type="Sprite2D" parent="StarsContainer" unique_id=2057018303]
+position = Vector2(17, -37)
+texture = ExtResource("1_tim4p")
+
+[node name="Star5" type="Sprite2D" parent="StarsContainer" unique_id=930790798]
+position = Vector2(27, -24)
+texture = ExtResource("1_tim4p")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1606941599]
+texture = ExtResource("2_ho0md")
+offset = Vector2(0, -14)
+hframes = 5
+region_enabled = true
+region_rect = Rect2(16, 82, 240, 32)
+
+[node name="InteractSprite" type="Sprite2D" parent="." unique_id=914721733]
+visible = false
+position = Vector2(0, -38)
+texture = ExtResource("4_apemj")
+region_enabled = true
+region_rect = Rect2(226, 98, 12, 12)
+
+[node name="InteractSpriteAnimationPlayer" type="AnimationPlayer" parent="InteractSprite" unique_id=1598371344]
+libraries/ = SubResource("AnimationLibrary_8lbb0")

@@ -11,6 +11,7 @@ var activated_levers: Dictionary = {}
 var defeated_enemies: Array = []
 
 var opened_chests: Array = []
+var opened_star_doors: Array = []
 
 var total_gold: int = 0
 var unlocked_max_health: int = 2
@@ -118,6 +119,9 @@ func load_save_data():
 	
 	# Chests opened
 	opened_chests = data.get("opened_chests", [])
+	
+	# Star doors opened
+	opened_star_doors = data.get("opened_star_doors", [])
 	
 	# Shop stocks
 	shop_stocks = data.get("shop_stocks", {})

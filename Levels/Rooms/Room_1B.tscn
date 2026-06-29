@@ -6,7 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://cds8p53ulwiak" path="res://Systems/Loot/AbilityUnlocker/ability_unlocker.tscn" id="4_h8qtk"]
 [ext_resource type="Texture2D" uid="uid://ds05v8rxt5pg5" path="res://Assets/items/sword.png" id="5_lp7jv"]
 [ext_resource type="Script" uid="uid://buf1beh7iq202" path="res://Systems/scripts/floating_animation.gd" id="6_ndfuv"]
-[ext_resource type="PackedScene" uid="uid://bu5asig082cyr" path="res://Actors/Enemies/Stonemaw/stonemaw.tscn" id="7_88vpl"]
+[ext_resource type="PackedScene" uid="uid://dooyey8iqsgl6" path="res://Actors/Interactable/Star Door/star_door.tscn" id="7_88vpl"]
+[ext_resource type="PackedScene" uid="uid://bh7e1wwp55ufn" path="res://Systems/Loot/world_item.tscn" id="8_ru66o"]
+[ext_resource type="Resource" uid="uid://bx55k6bie002c" path="res://Systems/Resources/Items/star.tres" id="9_00scp"]
 [ext_resource type="PackedScene" uid="uid://lwx1ufc0bndp" path="res://Systems/Components/Transition Zone/transition_zone.tscn" id="18_ofier"]
 
 [node name="Room1b" type="Node2D" unique_id=1279373450]
@@ -78,12 +80,33 @@ ability_texture = ExtResource("5_lp7jv")
 [node name="FloatingAnimation" type="Node2D" parent="Interactable/AbilityUnlocker" unique_id=1212735517]
 script = ExtResource("6_ndfuv")
 
+[node name="StarDoor" parent="Interactable" unique_id=285599977 instance=ExtResource("7_88vpl")]
+position = Vector2(49, 160)
+required_star = ExtResource("9_00scp")
+
+[node name="WorldItem" parent="Interactable" unique_id=1455257283 instance=ExtResource("8_ru66o")]
+position = Vector2(135, 151)
+item_data = ExtResource("9_00scp")
+
+[node name="WorldItem2" parent="Interactable" unique_id=919799867 instance=ExtResource("8_ru66o")]
+position = Vector2(135, 151)
+item_data = ExtResource("9_00scp")
+
+[node name="WorldItem3" parent="Interactable" unique_id=237666789 instance=ExtResource("8_ru66o")]
+position = Vector2(117, 151)
+item_data = ExtResource("9_00scp")
+
+[node name="WorldItem4" parent="Interactable" unique_id=1506271809 instance=ExtResource("8_ru66o")]
+position = Vector2(117, 151)
+item_data = ExtResource("9_00scp")
+
+[node name="WorldItem5" parent="Interactable" unique_id=701069426 instance=ExtResource("8_ru66o")]
+position = Vector2(-50, 147)
+item_data = ExtResource("9_00scp")
+
 [node name="Golds Coin" type="Node2D" parent="." unique_id=347002585]
 
 [node name="Enemies" type="Node2D" parent="." unique_id=73615190]
-
-[node name="Stonemaw" parent="Enemies" unique_id=585458607 instance=ExtResource("7_88vpl")]
-position = Vector2(26, 160)
 
 [node name="Chucks" type="Node2D" parent="." unique_id=1624931028]
 

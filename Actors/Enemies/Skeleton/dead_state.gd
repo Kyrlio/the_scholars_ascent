@@ -2,7 +2,6 @@ extends EnemyState
 
 
 func enter() -> void:
-	context.is_dead = true
 	context.velocity.x = 0.0
 	
 	context.hitbox_component.set_deferred("monitoring", false)

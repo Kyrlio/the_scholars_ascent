@@ -1,0 +1,267 @@
+[gd_scene format=3 uid="uid://ct3k6k7tov0sn"]
+
+[ext_resource type="Script" uid="uid://bexah18irylv2" path="res://Systems/Components/health_component.gd" id="1_11t6m"]
+[ext_resource type="Script" uid="uid://cssgmxuvft22f" path="res://Actors/Enemies/Skeleton/skeleton.gd" id="1_ofjee"]
+[ext_resource type="PackedScene" uid="uid://clwcoudekkr6o" path="res://Actors/Projectiles/Arrow/arrow.tscn" id="2_hh7ex"]
+[ext_resource type="Texture2D" uid="uid://dejpp0b4b8cyj" path="res://Assets/sprites/characters/skeleton.png" id="2_ofjee"]
+[ext_resource type="Script" uid="uid://dprjg5ilgd4ve" path="res://Systems/Components/hurtbox_component.gd" id="2_wuqgv"]
+[ext_resource type="PackedScene" uid="uid://bm8u12hb614ld" path="res://Systems/Particles/hit_particles.tscn" id="3_ofjee"]
+[ext_resource type="Script" uid="uid://c6ytyrgpo56sv" path="res://Actors/Enemies/Skeleton/patrol_state.gd" id="4_4y7pu"]
+[ext_resource type="Script" uid="uid://0xe0iq737lh6" path="res://Systems/Components/hitbox_component.gd" id="4_hh7ex"]
+[ext_resource type="Script" uid="uid://b8vndh8eyb3dk" path="res://Actors/Enemies/Skeleton/attack_state.gd" id="5_pehus"]
+[ext_resource type="Script" uid="uid://c7w317fk8buos" path="res://Actors/Enemies/Skeleton/flee_state.gd" id="6_b682j"]
+[ext_resource type="Script" uid="uid://dv5iob7q3gdwr" path="res://Actors/Enemies/Skeleton/hit_state.gd" id="7_ifmjt"]
+[ext_resource type="Script" uid="uid://xkaruwf0ie07" path="res://Actors/Enemies/Skeleton/dead_state.gd" id="8_5avfc"]
+
+[sub_resource type="Animation" id="Animation_wuqgv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hh7ex"]
+resource_name = "attack"
+length = 0.7500083556853234
+step = 0.083333336
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.083333336, 0.16666667, 0.25, 0.33333334, 0.4166667, 0.5, 0.5833333, 0.6666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 4), Vector2i(1, 4), Vector2i(2, 4), Vector2i(3, 4), Vector2i(4, 4), Vector2i(5, 4), Vector2i(5, 4), Vector2i(6, 4), Vector2i(7, 4)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5833333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"fire_arrow"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_4y7pu"]
+resource_name = "death"
+length = 0.7500125
+step = 0.125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5, 0.625),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 3), Vector2i(1, 3), Vector2i(2, 3), Vector2i(3, 3), Vector2i(4, 3), Vector2i(5, 3)]
+}
+
+[sub_resource type="Animation" id="Animation_pehus"]
+resource_name = "hit"
+length = 0.4166750124178827
+step = 0.083333336
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.083333336, 0.16666666, 0.25, 0.33333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(1, 2), Vector2i(2, 2), Vector2i(3, 2), Vector2i(4, 2), Vector2i(5, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_ofjee"]
+resource_name = "idle"
+loop_mode = 1
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_b682j"]
+resource_name = "walk"
+length = 0.6250125
+loop_mode = 1
+step = 0.125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1), Vector2i(3, 1), Vector2i(4, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hh7ex"]
+_data = {
+&"RESET": SubResource("Animation_wuqgv"),
+&"attack": SubResource("Animation_hh7ex"),
+&"death": SubResource("Animation_4y7pu"),
+&"hit": SubResource("Animation_pehus"),
+&"idle": SubResource("Animation_ofjee"),
+&"walk": SubResource("Animation_b682j")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2g7nj"]
+radius = 5.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hh7ex"]
+radius = 9.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_skx0m"]
+radius = 39.0
+height = 232.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0thxj"]
+radius = 39.0
+height = 154.0
+
+[node name="Skeleton" type="CharacterBody2D" unique_id=1045531243]
+script = ExtResource("1_ofjee")
+arrow_scene = ExtResource("2_hh7ex")
+
+[node name="AttackTimer" type="Timer" parent="." unique_id=1385468690]
+process_callback = 0
+wait_time = 2.0
+one_shot = true
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1226824889]
+script = ExtResource("1_11t6m")
+max_health = 4
+metadata/_custom_type_script = "uid://bexah18irylv2"
+
+[node name="States" type="Node" parent="." unique_id=710534896]
+
+[node name="PatrolState" type="Node" parent="States" unique_id=1042821621]
+script = ExtResource("4_4y7pu")
+
+[node name="AttackState" type="Node" parent="States" unique_id=1313929713]
+script = ExtResource("5_pehus")
+
+[node name="FleeState" type="Node" parent="States" unique_id=1541446308]
+script = ExtResource("6_b682j")
+
+[node name="HitState" type="Node" parent="States" unique_id=1717297407]
+script = ExtResource("7_ifmjt")
+
+[node name="DeadState" type="Node" parent="States" unique_id=1885124311]
+script = ExtResource("8_5avfc")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=980867223]
+libraries/ = SubResource("AnimationLibrary_hh7ex")
+autoplay = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=139404113]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_2g7nj")
+
+[node name="HurtboxComponent" type="Area2D" parent="." unique_id=860957397 node_paths=PackedStringArray("health_component")]
+unique_name_in_owner = true
+collision_layer = 16
+collision_mask = 32
+script = ExtResource("2_wuqgv")
+health_component = NodePath("../HealthComponent")
+hit_particles_scene = ExtResource("3_ofjee")
+metadata/_custom_type_script = "uid://dprjg5ilgd4ve"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=1300418649]
+position = Vector2(0, -9)
+shape = SubResource("CircleShape2D_hh7ex")
+debug_color = Color(0.9784439, 0, 0.3999081, 0.41960785)
+
+[node name="Visuals" type="Node2D" parent="." unique_id=20222907]
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals" unique_id=1634136133]
+texture = ExtResource("2_ofjee")
+offset = Vector2(0, -16)
+hframes = 8
+vframes = 6
+region_enabled = true
+region_rect = Rect2(16, 0, 384, 192)
+
+[node name="VisionArea2D" type="Area2D" parent="Visuals" unique_id=1712295885]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/VisionArea2D" unique_id=978203572]
+position = Vector2(112, -9)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_skx0m")
+debug_color = Color(0.6666667, 0.3137255, 1, 0.12156863)
+
+[node name="FleeArea2D" type="Area2D" parent="Visuals" unique_id=1409854311]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 34
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/FleeArea2D" unique_id=1052531143]
+position = Vector2(0, -15)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_0thxj")
+debug_color = Color(0, 0.64920753, 0.1647431, 0.41960785)
+
+[node name="HitboxComponent" type="Area2D" parent="Visuals" unique_id=1140929971]
+unique_name_in_owner = true
+collision_layer = 64
+collision_mask = 8
+script = ExtResource("4_hh7ex")
+metadata/_custom_type_script = "uid://0xe0iq737lh6"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/HitboxComponent" unique_id=695682310]
+debug_color = Color(0.8287953, 0.39524278, 3.85046e-07, 0.41960785)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Visuals/HitboxComponent" unique_id=981374165]
+disabled = true
+debug_color = Color(0.8287953, 0.39524278, 3.85046e-07, 0.41960785)
+
+[node name="Raycasts" type="Node2D" parent="Visuals" unique_id=1172658011]
+
+[node name="LedgeDetectionRay" type="RayCast2D" parent="Visuals/Raycasts" unique_id=1210875368]
+unique_name_in_owner = true
+position = Vector2(8, -3)
+target_position = Vector2(0, 11)
+
+[node name="WallDetectionRay" type="RayCast2D" parent="Visuals/Raycasts" unique_id=1878347507]
+unique_name_in_owner = true
+position = Vector2(0, -4)
+target_position = Vector2(10, 0)
+
+[node name="BowMarker" type="Marker2D" parent="Visuals" unique_id=668996447]
+position = Vector2(15, -5)

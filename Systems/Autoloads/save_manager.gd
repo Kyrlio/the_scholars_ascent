@@ -33,6 +33,7 @@ func save_game(player_position: Vector2, current_health: int, total_gold: int) -
 		"collected_charms": charms_paths,
 		"equipped_charms": equipped_paths,
 		"opened_chests": GameState.opened_chests,
+		"opened_star_doors": GameState.opened_star_doors,
 		"collected_coins": GameState.collected_coins,
 		"shop_stocks": GameState.shop_stocks,
 		"activated_levers": GameState.activated_levers,

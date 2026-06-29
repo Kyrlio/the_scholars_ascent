@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://bx55k6bie002c"]
+
+[ext_resource type="Script" uid="uid://bpr4g7udde1b6" path="res://Systems/Resources/Items/item_data.gd" id="1_0evj1"]
+[ext_resource type="Texture2D" uid="uid://cd4qh5of2k141" path="res://Assets/animations/animations.png" id="1_clxjj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_clxjj"]
+atlas = ExtResource("1_clxjj")
+region = Rect2(256, 112, 16, 16)
+
+[resource]
+script = ExtResource("1_0evj1")
+item_name = "Star"
+description = "Useful for opening something..."
+icon = SubResource("AtlasTexture_clxjj")
+metadata/_custom_type_script = "uid://bpr4g7udde1b6"

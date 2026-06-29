@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://clwcoudekkr6o"]
+
+[ext_resource type="Texture2D" uid="uid://dejpp0b4b8cyj" path="res://Assets/sprites/characters/skeleton.png" id="1_rl6gq"]
+[ext_resource type="Script" uid="uid://d0s6juak6162v" path="res://Actors/Projectiles/Arrow/arrow.gd" id="1_skx0m"]
+[ext_resource type="Script" uid="uid://0xe0iq737lh6" path="res://Systems/Components/hitbox_component.gd" id="2_yi4in"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x416w"]
+radius = 3.0
+height = 10.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0thxj"]
+radius = 3.0
+
+[node name="Arrow" type="Area2D" unique_id=1459888991]
+script = ExtResource("1_skx0m")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=960460008]
+texture = ExtResource("1_rl6gq")
+offset = Vector2(0, -9)
+region_enabled = true
+region_rect = Rect2(32, 160, 16, 32)
+
+[node name="HitboxComponent" type="Area2D" parent="." unique_id=1392509177]
+collision_layer = 64
+collision_mask = 8
+script = ExtResource("2_yi4in")
+metadata/_custom_type_script = "uid://0xe0iq737lh6"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=865895438]
+rotation = -1.5724865
+shape = SubResource("CapsuleShape2D_x416w")
+debug_color = Color(0.95291346, 0, 0.55871105, 0.41960785)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=681993434]
+shape = SubResource("CircleShape2D_0thxj")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=444987995]
+rect = Rect2(-32, -32, 64, 64)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="hit_hurtbox" from="HitboxComponent" to="." method="_on_hitbox_component_hit_hurtbox"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
