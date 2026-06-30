@@ -23,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://lwx1ufc0bndp" path="res://Systems/Components/Transition Zone/transition_zone.tscn" id="18_d6a8m"]
 [ext_resource type="PackedScene" uid="uid://4qdfh74hosww" path="res://Actors/Enemies/Shroomy/shroomy.tscn" id="18_qyg5i"]
 [ext_resource type="PackedScene" uid="uid://uh8me0shidj0" path="res://Systems/Loot/HeartContainer/heart_container.tscn" id="19_xfsjo"]
+[ext_resource type="Resource" uid="uid://cjl3jpl5y114n" path="res://Systems/Resources/Shop Items/feather_charm.tres" id="23_fro2y"]
 
 [node name="Room1a" type="Node2D" unique_id=1279373450]
 
@@ -207,9 +208,7 @@ position = Vector2(185, 160)
 
 [node name="Chuck" parent="Chucks" unique_id=423884664 instance=ExtResource("14_3uvjl")]
 position = Vector2(236, 48)
-rotation = 3.1415927
-scale = Vector2(1, -1)
-inventory = Array[ExtResource("15_mg3nf")]([ExtResource("16_q516i"), ExtResource("17_0j2py")])
+inventory = Array[ExtResource("15_mg3nf")]([ExtResource("16_q516i"), ExtResource("17_0j2py"), ExtResource("23_fro2y")])
 
 [node name="Spawn" parent="." unique_id=2134984359 instance=ExtResource("18_d6a8m")]
 position = Vector2(-11, 134)

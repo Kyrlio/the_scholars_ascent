@@ -3,10 +3,14 @@
 [ext_resource type="Script" uid="uid://ddybbwsffo8ri" path="res://Actors/Chuck/chuck.gd" id="1_abpf2"]
 [ext_resource type="Texture2D" uid="uid://di1g36qdn6o0u" path="res://Assets/sprites/characters/chuck.png" id="1_ldnif"]
 [ext_resource type="PackedScene" uid="uid://bqnd10i8sh08q" path="res://UI/Shop Menu/shop_menu.tscn" id="2_1c4me"]
+[ext_resource type="Resource" uid="uid://3j1l8ciuxhjy" path="res://Actors/Chuck/dialogs/chuck_rencontre.dialogue" id="2_vw43r"]
 [ext_resource type="Texture2D" uid="uid://vsgmrqgvil2s" path="res://Assets/ui/ui-2.png" id="3_camrx"]
+[ext_resource type="PackedScene" uid="uid://cds8p53ulwiak" path="res://Systems/Loot/AbilityUnlocker/ability_unlocker.tscn" id="6_bqn15"]
+[ext_resource type="Texture2D" uid="uid://ds05v8rxt5pg5" path="res://Assets/items/sword.png" id="7_4y3i7"]
+[ext_resource type="Script" uid="uid://buf1beh7iq202" path="res://Systems/scripts/floating_animation.gd" id="8_uaops"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_camrx"]
-size = Vector2(34, 20)
+size = Vector2(40, 20)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_abpf2"]
 atlas = ExtResource("1_ldnif")
@@ -67,7 +71,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_4y3i7")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 4.0
 }]
@@ -207,15 +211,18 @@ fill_from = Vector2(0.5, 0.5)
 collision_layer = 0
 collision_mask = 3
 script = ExtResource("1_abpf2")
+dialogue_resource = ExtResource("2_vw43r")
 
 [node name="ShopMenu" parent="." unique_id=1405506909 instance=ExtResource("2_1c4me")]
 visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=285887512]
-position = Vector2(-2, -10)
+position = Vector2(-1, -10)
 shape = SubResource("RectangleShape2D_camrx")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1569718281]
+[node name="Visuals" type="Node2D" parent="." unique_id=237014753]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visuals" unique_id=1569718281]
 sprite_frames = SubResource("SpriteFrames_uaops")
 autoplay = "default"
 frame_progress = 0.15770538
@@ -237,3 +244,11 @@ position = Vector2(0, -7)
 color = Color(0.8784314, 0.827451, 0.78431374, 1)
 energy = 0.5
 texture = SubResource("GradientTexture2D_bqn15")
+
+[node name="AbilityUnlocker" parent="." unique_id=523632769 instance=ExtResource("6_bqn15")]
+position = Vector2(-8, 133)
+ability_to_unlock = "sword"
+ability_texture = ExtResource("7_4y3i7")
+
+[node name="FloatingAnimation" type="Node2D" parent="AbilityUnlocker" unique_id=1079017776]
+script = ExtResource("8_uaops")

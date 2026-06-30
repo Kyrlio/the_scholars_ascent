@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://3j1l8ciuxhjy"
+path="res://.godot/imported/chuck_rencontre.dialogue-2908641fe321a3b9fc1eb87c797a9574.tres"
+
+[deps]
+
+source_file="res://Actors/Chuck/dialogs/chuck_rencontre.dialogue"
+dest_files=["res://.godot/imported/chuck_rencontre.dialogue-2908641fe321a3b9fc1eb87c797a9574.tres"]
+
+[params]
+
+defaults=true

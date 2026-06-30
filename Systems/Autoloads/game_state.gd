@@ -24,9 +24,22 @@ var base_player_stats: Stats = preload("res://Systems/Resources/base_player_stat
 
 var unlocked_abitilities: Array[String] = []
 
+var is_dialogue_active: bool = false
+var is_shop_active: bool = false
+
+func is_gameplay_frozen() -> bool:
+	return is_dialogue_active or is_shop_active
+
 func _ready() -> void:
 	GameEvents.gold_collected.connect(add_gold)
 	GameEvents.item_collected.connect(_on_item_collected)
+	
+	DialogueManager.dialogue_started.connect(func(_resource): is_dialogue_active = true)
+	DialogueManager.dialogue_ended.connect(func(_resource):
+		await get_tree().physics_frame
+		await get_tree().physics_frame
+		is_dialogue_active = false
+	)
 	
 	load_save_data()
 

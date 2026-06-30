@@ -39,6 +39,12 @@ func _physics_process(delta: float) -> void:
 	if is_dead:
 		return
 	
+	if GameState.is_gameplay_frozen():
+		velocity.y = gravity * delta
+		velocity.x = move_toward(velocity.x, 0, 800 * delta)
+		move_and_slide()
+		return
+	
 	if not can_move:
 		return
 	

@@ -9,7 +9,7 @@ func enter() -> void:
 	await context.animation_player.animation_finished
 	
 	if context.health_component.current_health > 0:
-		context.set_state($"../ChaseState")
+		context.set_state($"../DefenseState")
 
 
 func physics_update(_delta: float) -> void:

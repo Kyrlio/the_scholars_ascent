@@ -1,0 +1,33 @@
+~ test
+Chuck: [[Hey]] buddy.
+Chuck: What you doing here, it's dangerous.
+Todd: Don't care, i'm gonna kill the motherfucker !
+Chuck: Sheesh ! Good luck with that. Wanna see what I got in my shop ?
+- Buy things
+	do open_shop()
+- Hell no
+	Chuck: So sad...
+=> END
+
+~ chuck_rencontre
+if first_met == true:
+	if GameState.has_ability("sword"):
+		Chuck: Good you took the sword. Go kill the motherfucker !
+	else:
+		Chuck: Take the sword !
+elif not first_met and GameState.has_ability("sword"):
+	Chuck: Oh you took the sword. Good. With that you will be able to defend yourself againsts the monsters.
+else:
+	Chuck: Hey you ! You okay ?
+	- Who are you ?
+		Chuck: I'm Chuck.
+		Todd: Okay bye
+		Chuck: Wait ! Don't go that way without a weapon. There's monsters. There is a sword up there. Take it before going further.
+		Todd: Aight thanks bud
+		do first_met = true
+	- Don't care
+		Chuck: but ... 
+		do first_met = true
+
+do get_viewport().set_input_as_handled()
+=> END

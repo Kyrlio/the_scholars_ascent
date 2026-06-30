@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://d3cs8gk4nva42" path="res://Actors/Projectiles/Water Ball/water_ball.tscn" id="5_w553y"]
 [ext_resource type="Texture2D" uid="uid://b6nx82w7ogcy8" path="res://Assets/sprites/characters/todd-up-attack.png" id="6_g1lo4"]
 [ext_resource type="Script" uid="uid://0xe0iq737lh6" path="res://Systems/Components/hitbox_component.gd" id="6_pnakb"]
+[ext_resource type="Texture2D" uid="uid://b1ck18yyneyk3" path="res://Assets/sprites/characters/todd_sleeping.png" id="8_h1i6w"]
 [ext_resource type="PackedScene" uid="uid://bb6uks6vkiknu" path="res://Systems/Particles/pogo_particles.tscn" id="9_pnakb"]
 [ext_resource type="PackedScene" uid="uid://bm8u12hb614ld" path="res://Systems/Particles/hit_particles.tscn" id="10_wmrsf"]
 
@@ -174,6 +175,18 @@ tracks/12/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Visuals/Sprite2D:scale")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_pnakb"]
@@ -1455,6 +1468,71 @@ tracks/7/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_cwpch"]
+resource_name = "sleeping"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("8_h1i6w")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/Sprite2D:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -8)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visuals/Sprite2D:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Visuals/Sprite2D:vframes")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Visuals/Sprite2D:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
 [sub_resource type="Animation" id="Animation_rbp5l"]
 resource_name = "up_attack"
 length = 0.27778333540298045
@@ -1554,6 +1632,82 @@ tracks/7/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [true, false, true]
+}
+
+[sub_resource type="Animation" id="Animation_slsra"]
+resource_name = "wake_up"
+step = 0.125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("CompressedTexture2D_w553y")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/Sprite2D:offset")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -8)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visuals/Sprite2D:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Visuals/Sprite2D:vframes")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [14]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Visuals/Sprite2D:frame_coords")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(2, 8), Vector2i(3, 8), Vector2i(4, 8), Vector2i(2, 3), Vector2i(0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Visuals/Sprite2D:scale")
+tracks/5/interp = 2
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.625),
+"transitions": PackedFloat32Array(2, 1, 1),
+"update": 0,
+"values": [Vector2(1.2, 0.75), Vector2(0.75, 1.2), Vector2(1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_8gtf5"]
@@ -1673,7 +1827,9 @@ _data = {
 &"jump": SubResource("Animation_5ni5v"),
 &"roll": SubResource("Animation_g1lo4"),
 &"run": SubResource("Animation_v1key"),
+&"sleeping": SubResource("Animation_cwpch"),
 &"up_attack": SubResource("Animation_rbp5l"),
+&"wake_up": SubResource("Animation_slsra"),
 &"wall_slide": SubResource("Animation_8gtf5")
 }
 
@@ -1851,7 +2007,7 @@ debug_water_ball = true
 
 [node name="CoyoteJumpTimer" type="Timer" parent="Timers" unique_id=679403561]
 process_callback = 0
-wait_time = 0.1
+wait_time = 0.05
 one_shot = true
 
 [node name="BufferJumpTimer" type="Timer" parent="Timers" unique_id=561362257]

@@ -35,7 +35,6 @@ func open_shop(inventory: Array[ShopItem]) -> void:
 	current_inventory = inventory
 	populate_shop()
 	show()
-	get_tree().paused = true
 	
 	if shop_slots.size() > 0 and current_inventory.size() > 0:
 		shop_slots.front().grab_focus()
@@ -47,7 +46,7 @@ func close_shop() -> void:
 	Input.action_release("roll")
 	await get_tree().process_frame
 	await get_tree().process_frame
-	get_tree().paused = false
+	GameState.is_shop_active = false
 
 
 func populate_shop() -> void:

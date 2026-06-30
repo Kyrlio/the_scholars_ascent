@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://et53353qnjtb"
+path="res://.godot/imported/intro_cutscene.dialogue-2471b5a3f39b426c527953b49e1b3510.tres"
+
+[deps]
+
+source_file="res://Levels/Rooms/Dialogs/intro_cutscene.dialogue"
+dest_files=["res://.godot/imported/intro_cutscene.dialogue-2471b5a3f39b426c527953b49e1b3510.tres"]
+
+[params]
+
+defaults=true

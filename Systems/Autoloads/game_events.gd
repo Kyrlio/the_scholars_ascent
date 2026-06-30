@@ -9,6 +9,7 @@ signal gold_collected(amount: int)
 signal item_collected(item: ItemData)
 signal ability_unlocked(ability_name: String)
 signal water_ammo_changed(current_water_ammo: int)
+signal shop_opened
 
 
 func emit_engine_freeze() -> void:
@@ -37,3 +38,6 @@ func emit_water_ammo_changed(current_water_ammo: int) -> void:
 
 func emit_player_died() -> void:
 	player_died.emit()
+
+func emit_shop_opened() -> void:
+	shop_opened.emit()

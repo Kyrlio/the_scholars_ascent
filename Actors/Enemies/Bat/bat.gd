@@ -55,6 +55,11 @@ func set_state(new_state: EnemyState) -> void:
 func _physics_process(delta: float) -> void:
 	if is_dead: return
 	
+	if GameState.is_gameplay_frozen():
+		velocity = velocity.move_toward(Vector2.ZERO, 800 * delta)
+		move_and_slide()
+		return
+	
 	if state:
 		state.physics_update(delta)
 	

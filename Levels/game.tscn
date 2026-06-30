@@ -5,8 +5,10 @@
 [ext_resource type="PackedScene" uid="uid://b2pnm1lsfaajt" path="res://UI/Game Menu/game_menu.tscn" id="2_ev4ff"]
 [ext_resource type="PackedScene" uid="uid://b5fli01mem64p" path="res://UI/Player Hud/hud.tscn" id="2_jycte"]
 [ext_resource type="Shader" uid="uid://cqf7bywgyb4dh" path="res://Systems/Shaders/grain.gdshader" id="4_s4k8q"]
-[ext_resource type="PackedScene" uid="uid://bqkfxwjc0r17x" path="res://Levels/Rooms/Room_1A.tscn" id="5_ev4ff"]
+[ext_resource type="PackedScene" uid="uid://llvybkp6qjdy" path="res://Levels/Rooms/zone1_room1.tscn" id="5_ev4ff"]
 [ext_resource type="PackedScene" uid="uid://c57sm7a0j8c55" path="res://Systems/Components/Dynamic Camera/dynamic_camera.tscn" id="5_uda3f"]
+[ext_resource type="Script" uid="uid://btdcc6xn33pd4" path="res://Levels/Rooms/Scripts/zone1_room1.gd" id="6_xfsjo"]
+[ext_resource type="Resource" uid="uid://et53353qnjtb" path="res://Levels/Rooms/Dialogs/intro_cutscene.dialogue" id="7_qe8hq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3rge6"]
 shader = ExtResource("4_s4k8q")
@@ -75,10 +77,12 @@ process_mode = 1
 
 [node name="CurrentRoom" type="Node2D" parent="LevelContainer" unique_id=1581126687]
 
-[node name="Room1a" parent="LevelContainer/CurrentRoom" unique_id=1279373450 instance=ExtResource("5_ev4ff")]
+[node name="Zone1Room1" parent="LevelContainer/CurrentRoom" unique_id=896410589 instance=ExtResource("5_ev4ff")]
+script = ExtResource("6_xfsjo")
+intro_cutscene = ExtResource("7_qe8hq")
 
 [node name="Player" parent="LevelContainer" unique_id=391222067 instance=ExtResource("1_uxjsv")]
-position = Vector2(42, 142)
+position = Vector2(39, 128)
 
 [node name="DynamicCamera" parent="LevelContainer" unique_id=138968710 node_paths=PackedStringArray("target") groups=["camera"] instance=ExtResource("5_uda3f")]
 target = NodePath("../Player")

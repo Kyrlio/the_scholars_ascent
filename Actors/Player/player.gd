@@ -20,6 +20,7 @@ enum State {
 	CAST_SPELL
 }
 var current_state: State = State.IDLE
+@export var state_locked: bool = false
 
 const ATTACK_PUSH_FORCE: float = 100.0
 
@@ -215,6 +216,9 @@ func _get_post_action_state() -> State:
 	return State.IDLE
 
 func _update_state() -> void:
+	if state_locked or GameState.is_gameplay_frozen():
+		return
+	
 	match current_state:
 		State.GROUND_ATTACK: return
 		State.AIR_ATTACK: return
@@ -432,12 +436,15 @@ func _physics_process(delta: float) -> void:
 	if is_dead:
 		return
 	
-	_handle_horizontal_movement(delta)
-	_handle_jump()
-	_handle_attack()
-	_handle_spell()
-	_handle_roll()
-	_handle_oneway_drop_through()
+	if not state_locked and not GameState.is_gameplay_frozen():
+		_handle_horizontal_movement(delta)
+		_handle_jump()
+		_handle_attack()
+		_handle_spell()
+		_handle_roll()
+		_handle_oneway_drop_through()
+	else:
+		velocity.x = move_toward(velocity.x, 0, friction * delta)
 	
 	_was_on_floor = is_on_floor()
 	move_and_slide()
@@ -447,6 +454,61 @@ func _physics_process(delta: float) -> void:
 		jump_count = 0
 	
 	_update_state()
+
+
+func receive_item(item: ItemData) -> void:
+	if item != null and item.icon != null:
+		looted_item_sprite.texture = item.icon
+		looted_item_sprite.show()
+	switch_state(State.SHOW_ITEM)
+
+
+func consume_ammo() -> void:
+	current_water_ammo -= 1
+	GameEvents.water_ammo_changed.emit(current_water_ammo, stats.max_water_ammo)
+	ammo_regen_timer.start(stats.ammo_regen_time)
+
+
+func _fire_projectile(direction: Vector2) -> void:
+	GameEvents.emit_engine_freeze()
+	GameEvents.emit_camera_shake(0.6)
+	var projectile: WaterBall = object_pool_projectile.spawn()
+	projectile.start(global_position, direction)
+
+
+func play_landing_dust_animation() -> void:
+	dust_animated_sprite.show() 
+	dust_animated_sprite.global_position = global_position
+	#dust_animated_sprite.global_position.y -= 2
+	dust_animated_sprite.reset_physics_interpolation()
+	dust_animated_sprite.play("landing")
+
+
+func play_jumping_dust_animation() -> void:
+	dust_animated_sprite.stop()
+	dust_animated_sprite.show() 
+	dust_animated_sprite.global_position = global_position
+	#dust_animated_sprite.global_position.y += 2
+	dust_animated_sprite.reset_physics_interpolation()
+	dust_animated_sprite.play("jump")
+
+#region cutscene
+
+func lock_state() -> void:
+	state_locked = true
+
+func unlock_state() -> void:
+	state_locked = false
+
+func sleep() -> void:
+	lock_state()
+	animation_player.play("sleeping")
+	await get_tree().create_timer(3.5).timeout
+
+func wake_up() -> void:
+	animation_player.play("wake_up")
+
+#endregion
 
 #region _apply
 
@@ -467,6 +529,7 @@ func _apply_pogo() -> void:
 	can_air_roll = true
 	velocity.y = stats.jump_velocity * 0.9
 	pogo_particles.restart()
+	jump_count = 0
 	apply_squish(0.6, 1.5)
 	GameEvents.emit_camera_shake(0.2)
 
@@ -532,43 +595,6 @@ func _check_buffer_jump() -> void:
 
 #endregion
 
-func receive_item(item: ItemData) -> void:
-	if item != null and item.icon != null:
-		looted_item_sprite.texture = item.icon
-		looted_item_sprite.show()
-	switch_state(State.SHOW_ITEM)
-
-
-func consume_ammo() -> void:
-	current_water_ammo -= 1
-	GameEvents.water_ammo_changed.emit(current_water_ammo, stats.max_water_ammo)
-	ammo_regen_timer.start(stats.ammo_regen_time)
-
-
-func _fire_projectile(direction: Vector2) -> void:
-	GameEvents.emit_engine_freeze()
-	GameEvents.emit_camera_shake(0.6)
-	var projectile: WaterBall = object_pool_projectile.spawn()
-	projectile.start(global_position, direction)
-
-
-func play_landing_dust_animation() -> void:
-	dust_animated_sprite.show() 
-	dust_animated_sprite.global_position = global_position
-	#dust_animated_sprite.global_position.y -= 2
-	dust_animated_sprite.reset_physics_interpolation()
-	dust_animated_sprite.play("landing")
-
-
-func play_jumping_dust_animation() -> void:
-	dust_animated_sprite.stop()
-	dust_animated_sprite.show() 
-	dust_animated_sprite.global_position = global_position
-	#dust_animated_sprite.global_position.y += 2
-	dust_animated_sprite.reset_physics_interpolation()
-	dust_animated_sprite.play("jump")
-
-
 #region getters
 
 func get_facing_direction() -> int:
@@ -604,6 +630,9 @@ func _on_ammo_regen_timeout() -> void:
 
 
 func _on_animation_finished(animation_name: StringName) -> void:
+	if animation_name == &"wake_up":
+		unlock_state()
+	
 	match current_state:
 		State.GROUND_ATTACK:
 			if animation_name == &"ground_attack":

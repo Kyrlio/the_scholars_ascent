@@ -9,7 +9,24 @@
 [ext_resource type="PackedScene" uid="uid://dooyey8iqsgl6" path="res://Actors/Interactable/Star Door/star_door.tscn" id="7_88vpl"]
 [ext_resource type="PackedScene" uid="uid://bh7e1wwp55ufn" path="res://Systems/Loot/world_item.tscn" id="8_ru66o"]
 [ext_resource type="Resource" uid="uid://bx55k6bie002c" path="res://Systems/Resources/Items/star.tres" id="9_00scp"]
+[ext_resource type="PackedScene" uid="uid://t8wylmbftndo" path="res://Actors/Chuck/chuck.tscn" id="10_00scp"]
+[ext_resource type="Script" uid="uid://dus15ka8quity" path="res://Systems/Resources/Shop Items/shop_item.gd" id="11_vd6su"]
+[ext_resource type="Resource" uid="uid://fg4610ldofq0" path="res://Systems/Resources/Items/chest_key.tres" id="12_vd6su"]
 [ext_resource type="PackedScene" uid="uid://lwx1ufc0bndp" path="res://Systems/Components/Transition Zone/transition_zone.tscn" id="18_ofier"]
+
+[sub_resource type="Resource" id="Resource_xlrqk"]
+script = ExtResource("11_vd6su")
+item = ExtResource("12_vd6su")
+price = 5000
+stock = 1
+metadata/_custom_type_script = "uid://dus15ka8quity"
+
+[sub_resource type="Resource" id="Resource_3m48u"]
+script = ExtResource("11_vd6su")
+item = ExtResource("12_vd6su")
+price = 500
+stock = 1
+metadata/_custom_type_script = "uid://dus15ka8quity"
 
 [node name="Room1b" type="Node2D" unique_id=1279373450]
 
@@ -109,6 +126,11 @@ item_data = ExtResource("9_00scp")
 [node name="Enemies" type="Node2D" parent="." unique_id=73615190]
 
 [node name="Chucks" type="Node2D" parent="." unique_id=1624931028]
+
+[node name="Chuck" parent="Chucks" unique_id=423884664 instance=ExtResource("10_00scp")]
+position = Vector2(-61, 160)
+inventory = Array[ExtResource("11_vd6su")]([SubResource("Resource_xlrqk"), SubResource("Resource_3m48u")])
+dialogue_resource = null
 
 [node name="SpawnLeft" parent="." unique_id=2134984359 instance=ExtResource("18_ofier")]
 position = Vector2(216, 148)
