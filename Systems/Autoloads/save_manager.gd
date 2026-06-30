@@ -3,6 +3,20 @@ extends Node
 var save_path = "user://save_game.dat"
 
 func save_game(player_position: Vector2, current_health: int, total_gold: int) -> void:
+	var current_room_name: String = ""
+	var game_scene = get_tree().current_scene
+	if game_scene and game_scene.has_node("LevelContainer/CurrentRoom"):
+		var room_container = game_scene.get_node("LevelContainer/CurrentRoom")
+		if room_container.get_child_count() > 0:
+			var current_room = room_container.get_child(0)
+			var room_scene_path = current_room.scene_file_path
+			for key in SceneManager.scenes:
+				if SceneManager.scenes[key] == room_scene_path:
+					current_room_name = key
+					break
+			if current_room_name == "":
+				current_room_name = current_room.name.to_snake_case()
+
 	var items_save_data = []
 	for slot_dict in GameState.collected_items:
 		var item_res = slot_dict["item"]
@@ -26,6 +40,7 @@ func save_game(player_position: Vector2, current_health: int, total_gold: int) -
 		"player_pos_x": player_position.x,
 		"player_pos_y": player_position.y,
 		"health": current_health,
+		"saved_room": current_room_name,
 		"unlocked_max_health": GameState.unlocked_max_health,
 		"collected_heart_containers": GameState.collected_heart_containers,
 		"gold": total_gold,

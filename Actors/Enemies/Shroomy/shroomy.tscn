@@ -11,6 +11,9 @@
 [ext_resource type="Script" uid="uid://dj7ylpxbq3vx1" path="res://Actors/Enemies/Shroomy/attack_state.gd" id="5_emw4d"]
 [ext_resource type="Script" uid="uid://dhx1vmsw7n431" path="res://Actors/Enemies/Shroomy/hit_state.gd" id="6_okoug"]
 [ext_resource type="Script" uid="uid://vydskmcidqsw" path="res://Actors/Enemies/Shroomy/dead_state.gd" id="7_6k7ni"]
+[ext_resource type="PackedScene" uid="uid://b5qnhbxwsse1r" path="res://Systems/Loot/loot_2d.tscn" id="12_yyyt8"]
+[ext_resource type="PackedScene" uid="uid://dys7k0tpundus" path="res://Systems/Loot/Gold Coin/gold_coin.tscn" id="13_oh8pr"]
+[ext_resource type="PackedScene" uid="uid://cgqtbhvvjwfae" path="res://Systems/Loot/bat_eye.tscn" id="14_h2ksm"]
 
 [sub_resource type="Animation" id="Animation_qxg4w"]
 length = 0.001
@@ -344,3 +347,14 @@ hframes = 8
 vframes = 6
 region_enabled = true
 region_rect = Rect2(16, 0, 384, 192)
+
+[node name="Loots" type="Node2D" parent="." unique_id=62249588]
+unique_name_in_owner = true
+
+[node name="GoldLoot" parent="Loots" unique_id=750658645 instance=ExtResource("12_yyyt8")]
+unique_name_in_owner = true
+loot_scene = ExtResource("13_oh8pr")
+
+[node name="ItemLoot" parent="Loots" unique_id=95967658 instance=ExtResource("12_yyyt8")]
+unique_name_in_owner = true
+loot_scene = ExtResource("14_h2ksm")

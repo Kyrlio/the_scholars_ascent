@@ -17,6 +17,22 @@ func _ready() -> void:
 	if not player:
 		player = get_tree().get_first_node_in_group("player")
 	
+	if GameState.saved_room != "" and GameState.saved_room != "zone1_room1":
+		var room_name = GameState.saved_room
+		if SceneManager.scenes.has(room_name):
+			var room_container = level_container.get_node("CurrentRoom")
+			if room_container:
+				if room_container.get_child_count() > 0:
+					var old_room = room_container.get_child(0)
+					room_container.remove_child(old_room)
+					old_room.queue_free()
+				
+				var packed_scene = load(SceneManager.scenes[room_name])
+				if packed_scene:
+					var new_room = packed_scene.instantiate()
+					new_room.name = room_name
+					room_container.add_child(new_room)
+	
 	var camera = get_tree().get_first_node_in_group("camera")
 	var room_tilemap = find_child("Ground", true, false)
 	camera.update_limits(room_tilemap)

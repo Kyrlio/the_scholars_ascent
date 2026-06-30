@@ -11,6 +11,9 @@
 [ext_resource type="Script" uid="uid://cj2yiylofx1jv" path="res://Actors/Enemies/Bat/attack_state.gd" id="5_rf2n4"]
 [ext_resource type="Script" uid="uid://cgc75ann4hqky" path="res://Actors/Enemies/Bat/hit_state.gd" id="6_hq1ob"]
 [ext_resource type="Script" uid="uid://dh8nurt33txs7" path="res://Actors/Enemies/Bat/dead_state.gd" id="7_svfi1"]
+[ext_resource type="PackedScene" uid="uid://b5qnhbxwsse1r" path="res://Systems/Loot/loot_2d.tscn" id="12_cnc5p"]
+[ext_resource type="PackedScene" uid="uid://dys7k0tpundus" path="res://Systems/Loot/Gold Coin/gold_coin.tscn" id="13_ka4lw"]
+[ext_resource type="PackedScene" uid="uid://cgqtbhvvjwfae" path="res://Systems/Loot/bat_eye.tscn" id="14_jtgqq"]
 
 [sub_resource type="Animation" id="Animation_kffd5"]
 length = 0.001
@@ -297,3 +300,14 @@ vframes = 3
 frame = 10
 region_enabled = true
 region_rect = Rect2(16, 0, 240, 96)
+
+[node name="Loots" type="Node2D" parent="." unique_id=851249091]
+unique_name_in_owner = true
+
+[node name="GoldLoot" parent="Loots" unique_id=750658645 instance=ExtResource("12_cnc5p")]
+unique_name_in_owner = true
+loot_scene = ExtResource("13_ka4lw")
+
+[node name="ItemLoot" parent="Loots" unique_id=82715876 instance=ExtResource("12_cnc5p")]
+unique_name_in_owner = true
+loot_scene = ExtResource("14_jtgqq")

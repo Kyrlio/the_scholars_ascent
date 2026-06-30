@@ -11,6 +11,9 @@
 [ext_resource type="Script" uid="uid://bsl45l0h144j7" path="res://Actors/Enemies/Stonemaw/hit_state.gd" id="6_wm40x"]
 [ext_resource type="Script" uid="uid://bc1bdudjvfoeh" path="res://Actors/Enemies/Stonemaw/dead_state.gd" id="7_xmkv2"]
 [ext_resource type="Texture2D" uid="uid://e4fa6ns0llld" path="res://Assets/sprites/characters/stonemaw-export.png" id="11_xmkv2"]
+[ext_resource type="PackedScene" uid="uid://b5qnhbxwsse1r" path="res://Systems/Loot/loot_2d.tscn" id="12_hwpwk"]
+[ext_resource type="PackedScene" uid="uid://dys7k0tpundus" path="res://Systems/Loot/Gold Coin/gold_coin.tscn" id="13_ikx20"]
+[ext_resource type="PackedScene" uid="uid://cgqtbhvvjwfae" path="res://Systems/Loot/bat_eye.tscn" id="14_3dx0i"]
 
 [sub_resource type="Animation" id="Animation_rmoyv"]
 length = 0.001
@@ -443,3 +446,14 @@ target_position = Vector2(0, 11)
 unique_name_in_owner = true
 position = Vector2(0, -4)
 target_position = Vector2(10, 0)
+
+[node name="Loots" type="Node2D" parent="." unique_id=1443870542]
+unique_name_in_owner = true
+
+[node name="GoldLoot" parent="Loots" unique_id=750658645 instance=ExtResource("12_hwpwk")]
+unique_name_in_owner = true
+loot_scene = ExtResource("13_ikx20")
+
+[node name="ItemLoot" parent="Loots" unique_id=354421680 instance=ExtResource("12_hwpwk")]
+unique_name_in_owner = true
+loot_scene = ExtResource("14_3dx0i")

@@ -10,6 +10,9 @@
 [ext_resource type="Script" uid="uid://btxxvuhtpv1s2" path="res://Actors/Enemies/Slime/hit_state.gd" id="5_jjpj2"]
 [ext_resource type="Script" uid="uid://0xe0iq737lh6" path="res://Systems/Components/hitbox_component.gd" id="5_y5udt"]
 [ext_resource type="Script" uid="uid://bkhdrgg0fy7qh" path="res://Actors/Enemies/Slime/dead_state.gd" id="6_jjpj2"]
+[ext_resource type="PackedScene" uid="uid://b5qnhbxwsse1r" path="res://Systems/Loot/loot_2d.tscn" id="11_ut4hl"]
+[ext_resource type="PackedScene" uid="uid://dys7k0tpundus" path="res://Systems/Loot/Gold Coin/gold_coin.tscn" id="12_6issj"]
+[ext_resource type="PackedScene" uid="uid://cgqtbhvvjwfae" path="res://Systems/Loot/bat_eye.tscn" id="13_7w163"]
 
 [sub_resource type="Animation" id="Animation_jjpj2"]
 length = 0.001
@@ -267,3 +270,14 @@ target_position = Vector2(0, 100)
 unique_name_in_owner = true
 position = Vector2(0, -4)
 target_position = Vector2(10, 0)
+
+[node name="Loots" type="Node2D" parent="." unique_id=60218210]
+unique_name_in_owner = true
+
+[node name="GoldLoot" parent="Loots" unique_id=750658645 instance=ExtResource("11_ut4hl")]
+unique_name_in_owner = true
+loot_scene = ExtResource("12_6issj")
+
+[node name="ItemLoot" parent="Loots" unique_id=1813150882 instance=ExtResource("11_ut4hl")]
+unique_name_in_owner = true
+loot_scene = ExtResource("13_7w163")

@@ -31,6 +31,7 @@ var collected_heart_containers: Array = []
 
 var saved_player_pos: Vector2 = Vector2.ZERO
 var saved_player_health: int = -1
+var saved_room: String = ""
 
 var base_player_stats: Stats = preload("res://Systems/Resources/base_player_stats.tres")
 
@@ -119,6 +120,7 @@ func load_save_data():
 	var pos_x = data.get("player_pos_x", 0.0)
 	var pos_y = data.get("player_pos_y", 0.0)
 	saved_player_pos = Vector2(pos_x, pos_y)
+	saved_room = data.get("saved_room", "")
 	
 	# Classic inventory
 	collected_items.clear()
@@ -208,6 +210,7 @@ func reset_state() -> void:
 	
 	saved_player_pos = Vector2.ZERO
 	saved_player_health = -1
+	saved_room = ""
 	
 	unlocked_abitilities.clear()
 	

@@ -25,6 +25,7 @@ func _switch_state(next_state: PlatformState) -> void:
 	match next_state:
 		PlatformState.NORMAL:
 			collider.set_deferred("disabled", false)
+			reset_physics_interpolation()
 			animation_player.play("normal")
 		
 		PlatformState.BREAKING:

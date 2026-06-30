@@ -420,6 +420,15 @@ func _handle_spell() -> void:
 
 #endregion
 
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode == KEY_S:
+			if is_dead:
+				print("DEBUG: Impossible de sauvegarder en étant mort !")
+				return
+			SaveManager.save_game(global_position, get_current_health(), GameState.total_gold)
+			print("DEBUG: Jeu sauvegardé à la position ", global_position, " (Santé: ", get_current_health(), ", Or: ", GameState.total_gold, ")")
+
 func _ready() -> void:
 	switch_state(State.IDLE)
 	animation_player.animation_finished.connect(_on_animation_finished)

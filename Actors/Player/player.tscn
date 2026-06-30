@@ -1877,8 +1877,9 @@ radius = 5.0
 radius = 5.0
 height = 12.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_y2lmi"]
-size = Vector2(23, 15)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ui0vk"]
+radius = 7.9999995
+height = 23.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xk7p5"]
 size = Vector2(22, 24)
@@ -2125,8 +2126,9 @@ collision_mask = 0
 script = ExtResource("6_pnakb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/Hitbox" unique_id=1092941922]
-position = Vector2(11.5, -7)
-shape = SubResource("RectangleShape2D_y2lmi")
+position = Vector2(9, -7)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_ui0vk")
 disabled = true
 debug_color = Color(0.67152274, 0.50890875, 0, 0.41960785)
 

@@ -22,6 +22,7 @@ func _ready() -> void:
 
 
 func start_new_game() -> void:
+	GameState.reset_state()
 	get_tree().change_scene_to_file("res://Levels/game.tscn")
 
 
@@ -36,6 +37,7 @@ func _on_new_game_animated_button_pressed() -> void:
 
 
 func _on_continue_animated_button_pressed() -> void:
+	GameState.load_save_data()
 	get_tree().change_scene_to_file("res://Levels/game.tscn")
 
 

@@ -12,6 +12,9 @@
 [ext_resource type="Script" uid="uid://ccskbh5ljipcg" path="res://Actors/Enemies/Shellcrab/dead_state.gd" id="7_fcgta"]
 [ext_resource type="Script" uid="uid://btljlcgnp18xe" path="res://Actors/Enemies/Shellcrab/defense_state.gd" id="8_d0rnw"]
 [ext_resource type="PackedScene" uid="uid://bm8u12hb614ld" path="res://Systems/Particles/hit_particles.tscn" id="10_sxqwr"]
+[ext_resource type="PackedScene" uid="uid://b5qnhbxwsse1r" path="res://Systems/Loot/loot_2d.tscn" id="13_w7wh2"]
+[ext_resource type="PackedScene" uid="uid://dys7k0tpundus" path="res://Systems/Loot/Gold Coin/gold_coin.tscn" id="14_rdpgw"]
+[ext_resource type="PackedScene" uid="uid://cgqtbhvvjwfae" path="res://Systems/Loot/bat_eye.tscn" id="15_ecd85"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0thxj"]
 radius = 5.0
@@ -672,3 +675,14 @@ target_position = Vector2(0, 11)
 unique_name_in_owner = true
 position = Vector2(0, -4)
 target_position = Vector2(10, 0)
+
+[node name="Loots" type="Node2D" parent="." unique_id=1371880235]
+unique_name_in_owner = true
+
+[node name="GoldLoot" parent="Loots" unique_id=750658645 instance=ExtResource("13_w7wh2")]
+unique_name_in_owner = true
+loot_scene = ExtResource("14_rdpgw")
+
+[node name="ItemLoot" parent="Loots" unique_id=531442030 instance=ExtResource("13_w7wh2")]
+unique_name_in_owner = true
+loot_scene = ExtResource("15_ecd85")

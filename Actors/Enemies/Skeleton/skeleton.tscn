@@ -12,6 +12,9 @@
 [ext_resource type="Script" uid="uid://c7w317fk8buos" path="res://Actors/Enemies/Skeleton/flee_state.gd" id="6_b682j"]
 [ext_resource type="Script" uid="uid://dv5iob7q3gdwr" path="res://Actors/Enemies/Skeleton/hit_state.gd" id="7_ifmjt"]
 [ext_resource type="Script" uid="uid://xkaruwf0ie07" path="res://Actors/Enemies/Skeleton/dead_state.gd" id="8_5avfc"]
+[ext_resource type="PackedScene" uid="uid://b5qnhbxwsse1r" path="res://Systems/Loot/loot_2d.tscn" id="13_ydxbh"]
+[ext_resource type="PackedScene" uid="uid://dys7k0tpundus" path="res://Systems/Loot/Gold Coin/gold_coin.tscn" id="14_2idd1"]
+[ext_resource type="PackedScene" uid="uid://cgqtbhvvjwfae" path="res://Systems/Loot/bat_eye.tscn" id="15_hadok"]
 
 [sub_resource type="Animation" id="Animation_wuqgv"]
 length = 0.001
@@ -265,3 +268,14 @@ target_position = Vector2(10, 0)
 
 [node name="BowMarker" type="Marker2D" parent="Visuals" unique_id=668996447]
 position = Vector2(15, -5)
+
+[node name="Loots" type="Node2D" parent="." unique_id=223195192]
+unique_name_in_owner = true
+
+[node name="GoldLoot" parent="Loots" unique_id=750658645 instance=ExtResource("13_ydxbh")]
+unique_name_in_owner = true
+loot_scene = ExtResource("14_2idd1")
+
+[node name="ItemLoot" parent="Loots" unique_id=1478184995 instance=ExtResource("13_ydxbh")]
+unique_name_in_owner = true
+loot_scene = ExtResource("15_hadok")
