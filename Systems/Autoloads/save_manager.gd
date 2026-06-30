@@ -38,6 +38,7 @@ func save_game(player_position: Vector2, current_health: int, total_gold: int) -
 		"shop_stocks": GameState.shop_stocks,
 		"activated_levers": GameState.activated_levers,
 		"defeated_enemies": GameState.defeated_enemies,
+		"played_cutscenes": GameState.played_cutscenes,
 		"unlocked_abilities": GameState.unlocked_abitilities
 	}
 	

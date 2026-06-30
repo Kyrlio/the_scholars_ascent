@@ -9,6 +9,18 @@ var collected_coins: Array = []
 var shop_stocks: Dictionary = {}
 var activated_levers: Dictionary = {}
 var defeated_enemies: Array = []
+var played_cutscenes: Array = []
+
+func has_cutscene_been_played(cutscene_id: String) -> bool:
+	return cutscene_id in played_cutscenes
+
+func mark_cutscene_as_played(cutscene_id: String) -> void:
+	if not cutscene_id in played_cutscenes:
+		played_cutscenes.append(cutscene_id)
+
+func reset_cutscene(cutscene_id: String) -> void:
+	if cutscene_id in played_cutscenes:
+		played_cutscenes.erase(cutscene_id)
 
 var opened_chests: Array = []
 var opened_star_doors: Array = []
@@ -150,6 +162,9 @@ func load_save_data():
 	# Defeated enemies
 	defeated_enemies = data.get("defeated_enemies", [])
 	
+	# Played cutscenes
+	played_cutscenes = data.get("played_cutscenes", [])
+	
 	rebuild_player_stats()
 
 func _on_item_collected(new_item: ItemData) -> void:
@@ -169,5 +184,36 @@ func _on_item_collected(new_item: ItemData) -> void:
 		if not found:
 			collected_items.append({"item": new_item, "quantity": 1})
 			print("Objet ajouté a l'inventaire")
+
+
+func reset_state() -> void:
+	for path in shop_stocks:
+		if ResourceLoader.exists(path):
+			ResourceLoader.load(path, "", ResourceLoader.CACHE_MODE_REPLACE)
+	
+	collected_items.clear()
+	collected_charms.clear()
+	equipped_charms.clear()
+	collected_coins.clear()
+	shop_stocks.clear()
+	activated_levers.clear()
+	defeated_enemies.clear()
+	played_cutscenes.clear()
+	opened_chests.clear()
+	opened_star_doors.clear()
+	
+	total_gold = 0
+	unlocked_max_health = 2
+	collected_heart_containers.clear()
+	
+	saved_player_pos = Vector2.ZERO
+	saved_player_health = -1
+	
+	unlocked_abitilities.clear()
+	
+	is_dialogue_active = false
+	is_shop_active = false
+	
+	rebuild_player_stats()
 			
 		

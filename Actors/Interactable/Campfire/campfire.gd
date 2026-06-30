@@ -27,6 +27,7 @@ func rest_at_campfire() -> void:
 		interact_animation_player.play("pressed")
 		
 		player.switch_state(Player.State.REST)
+		player._update_facing_direction(sign(global_position.x - player.global_position.x))
 		
 		var hp_comp = player.health_component
 		while hp_comp.current_health < hp_comp.max_health:

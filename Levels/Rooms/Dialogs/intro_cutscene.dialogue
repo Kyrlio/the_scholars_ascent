@@ -1,9 +1,9 @@
 ~ start
 do todd.sleep()
-Todd: ZzZzz...
-Todd: ....ZzzZzzZz...
+Todd: ........
 do GameEvents.emit_camera_shake(1.0)
 do GameEvents.emit_camera_shake(1.0)
 do todd.wake_up()
-Todd: What the fuck was that ?? Is the world collapsing ? I need to check !
+Todd: ... ?!
+Todd: What the fuck was that ?! Is the world collapsing ? I need to check !
 => END

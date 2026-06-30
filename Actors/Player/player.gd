@@ -110,6 +110,7 @@ func _toggle_ability(ability_name: String, is_unlocked: bool) -> void:
 @onready var ammo_regen_timer: Timer = $Timers/AmmoRegenTimer
 @onready var object_pool_projectile: Node = $ObjectPool_Projectile
 @onready var hurtbox: HurtboxComponent = %Hurtbox
+@onready var run_animated_sprite: AnimatedSprite2D = %RunAnimatedSprite
 
 
 var is_dead: bool = false
@@ -121,6 +122,7 @@ var jump_count: int = 0
 var current_water_ammo: int = 0
 
 var tween: Tween
+var run_dust_cooldown: float = 0.0
 
 #endregion
 
@@ -247,10 +249,35 @@ func _update_facing_direction(direction: float) -> void:
 
 #region _handle
 
+func _is_on_one_way_platform() -> bool:
+	if not is_on_floor():
+		return false
+	
+	for i in get_slide_collision_count():
+		var collision = get_slide_collision(i)
+		if collision.get_normal().y < -0.7:
+			var collider = collision.get_collider()
+			if not collider:
+				continue
+			
+			var local_point = collider.to_local(collision.get_position() - collision.get_normal() * 2)
+			
+			if collider is TileMapLayer:
+				var coords = collider.local_to_map(local_point)
+				var tile_data = collider.get_cell_tile_data(coords)
+				if tile_data:
+					for p in tile_data.get_collision_polygons_count(0):
+						if tile_data.is_collision_polygon_one_way(0, p):
+							return true
+	
+	return false
+
+
 func _handle_oneway_drop_through() -> void:
 	if current_state == State.IDLE or current_state == State.RUN:
 		if Input.is_action_pressed("down") and Input.is_action_just_pressed("jump"):
-			global_position.y += 1
+			if _is_on_one_way_platform():
+				global_position.y += 1
 	else:
 		return
 
@@ -285,7 +312,7 @@ func _handle_jump() -> void:
 		State.SHOW_ITEM: return
 	
 	if current_state == State.IDLE or current_state == State.RUN:
-		if Input.is_action_pressed("down"):
+		if Input.is_action_pressed("down") and _is_on_one_way_platform():
 			return
 	
 	_check_wall_coyote()
@@ -428,6 +455,9 @@ func _ready() -> void:
 	debug_wall_jump = GameState.has_ability("wall_jump")
 	debug_roll = GameState.has_ability("roll")
 	debug_air_roll = GameState.has_ability("air_roll")
+	
+	run_animated_sprite.sprite_frames.set_animation_loop("run", false)
+	run_animated_sprite.animation_finished.connect(func(): run_animated_sprite.hide())
 
 
 func _physics_process(delta: float) -> void:
@@ -454,6 +484,20 @@ func _physics_process(delta: float) -> void:
 		jump_count = 0
 	
 	_update_state()
+	
+	if current_state == State.RUN and is_on_floor():
+		if abs(velocity.x) > 0.0:
+			if run_dust_cooldown < 0.0:
+				run_dust_cooldown = 0.15
+			
+			run_dust_cooldown -= delta
+			if run_dust_cooldown <= 0.0:
+				play_run_dust()
+				run_dust_cooldown = 0.45
+		else:
+			run_dust_cooldown = -1.0
+	else:
+		run_dust_cooldown = -1.0
 
 
 func receive_item(item: ItemData) -> void:
@@ -491,6 +535,17 @@ func play_jumping_dust_animation() -> void:
 	#dust_animated_sprite.global_position.y += 2
 	dust_animated_sprite.reset_physics_interpolation()
 	dust_animated_sprite.play("jump")
+
+
+func play_run_dust() -> void:
+	run_animated_sprite.show()
+	run_animated_sprite.global_position = global_position
+	run_animated_sprite.offset.x = -15 * visuals.scale.x
+	run_animated_sprite.flip_h = (visuals.scale.x < 0)
+	run_animated_sprite.reset_physics_interpolation()
+	run_animated_sprite.frame = 0
+	run_animated_sprite.play("run")
+
 
 #region cutscene
 

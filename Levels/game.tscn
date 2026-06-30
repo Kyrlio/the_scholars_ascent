@@ -82,7 +82,7 @@ script = ExtResource("6_xfsjo")
 intro_cutscene = ExtResource("7_qe8hq")
 
 [node name="Player" parent="LevelContainer" unique_id=391222067 instance=ExtResource("1_uxjsv")]
-position = Vector2(39, 128)
+position = Vector2(73, 144)
 
 [node name="DynamicCamera" parent="LevelContainer" unique_id=138968710 node_paths=PackedStringArray("target") groups=["camera"] instance=ExtResource("5_uda3f")]
 target = NodePath("../Player")
