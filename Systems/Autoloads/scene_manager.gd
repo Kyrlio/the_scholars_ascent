@@ -10,6 +10,7 @@ const ROOMS_FOLDER: String = "res://Levels/Rooms/"
 
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	current_scene = get_tree().current_scene
 	_load_all_rooms()
 
@@ -48,15 +49,27 @@ func change_room(room_name: String) -> void:
 	
 	is_transitioning = true
 	
+	var game_scene = get_tree().current_scene
+	var room_container = game_scene.get_node("LevelContainer/CurrentRoom") if game_scene else null
+	
+	if game_scene and game_scene.player:
+		game_scene.player.process_mode = Node.PROCESS_MODE_DISABLED
+	if room_container:
+		room_container.process_mode = Node.PROCESS_MODE_DISABLED
+	
 	animation_player.play("fade_in")
 	await animation_player.animation_finished
 	
 	var packed_scene = load(scenes[room_name])
-	if packed_scene == null: return
+	if packed_scene == null:
+		if game_scene and game_scene.player:
+			game_scene.player.process_mode = Node.PROCESS_MODE_INHERIT
+		if room_container:
+			room_container.process_mode = Node.PROCESS_MODE_INHERIT
+		is_transitioning = false
+		return
 	
 	var new_room = packed_scene.instantiate()
-	var game_scene = get_tree().current_scene
-	var room_container = game_scene.get_node("LevelContainer/CurrentRoom")
 	
 	if room_container:
 		if room_container.get_child_count() > 0:
@@ -76,16 +89,22 @@ func change_room(room_name: String) -> void:
 			else:
 				printerr("Attention: Aucun TileMapLayer 'Ground' trouvé dans " + room_name)
 		
-		game_scene = get_tree().current_scene
-		if game_scene.player and TeleportData.target_transition_name != "":
-			var target_zone = new_room.find_child(TeleportData.target_transition_name, true, false)
-			
-			if target_zone and target_zone.has_node("SpawnPoint"):
-				game_scene.player.global_position = target_zone.get_node("SpawnPoint").global_position
-				game_scene.player.velocity = Vector2.ZERO
+		if game_scene.player:
+			if TeleportData.target_transition_name != "":
+				var target_zone = new_room.find_child(TeleportData.target_transition_name, true, false)
+				
+				if target_zone and target_zone.has_node("SpawnPoint"):
+					game_scene.player.global_position = target_zone.get_node("SpawnPoint").global_position
+					game_scene.player.velocity = Vector2.ZERO
 	
 	animation_player.play("fade_out")
 	await animation_player.animation_finished
+	
+	if game_scene and game_scene.player:
+		game_scene.player.process_mode = Node.PROCESS_MODE_INHERIT
+	if room_container:
+		room_container.process_mode = Node.PROCESS_MODE_INHERIT
+	
 	is_transitioning = false
 
 
@@ -99,6 +118,11 @@ func reload_current_room_for_rest(player: Node2D) -> void:
 		return
 	
 	is_transitioning = true
+	
+	if player:
+		player.process_mode = Node.PROCESS_MODE_DISABLED
+	room_container.process_mode = Node.PROCESS_MODE_DISABLED
+	
 	var current_room = room_container.get_child(0)
 	var room_scene_path = current_room.scene_file_path
 	
@@ -107,6 +131,9 @@ func reload_current_room_for_rest(player: Node2D) -> void:
 	
 	var packed_scene = load(room_scene_path)
 	if packed_scene == null:
+		if player:
+			player.process_mode = Node.PROCESS_MODE_INHERIT
+		room_container.process_mode = Node.PROCESS_MODE_INHERIT
 		is_transitioning = false
 		return
 	
@@ -133,5 +160,9 @@ func reload_current_room_for_rest(player: Node2D) -> void:
 	animation_player.play("fade_out")
 	await animation_player.animation_finished
 	
-	player.switch_state(player.State.IDLE)
+	if player:
+		player.process_mode = Node.PROCESS_MODE_INHERIT
+		player.switch_state(player.State.IDLE)
+	room_container.process_mode = Node.PROCESS_MODE_INHERIT
+	
 	is_transitioning = false
