@@ -10,6 +10,7 @@ var shop_stocks: Dictionary = {}
 var activated_levers: Dictionary = {}
 var defeated_enemies: Array = []
 var played_cutscenes: Array = []
+var completed_arenas: Array = []
 
 func has_cutscene_been_played(cutscene_id: String) -> bool:
 	return cutscene_id in played_cutscenes
@@ -164,21 +165,25 @@ func load_save_data():
 	# Defeated enemies
 	defeated_enemies = data.get("defeated_enemies", [])
 	
+	# Completed arenas
+	completed_arenas = data.get("completed_arenas", [])
+	
 	# Played cutscenes
 	played_cutscenes = data.get("played_cutscenes", [])
 	
 	rebuild_player_stats()
 
-func _on_item_collected(new_item: ItemData) -> void:
+func _on_item_collected(new_item: ItemData, quantity: int = 1) -> void:
 	if new_item is CharmItem:
 		collected_charms.append(new_item)
 		print("Charme ajouté a l'onglet des charmes")
+		GameEvents.emit_show_ability_popup(new_item.item_name, new_item.description, new_item.icon)
 	else:
 		var found: bool = false
 		
 		for slot in collected_items:
 			if slot["item"] == new_item:
-				slot["quantity"] += 1
+				slot["quantity"] += quantity
 				found = true
 				print(new_item.item_name + " stacké ! (Total " + str(slot["quantity"]) + " )")
 				break
@@ -200,6 +205,7 @@ func reset_state() -> void:
 	shop_stocks.clear()
 	activated_levers.clear()
 	defeated_enemies.clear()
+	completed_arenas.clear()
 	played_cutscenes.clear()
 	opened_chests.clear()
 	opened_star_doors.clear()
@@ -218,5 +224,47 @@ func reset_state() -> void:
 	is_shop_active = false
 	
 	rebuild_player_stats()
-			
+
+
+func get_unique_enemy_id(enemy: Node2D) -> String:
+	# Si l'ID a été défini manuellement dans l'éditeur (propriété exportée)
+	if enemy.enemy_id != "":
+		return enemy.enemy_id
+	
+	# Cas 1 : Posé manuellement dans l'éditeur (owner valide)
+	if enemy.owner != null and enemy.owner.scene_file_path != "":
+		return enemy.owner.scene_file_path + "::" + str(enemy.owner.get_path_to(enemy))
+	
+	# Cas 2 : Instancié par un TileMapLayer (on remonte l'arbre pour trouver le premier TileMapLayer)
+	var parent = enemy.get_parent()
+	var tilemap_layer: TileMapLayer = null
+	while parent != null:
+		if parent is TileMapLayer:
+			tilemap_layer = parent
+			break
+		parent = parent.get_parent()
 		
+	if tilemap_layer != null:
+		# On remonte pour trouver la scène racine (la Room)
+		var room_node = tilemap_layer.get_parent()
+		while room_node != null and room_node.scene_file_path == "":
+			room_node = room_node.get_parent()
+		
+		if room_node != null:
+			var relative_layer_path = room_node.get_path_to(tilemap_layer)
+			var local_pos = tilemap_layer.to_local(enemy.global_position)
+			var cell_coords = tilemap_layer.local_to_map(local_pos)
+			return room_node.scene_file_path + "::" + str(relative_layer_path) + "::" + str(cell_coords)
+	
+	# Cas 3 : Repli (fallback) si aucune autre méthode ne marche
+	return str(enemy.get_path())
+
+
+func get_unique_arena_id(arena: Node2D) -> String:
+	if arena.arena_id != "":
+		return arena.arena_id
+	
+	if arena.owner != null and arena.owner.scene_file_path != "":
+		return arena.owner.scene_file_path + "::" + str(arena.owner.get_path_to(arena))
+	
+	return str(arena.get_path())

@@ -1,11 +1,7 @@
 [gd_scene format=3 uid="uid://cds8p53ulwiak"]
 
-[ext_resource type="Script" uid="uid://cbjvfqt0nwoyy" path="res://Systems/Loot/AbilityUnlocker/ability_unlocker.gd" id="1_c7ek6"]
-[ext_resource type="Texture2D" uid="uid://bbucqtflj4my0" path="res://Assets/items/items.png" id="1_p5atp"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0thxj"]
-atlas = ExtResource("1_p5atp")
-region = Rect2(80, 32, 16, 16)
+[ext_resource type="Script" uid="uid://cbjvfqt0nwoyy" path="res://Systems/Loot/Unlocker/sword_unlocker.gd" id="1_c7ek6"]
+[ext_resource type="Texture2D" uid="uid://ds05v8rxt5pg5" path="res://Assets/items/sword.png" id="2_1jveh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x416w"]
 
@@ -15,7 +11,7 @@ collision_mask = 2
 script = ExtResource("1_c7ek6")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1746006198]
-texture = SubResource("AtlasTexture_0thxj")
+texture = ExtResource("2_1jveh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=790899635]
 shape = SubResource("CircleShape2D_x416w")

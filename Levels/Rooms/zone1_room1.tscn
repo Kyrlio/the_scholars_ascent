@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://lwx1ufc0bndp" path="res://Systems/Components/Transition Zone/transition_zone.tscn" id="4_7b5ax"]
 [ext_resource type="PackedScene" uid="uid://d1qf1x2cl5xpi" path="res://Actors/Interactable/Campfire/campfire.tscn" id="4_cmh1j"]
 [ext_resource type="PackedScene" uid="uid://ctgcuxn4avkgf" path="res://Actors/Interactable/Sign/sign.tscn" id="5_oik81"]
+[ext_resource type="PackedScene" uid="uid://bsg0351mx3b4u" path="res://addons/MetroidvaniaSystem/Nodes/RoomInstance.tscn" id="7_hlhik"]
 
 [node name="Zone1Room1" type="Node2D" unique_id=896410589]
 
@@ -89,5 +90,7 @@ target_zone_name = "Zone1Room2Left"
 
 [node name="SpawnPoint" parent="SpawnPoints/Zone1Room1Right" index="1" unique_id=1278852891]
 position = Vector2(-23, 11)
+
+[node name="RoomInstance" parent="." unique_id=1810457737 instance=ExtResource("7_hlhik")]
 
 [editable path="SpawnPoints/Zone1Room1Right"]

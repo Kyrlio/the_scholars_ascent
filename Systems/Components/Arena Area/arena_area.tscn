@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://bjkcmrb2gcnt5"]
+
+[ext_resource type="Script" uid="uid://bliseb7xj04pc" path="res://Systems/Components/Arena Area/arena_area.gd" id="1_7quip"]
+[ext_resource type="PackedScene" uid="uid://uec5sa3yyp7m" path="res://Actors/Interactable/Trapdoor/trapdoor.tscn" id="1_c31rq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0thxj"]
+size = Vector2(178, 20)
+
+[node name="ArenaArea" type="Area2D" unique_id=783166699]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_7quip")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=561907463]
+shape = SubResource("RectangleShape2D_0thxj")
+
+[node name="RightTrapdoor" parent="." unique_id=1769901696 instance=ExtResource("1_c31rq")]
+position = Vector2(94, -33)
+
+[node name="LeftTrapdoor" parent="." unique_id=492936994 instance=ExtResource("1_c31rq")]
+position = Vector2(-99, -33)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

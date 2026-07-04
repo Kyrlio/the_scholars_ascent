@@ -31,24 +31,38 @@ func _handle_hit(hitbox_component: HitboxComponent):
 	
 	# Instantiate hit particles if configured
 	if hit_particles_scene:
-		var particles: GPUParticles2D = hit_particles_scene.instantiate()
-		
-		# Determine hit direction (away from hitbox)
-		var diff_x = global_position.x - hitbox_component.global_position.x
-		var hit_dir_x = sign(diff_x) if diff_x != 0.0 else 1.0
-		
-		# Apply scale and position
-		particles.scale.x = hit_dir_x
-		particles.global_position = global_position
-		
-		# Add to the current scene so they aren't affected by parent's transform/deletion
-		var scene_root = get_tree().current_scene
-		if scene_root:
-			scene_root.add_child(particles)
-			particles.emitting = true
-			particles.finished.connect(particles.queue_free)
+		_play_hit_particles(hitbox_component)
 	
 	hit_by_hitbox.emit(hitbox_component)
+
+
+func _play_hit_particles(hitbox_component: HitboxComponent) -> void:
+	var particles: GPUParticles2D = hit_particles_scene.instantiate()
+		
+	# Determine hit direction (away from hitbox)
+	var diff_x = global_position.x - hitbox_component.global_position.x
+	var hit_dir_x = sign(diff_x) if diff_x != 0.0 else 1.0
+	
+	# Apply scale and position
+	particles.scale.x = hit_dir_x
+	particles.global_position = global_position
+	
+	# Add to the current scene so they aren't affected by parent's transform/deletion
+	var scene_root = get_tree().current_scene
+	if scene_root:
+		scene_root.add_child(particles)
+		particles.emitting = true
+		particles.finished.connect(particles.queue_free)
+
+
+func spawn_particles() -> void:
+	var particles: GPUParticles2D = hit_particles_scene.instantiate()
+	
+	var scene_root = get_tree().current_scene
+	if scene_root:
+		scene_root.add_child(particles)
+		particles.emitting = true
+		particles.finished.connect(particles.queue_free)
 
 
 func _on_area_entered(other_area: Area2D) -> void:

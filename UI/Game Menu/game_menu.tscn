@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dg2eebu544xhu" path="res://UI/Animated Slot/animated_slot.tscn" id="3_17mpa"]
 [ext_resource type="PackedScene" uid="uid://crivg1daf13fq" path="res://UI/Animated Button/animated_button.tscn" id="3_hihkt"]
 [ext_resource type="Texture2D" uid="uid://bi6n8bjnm10ki" path="res://Assets/ui/Vertical Separator.png" id="4_dk7y1"]
+[ext_resource type="PackedScene" uid="uid://dch8dyylb7526" path="res://addons/MetroidvaniaSystem/Template/Nodes/Minimap.tscn" id="6_dmh5u"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_efeg3"]
 atlas = ExtResource("2_hihkt")
@@ -256,6 +257,7 @@ text = "Item description j'ai fait caca tres fort prout prout prout
 
 [node name="CharmsTab" type="MarginContainer" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent" unique_id=1242212263]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -435,23 +437,29 @@ text = "QUIT"
 
 [node name="MapTab" type="MarginContainer" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent" unique_id=451216661]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
 
-[node name="Label" type="Label" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/MapTab" unique_id=293408254]
+[node name="Control" type="Control" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/MapTab" unique_id=523391204]
 layout_mode = 2
-text = "MAP
-UNDER CONSTRUCTION"
-horizontal_alignment = 1
+
+[node name="Minimap" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/MapTab/Control" unique_id=1657085781 instance=ExtResource("6_dmh5u")]
+custom_minimum_size = Vector2(0.25, 0.25)
+layout_mode = 0
+offset_top = -4.0
+offset_right = 392.0
+offset_bottom = 160.0
+scale = Vector2(0.5, 0.5)
+display_player_location = true
+area = Vector2i(6, 3)
 
 [node name="TinyThingOnTop" type="TextureRect" parent="." unique_id=1008931911]
 anchors_preset = 5

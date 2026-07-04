@@ -1,4 +1,5 @@
 extends AnimatableBody2D
+class_name Trapdoor
 
 @export var lever: Lever
 
@@ -9,8 +10,8 @@ var activated: bool = false
 
 func _ready() -> void:
 	if lever:
-		lever.lever_activated.connect(_on_lever_activated)
-		lever.lever_deactivated.connect(_on_lever_deactivated)
+		lever.lever_activated.connect(activate)
+		lever.lever_deactivated.connect(deactivate)
 		
 		# Sync initial state instantly
 		if lever.is_activated:
@@ -22,13 +23,13 @@ func _ready() -> void:
 			activated = false
 
 
-func _on_lever_activated() -> void:
+func activate() -> void:
 	if not activated:
 		animation_player.play("open")
 		activated = true
 
 
-func _on_lever_deactivated() -> void:
+func deactivate() -> void:
 	if activated:
 		animation_player.play("close")
 		activated = false

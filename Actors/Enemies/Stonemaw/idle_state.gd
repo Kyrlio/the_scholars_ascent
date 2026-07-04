@@ -43,7 +43,6 @@ func _toggle_surface() -> void:
 	is_surfaced = not is_surfaced
 	
 	if is_surfaced:
-		print("surfaced")
 		context.animation_player.play("go_outside")
 		await context.animation_player.animation_finished
 		if context.state != self: return
@@ -51,7 +50,6 @@ func _toggle_surface() -> void:
 		context.hurtbox_component.is_invincible = false
 		pop_timer = randf_range(1.5, 3.0)
 	else:
-		print("inside")
 		context.animation_player.play("go_inside")
 		await context.animation_player.animation_finished
 		if context.state != self: return

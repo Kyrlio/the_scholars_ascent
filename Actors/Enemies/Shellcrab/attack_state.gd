@@ -1,7 +1,6 @@
 extends EnemyState
 
 func enter() -> void:
-	print("attacking")
 	context.hurtbox_component.toggle_invincibility(false)
 	context.velocity.x = 0.0
 	context.attack_timer.start()

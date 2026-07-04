@@ -53,7 +53,7 @@ func update_limits(new_tilemap: TileMapLayer) -> void:
 	
 	limit_left = (map_size.position.x + 2) * cell_size.x
 	limit_right = (map_size.end.x - 2) * cell_size.x
-	limit_top = map_size.position.y * cell_size.y
+	limit_top = (map_size.position.y + 1) * cell_size.y
 	limit_bottom = map_size.end.y * cell_size.y
 
 

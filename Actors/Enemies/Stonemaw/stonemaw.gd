@@ -25,11 +25,7 @@ var direction: float = 1.0
 var is_dead: bool = false
 
 func _ready() -> void:
-	if enemy_id == "":
-		if owner != null and owner.scene_file_path != "":
-			enemy_id = owner.scene_file_path + "::" + str(owner.get_path_to(self))
-		else:
-			enemy_id = str(get_path())
+	enemy_id = GameState.get_unique_enemy_id(self)
 	
 	if enemy_id != "" and enemy_id in GameState.defeated_enemies:
 		queue_free()

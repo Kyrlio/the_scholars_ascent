@@ -3,9 +3,9 @@ class_name Bat
 
 @export var enemy_id: String = ""
 @export var chase_speed: float = 25.0
-@export var dash_speed: float = 200.0
-@export var dash_length: float = 0.3 ## In seconds
-@export var hover_altitude: float = 25.0 ## Distance above the player
+@export var dash_speed: float = 225.0
+@export var dash_length: float = 0.35 ## In seconds
+@export var hover_altitude: float = 35.0 ## Distance above the player
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var visuals: Node2D = $Visuals
@@ -21,13 +21,10 @@ class_name Bat
 
 var direction: float = 1.0
 var is_dead: bool = false
+var last_player_position: Vector2
 
 func _ready() -> void:
-	if enemy_id == "":
-		if owner != null and owner.scene_file_path != "":
-			enemy_id = owner.scene_file_path + "::" + str(owner.get_path_to(self))
-		else:
-			enemy_id = str(get_path())
+	enemy_id = GameState.get_unique_enemy_id(self)
 	
 	if enemy_id != "" and enemy_id in GameState.defeated_enemies:
 		queue_free()
@@ -41,6 +38,10 @@ func _ready() -> void:
 	
 	health_component.damaged.connect(_on_damaged)
 	health_component.died.connect(_on_died)
+	
+	animation_player.play("spawn")
+	
+	await animation_player.animation_finished
 	
 	set_state($States/IdleState)
 

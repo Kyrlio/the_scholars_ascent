@@ -1873,10 +1873,6 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_sor1j"]
 radius = 5.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_y2lmi"]
-radius = 5.0
-height = 12.0
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ui0vk"]
 radius = 7.9999995
 height = 23.0
@@ -2031,6 +2027,10 @@ height = 128
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_y2lmi"]
+radius = 4.0
+height = 10.0
+
 [node name="Player" type="CharacterBody2D" unique_id=391222067 groups=["player"]]
 collision_layer = 2
 collision_mask = 33
@@ -2099,11 +2099,6 @@ position = Vector2(0, -6)
 shape = SubResource("CircleShape2D_sor1j")
 debug_color = Color(0.97284085, 0, 0.4415506, 0.41960785)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=303500252]
-position = Vector2(0, -5)
-rotation = -1.5707964
-shape = SubResource("CapsuleShape2D_y2lmi")
-
 [node name="Visuals" type="Node2D" parent="." unique_id=1054381174]
 
 [node name="Sprite2D" type="Sprite2D" parent="Visuals" unique_id=692426610]
@@ -2170,3 +2165,8 @@ position = Vector2(0, -5)
 color = Color(0.8352941, 0.79607844, 0.7607843, 1)
 energy = 0.5
 texture = SubResource("GradientTexture2D_pnakb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=303500252]
+position = Vector2(0, -4)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_y2lmi")

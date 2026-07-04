@@ -18,5 +18,5 @@ func _ready() -> void:
 
 func _on_pick_up_area_body_entered(body: Node2D) -> void:
 	if body is Player:
-		GameEvents.emit_item_collected(item_data)
+		GameEvents.emit_item_collected(item_data, 1)
 		animation_player.play("looted")

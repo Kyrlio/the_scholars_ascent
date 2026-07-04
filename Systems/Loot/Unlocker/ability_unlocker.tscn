@@ -1,0 +1,219 @@
+[gd_scene format=3 uid="uid://d0xmebw6vapot"]
+
+[ext_resource type="Script" uid="uid://dlvikyi58cwd" path="res://Systems/Loot/Unlocker/ability_unlocker.gd" id="1_c7ek6"]
+[ext_resource type="Texture2D" uid="uid://cd4qh5of2k141" path="res://Assets/animations/animations.png" id="2_0no4w"]
+[ext_resource type="Texture2D" uid="uid://clogc8axblkdv" path="res://Assets/effects/effects.png" id="3_gguoo"]
+[ext_resource type="Texture2D" uid="uid://vsgmrqgvil2s" path="res://Assets/ui/ui-2.png" id="4_gguoo"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f72hx"]
+height = 36.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kqdwc"]
+atlas = ExtResource("2_0no4w")
+region = Rect2(160, 192, 16, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sh5ed"]
+atlas = ExtResource("2_0no4w")
+region = Rect2(176, 192, 16, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kcx0k"]
+atlas = ExtResource("2_0no4w")
+region = Rect2(192, 192, 16, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_drhkd"]
+atlas = ExtResource("2_0no4w")
+region = Rect2(208, 192, 16, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0thxj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kqdwc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sh5ed")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kcx0k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_drhkd")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 4.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x416w"]
+atlas = ExtResource("3_gguoo")
+region = Rect2(16, 80, 32, 32)
+
+[sub_resource type="Gradient" id="Gradient_1yluu"]
+offsets = PackedFloat32Array(0, 0.14285715, 0.3877551, 0.5346939)
+colors = PackedColorArray(1, 1, 1, 1, 0.41783845, 0.41783845, 0.41783845, 1, 0.19847327, 0.19847327, 0.19847327, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0no4w"]
+gradient = SubResource("Gradient_1yluu")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Animation" id="Animation_43nlh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ccg74"]
+resource_name = "hide"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 0.5, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 1.1), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_vk042"]
+resource_name = "pressed"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(2, 0.5, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.5, 0.5), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_7pwof"]
+resource_name = "show"
+length = 0.4
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(0.5, 1, 1),
+"update": 0,
+"values": [Vector2(1.001358e-05, 1.001358e-05), Vector2(1.1, 1.1), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kqdwc"]
+_data = {
+&"RESET": SubResource("Animation_43nlh"),
+&"hide": SubResource("Animation_ccg74"),
+&"pressed": SubResource("Animation_vk042"),
+&"show": SubResource("Animation_7pwof")
+}
+
+[node name="AbilityUnlocker" type="Area2D" unique_id=523632769]
+collision_layer = 128
+collision_mask = 2
+script = ExtResource("1_c7ek6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=790899635]
+position = Vector2(0, -10)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_f72hx")
+debug_color = Color(0.21926558, 0.6393899, 0, 0.41960785)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1660026711]
+sprite_frames = SubResource("SpriteFrames_0thxj")
+autoplay = "default"
+frame_progress = 0.7095019
+offset = Vector2(0, -32)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=42186603]
+position = Vector2(0, -29)
+texture = SubResource("AtlasTexture_x416w")
+
+[node name="PointLight" type="PointLight2D" parent="." unique_id=1043712328]
+position = Vector2(0, -28)
+color = Color(0.98039216, 0.7490196, 0.38039216, 1)
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_0no4w")
+
+[node name="InteractSprite" type="Sprite2D" parent="." unique_id=983302103]
+visible = false
+position = Vector2(0, -57)
+texture = ExtResource("4_gguoo")
+region_enabled = true
+region_rect = Rect2(226, 98, 12, 12)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="InteractSprite" unique_id=1744148392]
+libraries/ = SubResource("AnimationLibrary_kqdwc")

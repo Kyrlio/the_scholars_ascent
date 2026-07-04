@@ -190,6 +190,8 @@ func switch_state(new_state: State) -> void:
 		State.DEAD:
 			is_dead = true
 			animation_player.play("death")
+			hurtbox.set_deferred("monitorable", false)
+			hurtbox.set_deferred("monitoring", false)
 			GameEvents.emit_player_died()
 		
 		State.REST:
@@ -199,6 +201,9 @@ func switch_state(new_state: State) -> void:
 		State.SHOW_ITEM:
 			animation_player.play("item_chest")
 			velocity = Vector2.ZERO
+			
+			await animation_player.animation_finished
+			GameEvents.emit_show_item_player_animation_finished()
 		
 		State.CAST_SPELL:
 			animation_player.play("cast_spell")
@@ -365,6 +370,7 @@ func _handle_attack() -> void:
 	
 	if Input.is_action_just_pressed("attack") and GameState.has_ability("sword"):
 		var is_up_pressed: bool = Input.is_action_pressed("up")
+		var is_down_pressed: bool = Input.is_action_pressed("down")
 		
 		if is_on_floor():
 			if is_up_pressed and current_state != State.UP_ATTACK:
@@ -372,11 +378,13 @@ func _handle_attack() -> void:
 			elif not is_up_pressed and current_state != State.GROUND_ATTACK:
 				switch_state(State.GROUND_ATTACK)
 		else:
-			if is_up_pressed and current_state != State.UP_ATTACK:
+			if is_up_pressed and not is_down_pressed and current_state != State.UP_ATTACK:
 				switch_state(State.UP_ATTACK)
-			elif not is_up_pressed and current_state != State.AIR_ATTACK:
+			elif is_down_pressed and not is_up_pressed and current_state != State.AIR_ATTACK:
 				if GameState.has_ability("pogo"):
 					switch_state(State.AIR_ATTACK)
+			else:
+				switch_state(State.GROUND_ATTACK)
 
 func _handle_roll() -> void:
 	if check_common_conditions():
@@ -430,11 +438,12 @@ func _unhandled_input(event: InputEvent) -> void:
 			print("DEBUG: Jeu sauvegardé à la position ", global_position, " (Santé: ", get_current_health(), ", Or: ", GameState.total_gold, ")")
 
 func _ready() -> void:
+	print(health_component.current_health)
 	switch_state(State.IDLE)
 	animation_player.animation_finished.connect(_on_animation_finished)
 	
 	health_component.health_changed.connect(func(current_health, max_health): GameEvents.emit_player_health_changed(current_health, max_health))
-	health_component.damaged.connect(func(): switch_state(State.HURT))
+	health_component.damaged.connect(_on_player_damaged)
 	health_component.died.connect(func(): switch_state(State.DEAD))
 	health_component.set_max_health(GameState.unlocked_max_health, false)
 	
@@ -509,11 +518,16 @@ func _physics_process(delta: float) -> void:
 		run_dust_cooldown = -1.0
 
 
-func receive_item(item: ItemData) -> void:
-	if item != null and item.icon != null:
-		looted_item_sprite.texture = item.icon
+func play_show_item_animation(icon: Texture2D) -> void:
+	if icon != null:
+		looted_item_sprite.texture = icon
 		looted_item_sprite.show()
 	switch_state(State.SHOW_ITEM)
+
+
+func receive_item(item: ItemData) -> void:
+	var icon: Texture2D = item.icon if item != null else null
+	play_show_item_animation(icon)
 
 
 func consume_ammo() -> void:
@@ -685,6 +699,17 @@ func _on_hitbox_hit(hurtbox: HurtboxComponent) -> void:
 		velocity.x = push_dir * ATTACK_PUSH_FORCE
 
 
+func _on_player_damaged() -> void:
+	switch_state(State.HURT)
+	_trigger_invincibility(0.8)
+
+func _trigger_invincibility(duration: float) -> void:
+	hurtbox.toggle_invincibility(true)
+	
+	await get_tree().create_timer(duration).timeout
+	hurtbox.toggle_invincibility(false)
+
+
 func _on_ammo_regen_timeout() -> void:
 	if current_water_ammo < stats.max_water_ammo:
 		current_water_ammo += 1
@@ -728,6 +753,7 @@ func _on_animation_finished(animation_name: StringName) -> void:
 				switch_state(_get_post_action_state())
 		State.SHOW_ITEM:
 			if animation_name == &"item_chest":
+				print("[DEBUG Player] _on_animation_finished: item_chest finished. Switching to IDLE.")
 				looted_item_sprite.hide()
 				switch_state(State.IDLE)
 		State.CAST_SPELL:

@@ -13,6 +13,7 @@ extends CanvasLayer
 @onready var gold_label: Label = %GoldLabel
 @onready var water_ammos: Array = [%Ammo1, %Ammo2, %Ammo3]
 @onready var water_ammo_container: Control = $MarginContainer/WaterAmmoUI
+@onready var item_popup: ItemPopup = %ItemPopup
 
 var previous_hp: int = -1
 var total_gold: int = 0
@@ -28,6 +29,7 @@ func _ready() -> void:
 	GameEvents.ability_unlocked.connect(_on_ability_unlocked)
 	GameEvents.player_health_changed.connect(update_health_ui)
 	GameEvents.gold_collected.connect(add_gold)
+	GameEvents.item_collected.connect(_on_item_collected)
 	
 	for heart in hearts:
 		heart.pivot_offset = heart.size / 2.0
@@ -123,3 +125,12 @@ func juice_heart(heart: TextureRect, color: Color) -> void:
 func _on_ability_unlocked(ability_name: String) -> void:
 	if ability_name == "water_ball":
 		water_ammo_container.show()
+
+
+func _on_item_collected(item: ItemData, quantity: int) -> void:
+	if item is CharmItem:
+		return
+	
+	item_popup.setup(item, quantity)
+	item_popup.play_show()
+	

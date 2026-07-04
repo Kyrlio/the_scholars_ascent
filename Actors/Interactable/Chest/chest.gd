@@ -1,8 +1,9 @@
 extends Area2D
 class_name Chest
 
-@export var item_content: ItemData
 @export var chest_id: String = ""
+@export var item_content: ItemData
+@export var item_quantity: int = 1
 @export var is_locked: bool = false
 @export var required_key: ItemData = preload("uid://fg4610ldofq0")
 
@@ -82,11 +83,16 @@ func open_chest() -> void:
 	
 	if item_content != null:
 		interact_animation_player.play("hide")
-		GameEvents.emit_item_collected(item_content)
 		player_in_zone.receive_item(item_content)
-		
-		await get_tree().create_timer(2).timeout
-		player_in_zone.switch_state(Player.State.IDLE)
+		if item_content.item_name == "Gold":
+			GameEvents.emit_gold_collected(item_quantity)
+			await get_tree().create_timer(2).timeout
+			player_in_zone.switch_state(Player.State.IDLE)
+		else:
+			GameEvents.emit_item_collected(item_content, item_quantity)
+			if not item_content is CharmItem:
+				await get_tree().create_timer(2).timeout
+				player_in_zone.switch_state(Player.State.IDLE)
 
 
 func _on_body_entered(body: Node2D) -> void:

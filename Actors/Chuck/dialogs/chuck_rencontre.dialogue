@@ -33,6 +33,7 @@ do get_viewport().set_input_as_handled()
 => END
 
 ~ chuck_rencontre
+do get_viewport().set_input_as_handled()
 if first_met == true:
 	if GameState.has_ability("sword"):
 		Chuck: Go kill this motherfucker now.
@@ -46,9 +47,9 @@ else:
 	Chuck: Todd ! You're awake, did you feel that ?
 	- Yep !
 		Todd: Yep ! What's going on ? Are we gonna die ?
-		Chuck: Hell nah no worries. It's just the Archimage...
+		Chuck: Hell nah. It's just the Archmage...
 	- No
-		Chuck: Don't lie to me little brat. The Archimage is blowing everything up !
+		Chuck: Don't lie to me little brat. The Archmage is blowing everything up !
 		do GameEvents.emit_camera_shake(1.0)
 		do GameEvents.emit_camera_shake(1.0)
 		do GameEvents.emit_camera_shake(1.0)
@@ -63,5 +64,4 @@ else:
 	Chuck: Another thing. If you see me later, come talk to me, I'll sell you things.
 
 do first_met = true
-do get_viewport().set_input_as_handled()
 => END

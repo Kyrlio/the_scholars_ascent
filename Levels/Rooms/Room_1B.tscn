@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://7d7qnhkg5diw" path="res://Assets/backgrounds/background.png" id="1_gujp5"]
 [ext_resource type="TileSet" uid="uid://kfnw62y6y32u" path="res://Systems/Resources/background_tileset.tres" id="2_713rd"]
 [ext_resource type="TileSet" uid="uid://dwci46dnir3i8" path="res://Systems/Resources/ground_tileset.tres" id="3_7yynh"]
-[ext_resource type="PackedScene" uid="uid://cds8p53ulwiak" path="res://Systems/Loot/AbilityUnlocker/ability_unlocker.tscn" id="4_h8qtk"]
+[ext_resource type="PackedScene" uid="uid://cds8p53ulwiak" path="res://Systems/Loot/Unlocker/sword_unlocker.tscn" id="4_h8qtk"]
 [ext_resource type="Texture2D" uid="uid://ds05v8rxt5pg5" path="res://Assets/items/sword.png" id="5_lp7jv"]
 [ext_resource type="Script" uid="uid://buf1beh7iq202" path="res://Systems/scripts/floating_animation.gd" id="6_ndfuv"]
 [ext_resource type="PackedScene" uid="uid://dooyey8iqsgl6" path="res://Actors/Interactable/Star Door/star_door.tscn" id="7_88vpl"]

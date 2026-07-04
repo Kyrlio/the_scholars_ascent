@@ -34,6 +34,7 @@ anim_speed_min = 0.5
 anim_speed_max = 1.0
 
 [node name="PogoParticles" type="GPUParticles2D" unique_id=1639302054]
+modulate = Color(1.353256, 1.353256, 1.353256, 1)
 material = SubResource("CanvasItemMaterial_j5eir")
 emitting = false
 texture = ExtResource("1_1ugig")

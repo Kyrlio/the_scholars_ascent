@@ -40,7 +40,15 @@ func _ready() -> void:
 	# Game Events signals
 	GameEvents.engine_freeze_requested.connect(freeze_engine)
 	
+	MetSys.reset_state()
+	MetSys.set_save_data()
+	
 	_emit_loading_finished.call_deferred()
+
+
+func _physics_process(_delta: float) -> void:
+	if is_instance_valid(player):
+		MetSys.set_player_position(player.position)
 
 
 func _emit_loading_finished() -> void:

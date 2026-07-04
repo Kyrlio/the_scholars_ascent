@@ -15,7 +15,11 @@ func enter() -> void:
 		dash_dir = context.global_position.direction_to(player.global_position)
 		context.update_facing(player.global_position)
 	else:
-		dash_dir = Vector2(context.direction, 0)
+		if context.last_player_position != null:
+			dash_dir = context.global_position.direction_to(context.last_player_position)
+			context.update_facing(context.last_player_position)
+		else:
+			dash_dir = Vector2(context.direction, 0)
 	
 	context.animation_player.play("dash")
 	context.velocity = dash_dir * context.dash_speed
@@ -23,10 +27,10 @@ func enter() -> void:
 	await context.get_tree().create_timer(context.dash_length).timeout
 	if context.state != self: return
 	
-	context.velocity = Vector2.UP * (context.chase_speed * 0.8)
+	context.velocity = Vector2.UP * (context.chase_speed * 2)
 	context.animation_player.play("idle")
 	
-	await context.get_tree().create_timer(0.2).timeout
+	await context.get_tree().create_timer(0.4).timeout
 	if context.state != self: return
 	
 	context.set_state($"../ChaseState")

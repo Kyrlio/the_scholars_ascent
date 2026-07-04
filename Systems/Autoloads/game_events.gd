@@ -6,10 +6,12 @@ signal player_health_changed(current_health: int, max_health: int)
 signal player_died
 signal inventory_item_focused(item_data: ItemData)
 signal gold_collected(amount: int)
-signal item_collected(item: ItemData)
+signal item_collected(item: ItemData, quantity: int)
 signal ability_unlocked(ability_name: String)
 signal water_ammo_changed(current_water_ammo: int)
 signal shop_opened
+signal show_ability_popup(title: String, desc: String, texture: Texture2D)
+signal show_item_player_animation_finished
 
 
 func emit_engine_freeze() -> void:
@@ -27,8 +29,8 @@ func emit_inventory_item_focused(item_data: ItemData) -> void:
 func emit_gold_collected(amount: int) -> void:
 	gold_collected.emit(amount)
 
-func emit_item_collected(item: ItemData) -> void:
-	item_collected.emit(item)
+func emit_item_collected(item: ItemData, quantity: int = 1) -> void:
+	item_collected.emit(item, quantity)
 
 func emit_ability_unlocked(ability_name: String) -> void:
 	ability_unlocked.emit(ability_name)
@@ -39,5 +41,8 @@ func emit_water_ammo_changed(current_water_ammo: int) -> void:
 func emit_player_died() -> void:
 	player_died.emit()
 
-func emit_shop_opened() -> void:
-	shop_opened.emit()
+func emit_show_ability_popup(title: String, desc: String, icon_texture: Texture2D) -> void:
+	show_ability_popup.emit(title, desc, icon_texture)
+
+func emit_show_item_player_animation_finished() -> void:
+	show_item_player_animation_finished.emit()

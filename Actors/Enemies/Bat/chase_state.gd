@@ -37,3 +37,8 @@ func _is_player_in_attack_range() -> bool:
 		if body is Player:
 			return true
 	return false
+
+
+func _on_attack_area_2d_body_exited(body: Node2D) -> void:
+	if body is Player:
+		context.last_player_position = body.global_position

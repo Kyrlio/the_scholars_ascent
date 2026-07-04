@@ -1,0 +1,205 @@
+[gd_scene format=3 uid="uid://d3s1vqjppn1tx"]
+
+[ext_resource type="Script" uid="uid://dbhvosy445vi5" path="res://UI/Ability Popup/ability_popup.gd" id="1_kt8lf"]
+[ext_resource type="Texture2D" uid="uid://ds05v8rxt5pg5" path="res://Assets/items/sword.png" id="2_13o11"]
+[ext_resource type="Texture2D" uid="uid://xi2ifg7ixo2g" path="res://Assets/ui/ui.png" id="3_ap7rd"]
+
+[sub_resource type="Animation" id="Animation_76fq5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0.19607843)]
+}
+
+[sub_resource type="Animation" id="Animation_h0ktc"]
+resource_name = "hide"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.4),
+"transitions": PackedFloat32Array(0.5, 2, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0.19607843), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_36efu"]
+resource_name = "show"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.39999998, 0.5),
+"transitions": PackedFloat32Array(0.5, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 0.19607843)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1rc02"]
+_data = {
+&"RESET": SubResource("Animation_76fq5"),
+&"hide": SubResource("Animation_h0ktc"),
+&"show": SubResource("Animation_36efu")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b511v"]
+atlas = ExtResource("3_ap7rd")
+region = Rect2(210, 114, 12, 12)
+
+[node name="AbilityPopup" type="CanvasLayer" unique_id=1366200340]
+process_mode = 3
+script = ExtResource("1_kt8lf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1398840805]
+libraries/ = SubResource("AnimationLibrary_1rc02")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=769270450]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.19607843)
+
+[node name="Panel" type="Panel" parent="." unique_id=1437628842]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -45.0
+offset_right = 80.0
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(80, 45)
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=1599384087]
+custom_minimum_size = Vector2(160, 90)
+custom_maximum_size = Vector2(160, 90)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -45.0
+offset_right = 80.0
+offset_bottom = 46.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=1259051780]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer" unique_id=1765027154]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="IconRect" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=682511377]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(16, 16)
+custom_maximum_size = Vector2(24, 24)
+layout_mode = 2
+texture = ExtResource("2_13o11")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TitleLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1869013794]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(110, 0)
+custom_maximum_size = Vector2(110, 24)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "VERTICAL AGILITY"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="DescLabel" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer" unique_id=1172740594]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 35)
+custom_maximum_size = Vector2(-1, 35)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 8
+text = "This is an example of description of the item / ability"
+fit_content = true
+autowrap_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer" unique_id=1504076255]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="ContinueIcon" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1328325878]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("AtlasTexture_b511v")
+stretch_mode = 5
+
+[node name="ContinueLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=199582440]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Okay"

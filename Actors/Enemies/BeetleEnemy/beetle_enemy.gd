@@ -23,10 +23,9 @@ var can_move: bool = true
 
 
 func _ready() -> void:
-	if enemy_id == "":
-		enemy_id = str(get_path())
+	enemy_id = GameState.get_unique_enemy_id(self)
 	
-	if enemy_id in GameState.defeated_enemies:
+	if enemy_id != "" and enemy_id in GameState.defeated_enemies:
 		queue_free()
 		return
 	

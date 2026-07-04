@@ -15,4 +15,4 @@ func physics_update(_delta: float) -> void:
 			return
 
 func exit() -> void:
-	pass
+	context.last_player_position = Vector2.ZERO
