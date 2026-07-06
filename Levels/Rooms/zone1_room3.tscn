@@ -5,7 +5,7 @@
 [ext_resource type="TileSet" uid="uid://dwci46dnir3i8" path="res://Systems/Resources/ground_tileset.tres" id="3_d46bw"]
 [ext_resource type="PackedScene" uid="uid://bdcpl82u4p3ki" path="res://Actors/Interactable/Moving Platform/moving_platform.tscn" id="4_cqnoh"]
 [ext_resource type="PackedScene" uid="uid://bjkcmrb2gcnt5" path="res://Systems/Components/Arena Area/arena_area.tscn" id="6_igqfo"]
-[ext_resource type="Script" uid="uid://8sumcv4yin0" path="res://Systems/Components/Enemy Spawner Component/enemy_spawner_component.gd" id="7_nsrcm"]
+[ext_resource type="Script" uid="uid://dj3p78ef7onij" path="res://Systems/Components/Arena Area/Arena Enemy Spawner/arena_enemy_spawner.gd" id="8_b3eng"]
 [ext_resource type="PackedScene" uid="uid://uec5sa3yyp7m" path="res://Actors/Interactable/Trapdoor/trapdoor.tscn" id="8_ou1o6"]
 [ext_resource type="PackedScene" uid="uid://bsg2twb245xa3" path="res://Actors/Interactable/Lever/lever.tscn" id="9_r72qh"]
 [ext_resource type="PackedScene" uid="uid://uh8me0shidj0" path="res://Systems/Loot/HeartContainer/heart_container.tscn" id="10_b3eng"]
@@ -119,19 +119,19 @@ position = Vector2(-133, -24)
 
 [node name="EnemySpawner" type="Marker2D" parent="Interactable/ArenaArea" unique_id=134818945]
 position = Vector2(-71, -64)
-script = ExtResource("7_nsrcm")
+script = ExtResource("8_b3eng")
 enemy_scene = ExtResource("15_2xos5")
 metadata/_custom_type_script = "uid://8sumcv4yin0"
 
 [node name="EnemySpawner2" type="Marker2D" parent="Interactable/ArenaArea" unique_id=1608161937]
 position = Vector2(6, -89)
-script = ExtResource("7_nsrcm")
+script = ExtResource("8_b3eng")
 enemy_scene = ExtResource("15_2xos5")
 metadata/_custom_type_script = "uid://8sumcv4yin0"
 
 [node name="EnemySpawner3" type="Marker2D" parent="Interactable/ArenaArea" unique_id=1735495966]
 position = Vector2(87, -62)
-script = ExtResource("7_nsrcm")
+script = ExtResource("8_b3eng")
 enemy_scene = ExtResource("15_2xos5")
 metadata/_custom_type_script = "uid://8sumcv4yin0"
 

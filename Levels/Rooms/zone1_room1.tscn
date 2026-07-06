@@ -6,7 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://lwx1ufc0bndp" path="res://Systems/Components/Transition Zone/transition_zone.tscn" id="4_7b5ax"]
 [ext_resource type="PackedScene" uid="uid://d1qf1x2cl5xpi" path="res://Actors/Interactable/Campfire/campfire.tscn" id="4_cmh1j"]
 [ext_resource type="PackedScene" uid="uid://ctgcuxn4avkgf" path="res://Actors/Interactable/Sign/sign.tscn" id="5_oik81"]
+[ext_resource type="PackedScene" uid="uid://cc5xoecqb015f" path="res://Actors/Interactable/Grass/grass.tscn" id="6_6ni1w"]
 [ext_resource type="PackedScene" uid="uid://bsg0351mx3b4u" path="res://addons/MetroidvaniaSystem/Nodes/RoomInstance.tscn" id="7_hlhik"]
+[ext_resource type="PackedScene" uid="uid://clqmfvb63sfeo" path="res://Actors/Interactable/Vine/vine.tscn" id="7_qcdma"]
 
 [node name="Zone1Room1" type="Node2D" unique_id=896410589]
 
@@ -74,6 +76,88 @@ position = Vector2(24, 144)
 
 [node name="Sign" parent="Interactable" unique_id=530247221 instance=ExtResource("5_oik81")]
 position = Vector2(113, 160)
+
+[node name="Grasses" type="Node2D" parent="Interactable" unique_id=953994443]
+
+[node name="Grass" parent="Interactable/Grasses" unique_id=1937307481 instance=ExtResource("6_6ni1w")]
+position = Vector2(129, 144)
+
+[node name="Grass2" parent="Interactable/Grasses" unique_id=477646590 instance=ExtResource("6_6ni1w")]
+position = Vector2(135, 144)
+
+[node name="Grass3" parent="Interactable/Grasses" unique_id=722575051 instance=ExtResource("6_6ni1w")]
+position = Vector2(142, 144)
+
+[node name="Grass4" parent="Interactable/Grasses" unique_id=752615779 instance=ExtResource("6_6ni1w")]
+position = Vector2(150, 144)
+
+[node name="Grass5" parent="Interactable/Grasses" unique_id=1162858033 instance=ExtResource("6_6ni1w")]
+position = Vector2(8, 144)
+
+[node name="Grass6" parent="Interactable/Grasses" unique_id=563733194 instance=ExtResource("6_6ni1w")]
+position = Vector2(42, 143)
+
+[node name="Grass7" parent="Interactable/Grasses" unique_id=507631329 instance=ExtResource("6_6ni1w")]
+position = Vector2(56, 143)
+
+[node name="Grass8" parent="Interactable/Grasses" unique_id=318541060 instance=ExtResource("6_6ni1w")]
+position = Vector2(93, 144)
+
+[node name="Grass9" parent="Interactable/Grasses" unique_id=4829155 instance=ExtResource("6_6ni1w")]
+position = Vector2(168, 128)
+
+[node name="Grass10" parent="Interactable/Grasses" unique_id=605866745 instance=ExtResource("6_6ni1w")]
+position = Vector2(186, 128)
+
+[node name="Grass11" parent="Interactable/Grasses" unique_id=1277556721 instance=ExtResource("6_6ni1w")]
+position = Vector2(207, 144)
+
+[node name="Grass12" parent="Interactable/Grasses" unique_id=86498837 instance=ExtResource("6_6ni1w")]
+position = Vector2(214, 144)
+
+[node name="Grass13" parent="Interactable/Grasses" unique_id=1370509890 instance=ExtResource("6_6ni1w")]
+position = Vector2(221, 144)
+
+[node name="Grass14" parent="Interactable/Grasses" unique_id=1734558317 instance=ExtResource("6_6ni1w")]
+position = Vector2(227, 144)
+
+[node name="Grass15" parent="Interactable/Grasses" unique_id=522246531 instance=ExtResource("6_6ni1w")]
+position = Vector2(232, 144)
+
+[node name="Grass16" parent="Interactable/Grasses" unique_id=352391287 instance=ExtResource("6_6ni1w")]
+position = Vector2(240, 144)
+
+[node name="Grass17" parent="Interactable/Grasses" unique_id=934111937 instance=ExtResource("6_6ni1w")]
+position = Vector2(250, 144)
+
+[node name="Grass18" parent="Interactable/Grasses" unique_id=1524976536 instance=ExtResource("6_6ni1w")]
+position = Vector2(267, 144)
+
+[node name="Grass19" parent="Interactable/Grasses" unique_id=694494221 instance=ExtResource("6_6ni1w")]
+position = Vector2(276, 144)
+
+[node name="Grass20" parent="Interactable/Grasses" unique_id=627149294 instance=ExtResource("6_6ni1w")]
+position = Vector2(287, 144)
+
+[node name="Vines" type="Node2D" parent="Interactable" unique_id=1784977290]
+
+[node name="Vine" parent="Interactable/Vines" unique_id=1167820580 instance=ExtResource("7_qcdma")]
+position = Vector2(23, 48)
+
+[node name="Vine2" parent="Interactable/Vines" unique_id=2064877253 instance=ExtResource("7_qcdma")]
+position = Vector2(139, 80)
+
+[node name="Vine3" parent="Interactable/Vines" unique_id=1059014834 instance=ExtResource("7_qcdma")]
+position = Vector2(155, 80)
+
+[node name="Vine4" parent="Interactable/Vines" unique_id=1472207053 instance=ExtResource("7_qcdma")]
+position = Vector2(168, 64)
+
+[node name="Vine5" parent="Interactable/Vines" unique_id=689817413 instance=ExtResource("7_qcdma")]
+position = Vector2(202, 48)
+
+[node name="Vine6" parent="Interactable/Vines" unique_id=989290181 instance=ExtResource("7_qcdma")]
+position = Vector2(104, 47)
 
 [node name="GoldsCoin" type="Node2D" parent="." unique_id=1210938853]
 

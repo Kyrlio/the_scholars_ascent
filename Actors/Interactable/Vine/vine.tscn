@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://clqmfvb63sfeo"]
+
+[ext_resource type="Script" uid="uid://dik1ngpjna2ok" path="res://Actors/Interactable/Vine/vine.gd" id="1_kr5fh"]
+[ext_resource type="Texture2D" uid="uid://6kj1t27l74ae" path="res://Assets/tileset.png" id="2_k5b5q"]
+[ext_resource type="Shader" uid="uid://edfedg5h88v8" path="res://Systems/Shaders/grass.gdshader" id="3_grass_shader"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x416w"]
+radius = 4.0
+height = 26.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vx5wj"]
+resource_local_to_scene = true
+shader = ExtResource("3_grass_shader")
+shader_parameter/speed = 1.0
+shader_parameter/minStrength = 0.010000000475
+shader_parameter/maxStrength = 0.0800000513000001
+shader_parameter/strengthScale = 300.0
+shader_parameter/interval = 3.5
+shader_parameter/detail = 1.0
+shader_parameter/heightOffset = 0.0
+shader_parameter/offset = 0.0
+shader_parameter/skew = 0.0
+shader_parameter/hang_from_ceiling = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0thxj"]
+atlas = ExtResource("2_k5b5q")
+region = Rect2(256, 16, 16, 32)
+
+[node name="Vine" type="Area2D" unique_id=1937307481]
+collision_layer = 128
+collision_mask = 6
+script = ExtResource("1_kr5fh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1833916932]
+position = Vector2(0, 12)
+shape = SubResource("CapsuleShape2D_x416w")
+
+[node name="Pivot" type="Marker2D" parent="." unique_id=1358317478]
+
+[node name="Sprite2D" type="Sprite2D" parent="Pivot" unique_id=549645525]
+material = SubResource("ShaderMaterial_vx5wj")
+texture = SubResource("AtlasTexture_0thxj")
+offset = Vector2(0, 16)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -3,6 +3,9 @@ class_name AbilityUnlocker
 
 @export var abilities_to_unlock: Array[String] = [] ## Example: "sword", "pogo"
 
+@export var min_skew: float = -200
+@export var max_skew: float = 200
+
 @export_group("Popup Informations")
 @export var popup_title: String = ""
 @export_multiline var popup_desc: String = ""
@@ -10,6 +13,7 @@ class_name AbilityUnlocker
 
 @onready var interact_sprite: Sprite2D = $InteractSprite
 @onready var animation_player: AnimationPlayer = $InteractSprite/AnimationPlayer
+@onready var animated_sprite: AnimatedSprite2D = $Area2D/Marker2D/AnimatedSprite2D
 
 var player_in_zone: Player = null
 var popup_emitted: bool = false
@@ -67,3 +71,22 @@ func _on_body_exited(body: Node2D) -> void:
 	if body is Player:
 		player_in_zone = null
 		animation_player.play("hide") 
+
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body is CharacterBody2D and animated_sprite and animated_sprite.material:
+		var direction = global_position.direction_to(body.global_position)
+		var max_speed = 100.0
+		if body is Player and body.stats:
+			max_speed = body.stats.speed
+		elif "speed" in body:
+			max_speed = body.speed
+		elif "walk_speed" in body:
+			max_speed = body.walk_speed
+		elif "jump_horizontal_speed" in body:
+			max_speed = body.jump_horizontal_speed
+		
+		var skew = clamp(remap(body.velocity.length() * sign(-direction.x), -max_speed, max_speed, min_skew, max_skew), min_skew, max_skew)
+		var tw: Tween = create_tween()
+		tw.tween_property(animated_sprite.material, "shader_parameter/skew", skew, 0.3).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+		tw.tween_property(animated_sprite.material, "shader_parameter/skew", 0.0, 3.0).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)

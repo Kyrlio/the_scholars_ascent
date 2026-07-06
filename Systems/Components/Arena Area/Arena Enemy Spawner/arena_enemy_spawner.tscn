@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://6t4k7w7oj26j"]
+
+[ext_resource type="Script" uid="uid://dj3p78ef7onij" path="res://Systems/Components/Arena Area/Arena Enemy Spawner/arena_enemy_spawner.gd" id="1_f0jkg"]
+
+[node name="ArenaEnemySpawner" type="Marker2D" unique_id=1246075537]
+script = ExtResource("1_f0jkg")
