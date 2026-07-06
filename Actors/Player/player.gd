@@ -439,7 +439,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			print("DEBUG: Jeu sauvegardé à la position ", global_position, " (Santé: ", get_current_health(), ", Or: ", GameState.total_gold, ")")
 
 func _ready() -> void:
-	print(health_component.current_health)
 	switch_state(State.IDLE)
 	animation_player.animation_finished.connect(_on_animation_finished)
 	
@@ -482,8 +481,6 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	_apply_gravity(delta)
-	
-	print(health_component.current_health)
 	
 	if is_dead:
 		return
@@ -550,7 +547,6 @@ func _fire_projectile(direction: Vector2) -> void:
 func play_landing_dust_animation() -> void:
 	dust_animated_sprite.show() 
 	dust_animated_sprite.global_position = global_position
-	#dust_animated_sprite.global_position.y -= 2
 	dust_animated_sprite.reset_physics_interpolation()
 	dust_animated_sprite.play("landing")
 
@@ -559,7 +555,6 @@ func play_jumping_dust_animation() -> void:
 	dust_animated_sprite.stop()
 	dust_animated_sprite.show() 
 	dust_animated_sprite.global_position = global_position
-	#dust_animated_sprite.global_position.y += 2
 	dust_animated_sprite.reset_physics_interpolation()
 	dust_animated_sprite.play("jump")
 
@@ -705,9 +700,8 @@ func _on_hitbox_hit(hurtbox: HurtboxComponent) -> void:
 
 func _on_player_damaged() -> void:
 	switch_state(State.HURT)
-	_trigger_invincibility(1.2)
-	#if flash_animation_player:
-		#flash_animation_player.play("flash")
+	_trigger_invincibility(0.8)
+
 
 func _on_hurtbox_hit(hitbox: HitboxComponent) -> void:
 	var push_dir = sign(global_position.x - hitbox.global_position.x)

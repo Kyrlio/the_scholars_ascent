@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://cj0ylb0tjal2w"]
+
+[ext_resource type="Texture2D" uid="uid://c6cctp71hb13o" path="res://Assets/effects/particles.png" id="1_kns4w"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_j5eir"]
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 1
+particles_anim_loop = true
+
+[sub_resource type="Curve" id="Curve_yq8xq"]
+_data = [Vector2(0.25110132, 1), 0.5885915, -0.9738505, 0, 0, Vector2(0.9647578, 0.056179762), -0.3579739, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_v7rrx"]
+curve = SubResource("Curve_yq8xq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sc8ey"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(1, -1, 0)
+spread = 60.0
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+angular_velocity_min = -1.6093254e-05
+angular_velocity_max = -1.6093254e-05
+gravity = Vector3(0, 350, 0)
+scale_min = 0.5
+scale_max = 0.7
+scale_curve = SubResource("CurveTexture_v7rrx")
+anim_speed_min = 0.5
+anim_speed_max = 1.0
+
+[node name="HitParticles" type="GPUParticles2D" unique_id=1639302054]
+modulate = Color(0.27058825, 0.16862746, 0.24705882, 1)
+material = SubResource("CanvasItemMaterial_j5eir")
+emitting = false
+amount = 4
+texture = ExtResource("1_kns4w")
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.95
+randomness = 0.8
+fixed_fps = 0
+interpolate = false
+process_material = SubResource("ParticleProcessMaterial_sc8ey")

@@ -1,0 +1,167 @@
+[gd_scene format=3 uid="uid://d8hou87leijl"]
+
+[ext_resource type="Script" uid="uid://dw0kmagbh0hkr" path="res://Actors/Destructible Prop/destructible_prop.gd" id="1_wcvkn"]
+[ext_resource type="Script" uid="uid://bexah18irylv2" path="res://Systems/Components/health_component.gd" id="1_y5htx"]
+[ext_resource type="Script" uid="uid://dprjg5ilgd4ve" path="res://Systems/Components/hurtbox_component.gd" id="2_tqx5s"]
+[ext_resource type="Texture2D" uid="uid://6kj1t27l74ae" path="res://Assets/tileset.png" id="2_ytlls"]
+[ext_resource type="PackedScene" uid="uid://b5qnhbxwsse1r" path="res://Systems/Loot/loot_2d.tscn" id="3_ytlls"]
+[ext_resource type="PackedScene" uid="uid://cj0ylb0tjal2w" path="res://Systems/Particles/hit_particles_props.tscn" id="4_jdajq"]
+[ext_resource type="PackedScene" uid="uid://dys7k0tpundus" path="res://Systems/Loot/Gold Coin/gold_coin.tscn" id="4_wcvkn"]
+[ext_resource type="Shader" uid="uid://gg2blnjyvh64" path="res://Systems/Shaders/destructible_prop.gdshader" id="5_jdajq"]
+[ext_resource type="PackedScene" uid="uid://cmojugbxiw5fa" path="res://Systems/Loot/Medipack/medipack.tscn" id="9_g17ma"]
+
+[sub_resource type="Animation" id="Animation_jdajq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/progress_fall")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:material:shader_parameter/progress_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:material:shader_parameter/progress_fade")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_g17ma"]
+resource_name = "destruction"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/progress_fall")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:material:shader_parameter/progress_rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [0.0, 1.122000053295]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:material:shader_parameter/progress_fade")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.5, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jikie"]
+_data = {
+&"RESET": SubResource("Animation_jdajq"),
+&"destruction": SubResource("Animation_g17ma")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0thxj"]
+radius = 8.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wcvkn"]
+resource_local_to_scene = true
+shader = ExtResource("5_jdajq")
+shader_parameter/progress_fall = 0.0
+shader_parameter/progress_rotation = 0.0
+shader_parameter/progress_scatter = 0.0
+shader_parameter/progress_fade = 0.0
+shader_parameter/grid_size = Vector2(2, 2)
+shader_parameter/gravity = 6.0
+shader_parameter/ground_level = 0.9
+shader_parameter/stack_variation = 0.15
+shader_parameter/slide_on_ground = 27.14
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0bwdq"]
+atlas = ExtResource("2_ytlls")
+region = Rect2(304, 224, 16, 16)
+
+[node name="DestructibleProp" type="Node2D" unique_id=1316598219]
+script = ExtResource("1_wcvkn")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1543670549]
+libraries/ = SubResource("AnimationLibrary_jikie")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=568977481]
+script = ExtResource("1_y5htx")
+metadata/_custom_type_script = "uid://bexah18irylv2"
+
+[node name="HurtboxComponent" type="Area2D" parent="." unique_id=980328208 node_paths=PackedStringArray("health_component")]
+collision_layer = 128
+collision_mask = 32
+script = ExtResource("2_tqx5s")
+health_component = NodePath("../HealthComponent")
+hit_particles_scene = ExtResource("4_jdajq")
+metadata/_custom_type_script = "uid://dprjg5ilgd4ve"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=2018486710]
+shape = SubResource("CircleShape2D_0thxj")
+debug_color = Color(2.9841065e-06, 0.650898, 0.08221153, 0.41960785)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=307694236]
+material = SubResource("ShaderMaterial_wcvkn")
+texture = SubResource("AtlasTexture_0bwdq")
+
+[node name="Loots" type="Node2D" parent="." unique_id=2103718041]
+unique_name_in_owner = true
+
+[node name="GoldCoin" parent="Loots" unique_id=750658645 instance=ExtResource("3_ytlls")]
+loot_scene = ExtResource("4_wcvkn")
+drop_rate = 0.8
+
+[node name="Medipack" parent="Loots" unique_id=793743400 instance=ExtResource("3_ytlls")]
+loot_scene = ExtResource("9_g17ma")
+drop_rate = 0.4

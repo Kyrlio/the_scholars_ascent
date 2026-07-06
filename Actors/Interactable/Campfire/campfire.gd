@@ -44,6 +44,7 @@ func rest_at_campfire() -> void:
 		await get_tree().create_timer(2.5).timeout
 		SceneManager.reload_current_room_for_rest(player)
 
+
 func spawn_save_label() -> void:
 	label_animation_player.play("show")
 

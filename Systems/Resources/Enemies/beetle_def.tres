@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EnemyDefinition" format=3 uid="uid://bk5gjk8pwx26x"]
+
+[ext_resource type="Script" uid="uid://bskgmpsguemcs" path="res://Systems/Resources/Enemies/enemy_definition.gd" id="1_lagt4"]
+[ext_resource type="PackedScene" uid="uid://cq443ehieft8v" path="res://Actors/Enemies/BeetleEnemy/beetle_enemy.tscn" id="1_s6v1o"]
+[ext_resource type="Texture2D" uid="uid://ca4o2fgfjyfvv" path="res://Assets/sprites/characters/beetle.png" id="2_u81mh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fnlxr"]
+atlas = ExtResource("2_u81mh")
+region = Rect2(16, 16, 48, 16)
+
+[resource]
+script = ExtResource("1_lagt4")
+enemy_scene = ExtResource("1_s6v1o")
+preview_texture = SubResource("AtlasTexture_fnlxr")
+metadata/_custom_type_script = "uid://bskgmpsguemcs"

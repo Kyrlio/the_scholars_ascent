@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://ukyc78w0joal"]
+
+[ext_resource type="Script" uid="uid://doxr1535vn8iw" path="res://Systems/Components/Enemy Spawner/enemy_spawner.gd" id="1_hqsmy"]
+[ext_resource type="Script" uid="uid://dbk8jkxe0qow0" path="res://Systems/scripts/preview_sprite.gd" id="1_xamcp"]
+
+[node name="EnemySpawner" type="Marker2D" unique_id=2085234761]
+script = ExtResource("1_hqsmy")
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="." unique_id=1061754324]
+
+[node name="PreviewSprite" type="Sprite2D" parent="." unique_id=1735212623]
+script = ExtResource("1_xamcp")
+
+[node name="RespawnTimer" type="Timer" parent="." unique_id=491493770]

@@ -19,8 +19,12 @@
 [ext_resource type="Script" uid="uid://dus15ka8quity" path="res://Systems/Resources/Shop Items/shop_item.gd" id="10_d27uh"]
 [ext_resource type="Resource" uid="uid://fg4610ldofq0" path="res://Systems/Resources/Items/chest_key.tres" id="11_tx1m7"]
 [ext_resource type="PackedScene" uid="uid://uh8me0shidj0" path="res://Systems/Loot/HeartContainer/heart_container.tscn" id="13_k0dt8"]
+[ext_resource type="PackedScene" uid="uid://d8hou87leijl" path="res://Actors/Destructible Prop/destructible_prop.tscn" id="14_qqfi7"]
 [ext_resource type="PackedScene" uid="uid://b1ttmwn8g2yb1" path="res://Actors/Enemies/Bat/bat.tscn" id="15_k0dt8"]
+[ext_resource type="PackedScene" uid="uid://ukyc78w0joal" path="res://Systems/Components/Enemy Spawner/enemy_spawner.tscn" id="18_d407i"]
 [ext_resource type="PackedScene" uid="uid://bsg0351mx3b4u" path="res://addons/MetroidvaniaSystem/Nodes/RoomInstance.tscn" id="18_f0tcx"]
+[ext_resource type="Resource" uid="uid://bk5gjk8pwx26x" path="res://Systems/Resources/Enemies/beetle_def.tres" id="19_40hgc"]
+[ext_resource type="Resource" uid="uid://b6hqxpsx6yet1" path="res://Systems/Resources/Enemies/bat_def.tres" id="20_40hgc"]
 
 [sub_resource type="Resource" id="Resource_r3xua"]
 script = ExtResource("10_d27uh")
@@ -144,6 +148,20 @@ sign_text = "Press Down and Jump to fall from the platforms"
 [node name="HeartContainer" parent="Interactable" unique_id=136598257 instance=ExtResource("13_k0dt8")]
 position = Vector2(176, 152)
 
+[node name="Destructible Props" type="Node2D" parent="Interactable" unique_id=387049919]
+
+[node name="DestructibleProp" parent="Interactable/Destructible Props" unique_id=777457496 instance=ExtResource("14_qqfi7")]
+position = Vector2(298, 152)
+
+[node name="DestructibleProp2" parent="Interactable/Destructible Props" unique_id=1316598219 instance=ExtResource("14_qqfi7")]
+position = Vector2(1035, 168)
+
+[node name="DestructibleProp3" parent="Interactable/Destructible Props" unique_id=201676315 instance=ExtResource("14_qqfi7")]
+position = Vector2(1527, 184)
+
+[node name="DestructibleProp4" parent="Interactable/Destructible Props" unique_id=1005784674 instance=ExtResource("14_qqfi7")]
+position = Vector2(1510, 184)
+
 [node name="Golds Coin" type="Node2D" parent="." unique_id=1205763460]
 
 [node name="GoldCoin2" parent="Golds Coin" unique_id=1836896840 instance=ExtResource("4_i0vdc")]
@@ -168,32 +186,42 @@ throw = false
 
 [node name="Enemies" type="Node2D" parent="." unique_id=2139906756]
 
-[node name="BeetleEnemy" parent="Enemies" unique_id=1367831147 instance=ExtResource("5_jpmpi")]
-position = Vector2(656, 175)
-
-[node name="BeetleEnemy2" parent="Enemies" unique_id=1426919847 instance=ExtResource("5_jpmpi")]
-position = Vector2(428, 239)
-
-[node name="BeetleEnemy3" parent="Enemies" unique_id=301112981 instance=ExtResource("5_jpmpi")]
-position = Vector2(1049, 80)
-
-[node name="BeetleEnemy4" parent="Enemies" unique_id=402014965 instance=ExtResource("5_jpmpi")]
-position = Vector2(992, 176)
-
-[node name="BeetleEnemy5" parent="Enemies" unique_id=363744711 instance=ExtResource("5_jpmpi")]
-position = Vector2(1123, 176)
-
 [node name="BeetleEnemy6" parent="Enemies" unique_id=556623464 instance=ExtResource("5_jpmpi")]
 position = Vector2(1473, 80)
 
 [node name="BeetleEnemy7" parent="Enemies" unique_id=529649363 instance=ExtResource("5_jpmpi")]
 position = Vector2(1498, -97)
 
-[node name="Bat" parent="Enemies" unique_id=1942546404 instance=ExtResource("15_k0dt8")]
-position = Vector2(1220, 79)
-
 [node name="Bat2" parent="Enemies" unique_id=1681659255 instance=ExtResource("15_k0dt8")]
 position = Vector2(1567, 138)
+
+[node name="EnemySpawner" parent="Enemies" unique_id=2085234761 instance=ExtResource("18_d407i")]
+position = Vector2(50, 71)
+enemy_definition = ExtResource("19_40hgc")
+
+[node name="EnemySpawner2" parent="Enemies" unique_id=240223080 instance=ExtResource("18_d407i")]
+position = Vector2(388, 231)
+enemy_definition = ExtResource("19_40hgc")
+
+[node name="EnemySpawner3" parent="Enemies" unique_id=2045127669 instance=ExtResource("18_d407i")]
+position = Vector2(623, 167)
+enemy_definition = ExtResource("19_40hgc")
+
+[node name="EnemySpawner4" parent="Enemies" unique_id=1949425883 instance=ExtResource("18_d407i")]
+position = Vector2(993, 168)
+enemy_definition = ExtResource("19_40hgc")
+
+[node name="EnemySpawner5" parent="Enemies" unique_id=670292675 instance=ExtResource("18_d407i")]
+position = Vector2(1102, 168)
+enemy_definition = ExtResource("19_40hgc")
+
+[node name="EnemySpawner6" parent="Enemies" unique_id=1713636337 instance=ExtResource("18_d407i")]
+position = Vector2(1062, 70)
+enemy_definition = ExtResource("19_40hgc")
+
+[node name="EnemySpawner7" parent="Enemies" unique_id=1742003739 instance=ExtResource("18_d407i")]
+position = Vector2(1214, 68)
+enemy_definition = ExtResource("20_40hgc")
 
 [node name="Chucks" type="Node2D" parent="." unique_id=271414076]
 
@@ -213,9 +241,6 @@ position = Vector2(2.5, -2)
 
 [node name="SpawnPoint" parent="TransitionZones/Zone1Room2Left" index="1" unique_id=1278852891]
 position = Vector2(38, 9)
-
-[node name="BeetleEnemy" parent="TransitionZones/Zone1Room2Left" unique_id=441175180 instance=ExtResource("5_jpmpi")]
-position = Vector2(59, -54)
 
 [node name="Zone1Room2Up" parent="TransitionZones" unique_id=1796626277 instance=ExtResource("7_tx1m7")]
 position = Vector2(1480, -172)

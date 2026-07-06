@@ -15,8 +15,8 @@ func _ready() -> void:
 	if coin_id == "":
 		if owner != null and owner.scene_file_path != "":
 			coin_id = owner.scene_file_path + "::" + str(owner.get_path_to(self))
-		else:
-			coin_id = str(get_path())
+	else:
+		coin_id = str(get_path())
 	
 	if coin_id != "" and coin_id in GameState.collected_coins:
 		queue_free()

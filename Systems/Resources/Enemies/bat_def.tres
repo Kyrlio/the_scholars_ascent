@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EnemyDefinition" format=3 uid="uid://b6hqxpsx6yet1"]
+
+[ext_resource type="PackedScene" uid="uid://b1ttmwn8g2yb1" path="res://Actors/Enemies/Bat/bat.tscn" id="1_h4sej"]
+[ext_resource type="Texture2D" uid="uid://barb8wchkc54o" path="res://Assets/sprites/characters/bat.png" id="2_iinoq"]
+[ext_resource type="Script" uid="uid://bskgmpsguemcs" path="res://Systems/Resources/Enemies/enemy_definition.gd" id="3_ivc7w"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ivc7w"]
+atlas = ExtResource("2_iinoq")
+region = Rect2(16, 0, 48, 32)
+
+[resource]
+script = ExtResource("3_ivc7w")
+enemy_scene = ExtResource("1_h4sej")
+preview_texture = SubResource("AtlasTexture_ivc7w")
+metadata/_custom_type_script = "uid://bskgmpsguemcs"

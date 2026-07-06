@@ -20,10 +20,14 @@ func _ready() -> void:
 	current_health = max_health
 
 
+func heal(amount: int) -> void:
+	if current_health < max_health:
+		current_health = clamp(current_health + amount, 0, max_health)
+
+
 func damage(amount: int) -> void:
 	current_health = clamp(current_health - amount, 0, max_health)
 	damaged.emit()
-	#GameEvents.emit_engine_freeze()
 	
 	if current_health == 0:
 		died.emit()
