@@ -880,7 +880,7 @@ tracks/5/keys = {
 }
 tracks/6/type = "method"
 tracks/6/imported = false
-tracks/6/enabled = true
+tracks/6/enabled = false
 tracks/6/path = NodePath("Hurtbox")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
@@ -2072,7 +2072,7 @@ one_shot = true
 [node name="HealthComponent" type="Node" parent="." unique_id=1948954194]
 unique_name_in_owner = true
 script = ExtResource("2_8gtf5")
-max_health = 2
+max_health = 4
 metadata/_custom_type_script = "uid://bexah18irylv2"
 
 [node name="ObjectPool_Projectile" type="Node" parent="." unique_id=1760015307]

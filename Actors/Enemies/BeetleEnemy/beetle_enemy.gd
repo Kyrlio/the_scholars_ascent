@@ -15,6 +15,7 @@ class_name BeetleEnemy
 @export var speed: float = 10.0
 @export var gravity: float = 500.0
 @export var hit_stop_duration: float = 0.25
+@export var knockback_velocity: Vector2 = Vector2(100.0, -100.0)
 
 
 var direction: float = 1.0
@@ -32,6 +33,9 @@ func _ready() -> void:
 	if health_component:
 		health_component.died.connect(_on_died)
 		health_component.damaged.connect(_on_damaged)
+		
+	if hurtbox_component:
+		hurtbox_component.hit_by_hitbox.connect(_on_hit_by_hitbox)
 
 
 func _physics_process(delta: float) -> void:
@@ -39,12 +43,15 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	if GameState.is_gameplay_frozen():
-		velocity.y = gravity * delta
+		velocity.y += gravity * delta
 		velocity.x = move_toward(velocity.x, 0, 800 * delta)
 		move_and_slide()
 		return
 	
 	if not can_move:
+		velocity.y += gravity * delta
+		velocity.x = move_toward(velocity.x, 0, 800 * delta)
+		move_and_slide()
 		return
 	
 	_movement(delta)
@@ -55,7 +62,7 @@ func _physics_process(delta: float) -> void:
 
 func _movement(delta) -> void:
 	velocity.x = speed * direction
-	velocity.y = gravity * delta
+	velocity.y += gravity * delta
 
 
 func _update_direction() -> void:
@@ -66,13 +73,22 @@ func _update_direction() -> void:
 	visuals.scale = Vector2(direction, 1)
 
 
+func _on_hit_by_hitbox(hitbox: HitboxComponent) -> void:
+	var push_dir = sign(global_position.x - hitbox.global_position.x)
+	if push_dir == 0.0:
+		push_dir = 1.0 if visuals.scale.x < 0 else -1.0
+	
+	velocity.x = push_dir * knockback_velocity.x
+	velocity.y = knockback_velocity.y
+
+
 func _on_damaged() -> void:
 	can_move = false
 	velocity.x = 0.0
 	animation_player.play("hit")
 	GameEvents.emit_camera_shake(0.2)
 	
-	await get_tree().create_timer(hit_stop_duration).timeout
+	await animation_player.animation_finished
 	
 	if not is_dead:
 		can_move = true

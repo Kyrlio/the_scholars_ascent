@@ -13,3 +13,6 @@ func enter() -> void:
 
 func exit() -> void:
 	context.animation_player.play("idle")
+
+func physics_update(delta: float) -> void:
+	context.velocity = context.velocity.move_toward(Vector2.ZERO, 400 * delta)

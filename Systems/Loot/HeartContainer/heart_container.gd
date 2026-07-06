@@ -2,6 +2,7 @@ extends Area2D
 class_name HeartContainer
 
 @export var container_id: String = ""
+@export var icon: Texture2D
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
@@ -34,3 +35,5 @@ func _on_body_entered(body: Node2D) -> void:
 		set_deferred("monitoring", false)
 		await animated_sprite.animation_finished
 		queue_free.call_deferred()
+		
+		GameEvents.emit_show_ability_popup("Heart", "Increase your maximum health permenatly !", icon)

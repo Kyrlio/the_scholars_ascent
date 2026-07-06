@@ -23,6 +23,7 @@ var current_state: State = State.IDLE
 @export var state_locked: bool = false
 
 const ATTACK_PUSH_FORCE: float = 100.0
+@export var knockback_velocity: Vector2 = Vector2(40.0, -100.0)
 
 @export var stats: Stats
 
@@ -448,6 +449,7 @@ func _ready() -> void:
 	health_component.set_max_health(GameState.unlocked_max_health, false)
 	
 	hitbox_component.hit_hurtbox.connect(_on_hitbox_hit)
+	hurtbox.hit_by_hitbox.connect(_on_hurtbox_hit)
 	
 	if GameState.saved_player_pos != Vector2.ZERO:
 		global_position = GameState.saved_player_pos
@@ -480,6 +482,8 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	_apply_gravity(delta)
+	
+	print(health_component.current_health)
 	
 	if is_dead:
 		return
@@ -701,13 +705,20 @@ func _on_hitbox_hit(hurtbox: HurtboxComponent) -> void:
 
 func _on_player_damaged() -> void:
 	switch_state(State.HURT)
-	_trigger_invincibility(0.8)
+	_trigger_invincibility(1.2)
+	#if flash_animation_player:
+		#flash_animation_player.play("flash")
+
+func _on_hurtbox_hit(hitbox: HitboxComponent) -> void:
+	var push_dir = sign(global_position.x - hitbox.global_position.x)
+	if push_dir == 0.0:
+		push_dir = 1.0 if visuals.scale.x < 0 else -1.0
+	
+	velocity.x = push_dir * knockback_velocity.x
+	velocity.y = knockback_velocity.y
 
 func _trigger_invincibility(duration: float) -> void:
-	hurtbox.toggle_invincibility(true)
-	
-	await get_tree().create_timer(duration).timeout
-	hurtbox.toggle_invincibility(false)
+	hurtbox.start_invincibility(duration)
 
 
 func _on_ammo_regen_timeout() -> void:

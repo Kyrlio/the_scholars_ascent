@@ -5,6 +5,7 @@ class_name Skeleton
 @export var walk_speed: float = 20.0
 @export var flee_speed: float = 75.0
 @export var gravity: float = 500.0
+@export var knockback_velocity: Vector2 = Vector2(80.0, -80.0)
 
 @export var arrow_scene: PackedScene
 
@@ -42,6 +43,9 @@ func _ready() -> void:
 	
 	health_component.damaged.connect(_on_damaged)
 	health_component.died.connect(_on_died)
+	
+	if hurtbox_component:
+		hurtbox_component.hit_by_hitbox.connect(_on_hit_by_hitbox)
 	
 	vision_area.body_entered.connect(_on_player_spotted)
 	
@@ -101,6 +105,14 @@ func fire_arrow() -> void:
 func _on_player_spotted(body: Node2D) -> void:
 	if body is Player:
 		player = body
+
+func _on_hit_by_hitbox(hitbox: HitboxComponent) -> void:
+	var push_dir = sign(global_position.x - hitbox.global_position.x)
+	if push_dir == 0.0:
+		push_dir = 1.0 if visuals.scale.x < 0 else -1.0
+	
+	velocity.x = push_dir * knockback_velocity.x
+	velocity.y = knockback_velocity.y
 
 func _on_damaged() -> void:
 	if not is_instance_valid(player):

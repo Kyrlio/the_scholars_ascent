@@ -6,6 +6,7 @@ class_name Bat
 @export var dash_speed: float = 225.0
 @export var dash_length: float = 0.35 ## In seconds
 @export var hover_altitude: float = 35.0 ## Distance above the player
+@export var knockback_velocity: Vector2 = Vector2(80.0, -80.0)
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var visuals: Node2D = $Visuals
@@ -38,6 +39,9 @@ func _ready() -> void:
 	
 	health_component.damaged.connect(_on_damaged)
 	health_component.died.connect(_on_died)
+	
+	if hurtbox_component:
+		hurtbox_component.hit_by_hitbox.connect(_on_hit_by_hitbox)
 	
 	animation_player.play("spawn")
 	
@@ -73,6 +77,14 @@ func update_facing(target_pos: Vector2) -> void:
 		direction = sign(diff_x)
 		visuals.scale.x = direction
 
+
+func _on_hit_by_hitbox(hitbox: HitboxComponent) -> void:
+	var push_dir = sign(global_position.x - hitbox.global_position.x)
+	if push_dir == 0.0:
+		push_dir = 1.0 if visuals.scale.x < 0 else -1.0
+	
+	velocity.x = push_dir * knockback_velocity.x
+	velocity.y = knockback_velocity.y
 
 func _on_damaged() -> void:
 	set_state($States/HitState)

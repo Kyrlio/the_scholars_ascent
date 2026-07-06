@@ -13,7 +13,7 @@ func _ready() -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player:
 		TeleportData.target_transition_name = target_zone_name
-		SceneManager.change_room(target_room)
+		SceneManager.change_room.call_deferred(target_room)
 
 
 func get_spawn_point() -> Marker2D:

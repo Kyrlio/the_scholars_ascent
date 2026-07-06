@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://bsg2twb245xa3" path="res://Actors/Interactable/Lever/lever.tscn" id="9_335rm"]
 [ext_resource type="Script" uid="uid://dus15ka8quity" path="res://Systems/Resources/Shop Items/shop_item.gd" id="10_d27uh"]
 [ext_resource type="Resource" uid="uid://fg4610ldofq0" path="res://Systems/Resources/Items/chest_key.tres" id="11_tx1m7"]
+[ext_resource type="PackedScene" uid="uid://uh8me0shidj0" path="res://Systems/Loot/HeartContainer/heart_container.tscn" id="13_k0dt8"]
 [ext_resource type="PackedScene" uid="uid://b1ttmwn8g2yb1" path="res://Actors/Enemies/Bat/bat.tscn" id="15_k0dt8"]
 [ext_resource type="PackedScene" uid="uid://bsg0351mx3b4u" path="res://addons/MetroidvaniaSystem/Nodes/RoomInstance.tscn" id="18_f0tcx"]
 
@@ -139,6 +140,9 @@ sign_text = "Press X to attack with the sword."
 [node name="Sign2" parent="Interactable" unique_id=1539548813 instance=ExtResource("7_vdth3")]
 position = Vector2(408, 160)
 sign_text = "Press Down and Jump to fall from the platforms"
+
+[node name="HeartContainer" parent="Interactable" unique_id=136598257 instance=ExtResource("13_k0dt8")]
+position = Vector2(176, 152)
 
 [node name="Golds Coin" type="Node2D" parent="." unique_id=1205763460]
 

@@ -3,6 +3,10 @@
 [ext_resource type="Texture2D" uid="uid://cd4qh5of2k141" path="res://Assets/animations/animations.png" id="1_krmx7"]
 [ext_resource type="Script" uid="uid://b3k68pfwibf28" path="res://Systems/Loot/HeartContainer/heart_container.gd" id="1_shxki"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_maolo"]
+atlas = ExtResource("1_krmx7")
+region = Rect2(256, 80, 16, 16)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_shxki"]
 atlas = ExtResource("1_krmx7")
 region = Rect2(256, 80, 16, 16)
@@ -85,6 +89,7 @@ animations = [{
 collision_layer = 128
 collision_mask = 2
 script = ExtResource("1_shxki")
+icon = SubResource("AtlasTexture_maolo")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1170640251]
 sprite_frames = SubResource("SpriteFrames_0thxj")

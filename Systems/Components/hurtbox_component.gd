@@ -9,6 +9,7 @@ signal hit_by_hitbox(hitbox_component: HitboxComponent)
 var peer_id_filter: int = -1
 var disable_collisions: bool
 var is_invincible: bool = false
+var _invincibility_time_left: float = 0.0
 
 func _ready() -> void:
 	area_entered.connect(_on_area_entered)
@@ -21,7 +22,6 @@ func _handle_hit(hitbox_component: HitboxComponent):
 	
 	if is_invincible:
 		hitbox_component.register_hurtbox_hit(self)
-		hit_by_hitbox.emit(hitbox_component)
 		return
 	
 	hitbox_component.register_hurtbox_hit(self)
@@ -74,5 +74,19 @@ func _on_area_entered(other_area: Area2D) -> void:
 	_handle_hit.call_deferred(other_area)
 
 
+func _process(delta: float) -> void:
+	if _invincibility_time_left > 0.0:
+		_invincibility_time_left -= delta
+		if _invincibility_time_left <= 0.0:
+			is_invincible = false
+
+
 func toggle_invincibility(toggled: bool) -> void:
+	if not toggled and _invincibility_time_left > 0.0:
+		return
 	is_invincible = toggled
+
+
+func start_invincibility(duration: float) -> void:
+	is_invincible = true
+	_invincibility_time_left = duration

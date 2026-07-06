@@ -67,7 +67,7 @@ func open_door() -> void:
 
 func teleport_to_boss() -> void:
 	TeleportData.target_transition_name = target_zone_name
-	SceneManager.change_room(target_room)
+	SceneManager.change_room.call_deferred(target_room)
 
 
 func _play_star_sequence(player: Player) -> void:
