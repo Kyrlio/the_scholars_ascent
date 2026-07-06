@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bqjq1g6xmxg0i" path="res://Actors/Interactable/Grass/grass.gd" id="1_mu6ws"]
 [ext_resource type="Shader" uid="uid://edfedg5h88v8" path="res://Systems/Shaders/grass.gdshader" id="2_3rvas"]
+[ext_resource type="Script" uid="uid://bexah18irylv2" path="res://Systems/Components/health_component.gd" id="2_bypji"]
 [ext_resource type="Texture2D" uid="uid://c4iv346tusbql" path="res://Assets/backgrounds/grasses/grass_1.png" id="3_2biu7"]
 [ext_resource type="Texture2D" uid="uid://bp8bcyoed3pyi" path="res://Assets/backgrounds/grasses/grass_2.png" id="4_hubok"]
 [ext_resource type="Texture2D" uid="uid://7o805ukt6d4j" path="res://Assets/backgrounds/grasses/grass_3.png" id="5_sapbu"]
@@ -14,6 +15,8 @@
 [ext_resource type="Texture2D" uid="uid://b3uhakuf3lmn8" path="res://Assets/backgrounds/grasses/grass_12.png" id="12_bypji"]
 [ext_resource type="Texture2D" uid="uid://g5aanrqbtfwk" path="res://Assets/backgrounds/grasses/grass_13.png" id="13_vp20o"]
 [ext_resource type="Texture2D" uid="uid://bltdu7htd51vk" path="res://Assets/backgrounds/grasses/grass_14.png" id="14_yh75j"]
+[ext_resource type="Script" uid="uid://dprjg5ilgd4ve" path="res://Systems/Components/hurtbox_component.gd" id="16_vp20o"]
+[ext_resource type="PackedScene" uid="uid://cb52ab0mutb8n" path="res://Systems/Particles/grass_particles.tscn" id="17_yh75j"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0thxj"]
 resource_local_to_scene = true
@@ -27,6 +30,7 @@ shader_parameter/detail = 1.0
 shader_parameter/heightOffset = 0.0
 shader_parameter/offset = 0.0
 shader_parameter/skew = 0.0
+shader_parameter/hang_from_ceiling = false
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0thxj"]
 animations = [{
@@ -81,6 +85,10 @@ collision_layer = 128
 collision_mask = 6
 script = ExtResource("1_mu6ws")
 
+[node name="HealthComponent" type="Node" parent="." unique_id=38573827]
+script = ExtResource("2_bypji")
+metadata/_custom_type_script = "uid://bexah18irylv2"
+
 [node name="Pivot" type="Marker2D" parent="." unique_id=1358317478]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Pivot" unique_id=599199631]
@@ -89,6 +97,19 @@ sprite_frames = SubResource("SpriteFrames_0thxj")
 offset = Vector2(0, -8)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1833916932]
+position = Vector2(0, -3)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_x416w")
+
+[node name="HurtboxComponent" type="Area2D" parent="." unique_id=1217497964 node_paths=PackedStringArray("health_component")]
+collision_layer = 128
+collision_mask = 32
+script = ExtResource("16_vp20o")
+health_component = NodePath("../HealthComponent")
+hit_particles_scene = ExtResource("17_yh75j")
+metadata/_custom_type_script = "uid://dprjg5ilgd4ve"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=614307820]
 position = Vector2(0, -3)
 rotation = -1.5707964
 shape = SubResource("CapsuleShape2D_x416w")

@@ -5,6 +5,7 @@ class_name Grass
 @export var max_skew: float = 100
 
 @onready var animated_sprite: AnimatedSprite2D = $Pivot/AnimatedSprite2D
+@onready var health_component: HealthComponent = $HealthComponent
 
 func _ready() -> void:
 	randomize()
@@ -12,6 +13,9 @@ func _ready() -> void:
 	if animated_sprite and animated_sprite.material:
 		animated_sprite.material.set("shader_parameter/offset", randi() % 3)
 	animated_sprite.frame = randi() % 12
+	
+	if health_component:
+		health_component.died.connect(_on_died)
 
 
 func _on_body_entered(body: Node2D) -> void:
@@ -31,3 +35,7 @@ func _on_body_entered(body: Node2D) -> void:
 		var tw: Tween = create_tween()
 		tw.tween_property(animated_sprite.material, "shader_parameter/skew", skew, 0.3).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 		tw.tween_property(animated_sprite.material, "shader_parameter/skew", 0.0, 3.0).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+
+
+func _on_died() -> void:
+	queue_free.call_deferred()

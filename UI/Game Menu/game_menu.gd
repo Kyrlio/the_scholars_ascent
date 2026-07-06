@@ -1,6 +1,7 @@
 extends CanvasLayer
 
-@onready var tabs = [%InventoryTab, %CharmsTab, %SettingsTab, %MapTab]
+@onready var tabs = [%InventoryTab, %CharmsTab, %SettingsTab]
+@onready var header_icons = [%Tab1, %Tab2, %Tab3]
 
 @onready var tab_content: Control = %TabContent
 @onready var tab_name_label: Label = $TabNameLabel
@@ -8,7 +9,6 @@ extends CanvasLayer
 @onready var slot_grid: GridContainer = %SlotGrid
 @onready var item_name: Label = %ItemName
 @onready var item_description: RichTextLabel = %ItemDescription
-@onready var save_button: AnimatedButton = %SaveButton
 
 @onready var equipped_charms_grid: GridContainer = %EquippedCharmsGrid
 @onready var charm_slot_grid: GridContainer = %CharmSlotGrid
@@ -22,6 +22,7 @@ extends CanvasLayer
 
 var current_tab: int = 0
 var is_menu_open: bool = false
+var header_tween: Tween
 
 
 func _ready() -> void:
@@ -42,7 +43,7 @@ func _ready() -> void:
 		slot.focus_entered.connect(_on_inventory_slot_focused.bind(slot))
 
 
-func _process(delta: float) -> void:	
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("open_menu") or Input.is_action_just_pressed("escape"):
 		toggle_menu()
 		get_viewport().set_input_as_handled()
@@ -64,6 +65,26 @@ func _process(delta: float) -> void:
 	elif Input.is_action_just_pressed("roll"):
 		toggle_menu()
 		get_viewport().set_input_as_handled()
+
+
+func update_header_animation() -> void:
+	if header_tween and header_tween.is_running():
+		header_tween.kill()
+	
+	header_tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	
+	for i in range(header_icons.size()):
+		var icon = header_icons[i]
+		
+		icon.pivot_offset = icon.size / 2.0
+		
+		if i == current_tab:
+			header_tween.tween_property(icon, "modulate", Color.WHITE, 0.2)
+			header_tween.tween_property(icon, "scale", Vector2(1.2, 1.2), 0.2)
+		else:
+			var gray_color = Color(0.51, 0.62, 0.65, 1.0)
+			header_tween.tween_property(icon, "modulate", gray_color, 0.2)
+			header_tween.tween_property(icon, "scale", Vector2(0.9, 0.9), 0.2)
 
 
 func toggle_menu() -> void:
@@ -122,6 +143,8 @@ func update_tabs() -> void:
 
 		3: # Map
 			pass
+	
+	update_header_animation()
 
 
 func update_charms_tab() -> void:
@@ -168,13 +191,6 @@ func update_item_info(item: ItemData) -> void:
 
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
-
-
-func _on_save_button_pressed() -> void:
-	var player: Player = get_tree().get_first_node_in_group("player")
-	
-	if player != null:
-		SaveManager.save_game(player.global_position, player.get_current_health(), GameState.total_gold)
 
 
 func _on_load_save_button_pressed() -> void:

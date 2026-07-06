@@ -20,20 +20,26 @@ func _handle_hit(hitbox_component: HitboxComponent):
 		# Hit only one enemy
 		return
 	
-	if is_invincible:
-		hitbox_component.register_hurtbox_hit(self)
-		return
-	
-	hitbox_component.register_hurtbox_hit(self)
-	GameEvents.emit_engine_freeze()
-	if health_component:
+	if owner is Grass:
 		health_component.damage(hitbox_component.damage)
-	
-	# Instantiate hit particles if configured
-	if hit_particles_scene:
-		_play_hit_particles(hitbox_component)
-	
-	hit_by_hitbox.emit(hitbox_component)
+		if hit_particles_scene:
+			_play_hit_particles(hitbox_component)
+			owner.queue_free.call_deferred()
+	else:
+		if is_invincible:
+			hitbox_component.register_hurtbox_hit(self)
+			return
+		
+		hitbox_component.register_hurtbox_hit(self)
+		GameEvents.emit_engine_freeze()
+		if health_component:
+			health_component.damage(hitbox_component.damage)
+		
+		# Instantiate hit particles if configured
+		if hit_particles_scene:
+			_play_hit_particles(hitbox_component)
+		
+		hit_by_hitbox.emit(hitbox_component)
 
 
 func _play_hit_particles(hitbox_component: HitboxComponent) -> void:
