@@ -6,7 +6,10 @@ const AGGRO_TIME: float = 5.0
 
 func enter() -> void:
 	lose_aggro_timer = AGGRO_TIME
-	jump_timer = 0.0
+	if previous_state and previous_state.name == "HitState":
+		jump_timer = randf_range(0.6, 1.2)
+	else:
+		jump_timer = 0.0
 
 func physics_update(delta: float) -> void:
 	var player: Player = _get_player_in_vision()
@@ -30,6 +33,11 @@ func physics_update(delta: float) -> void:
 		else:
 			context.animation_player.play("jump")
 	else:
+		if context.is_on_floor():
+			context.animation_player.play("idle")
+		else:
+			context.animation_player.play("jump")
+		
 		lose_aggro_timer -= delta
 		if lose_aggro_timer <= 0.0 and context.is_on_floor():
 			context.set_state($"../PatrolState")

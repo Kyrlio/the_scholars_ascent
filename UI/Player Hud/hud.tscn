@@ -35,7 +35,7 @@ region = Rect2(18, 50, 13, 11)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jkuxh"]
 atlas = ExtResource("3_ucjis")
-region = Rect2(14, 1, 35, 15)
+region = Rect2(14, 16, 35, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ucjis"]
 atlas = ExtResource("1_ne75i")

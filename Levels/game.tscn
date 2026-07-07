@@ -56,7 +56,6 @@ visible = false
 
 [node name="PostProcessing" type="CanvasLayer" parent="." unique_id=20128409]
 layer = 100
-visible = false
 
 [node name="ColorRect" type="ColorRect" parent="PostProcessing" unique_id=1386358380]
 material = SubResource("ShaderMaterial_3rge6")

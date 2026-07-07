@@ -25,7 +25,7 @@ func _handle_hit(hitbox_component: HitboxComponent):
 		if hit_particles_scene:
 			_play_hit_particles(hitbox_component)
 			owner.queue_free.call_deferred()
-	else:
+	else: 
 		if is_invincible:
 			hitbox_component.register_hurtbox_hit(self)
 			return

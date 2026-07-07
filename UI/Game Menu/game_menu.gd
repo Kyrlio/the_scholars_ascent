@@ -19,15 +19,26 @@ extends CanvasLayer
 @onready var available_slots: Array = charm_slot_grid.get_children()
 @onready var inventory_slots: Array = slot_grid.get_children()
 
+@onready var lt: TextureRect = %LT
+@onready var rt: TextureRect = %RT
+
+const LT_PRESSED = preload("uid://d0coissingdcp")
+const LT_UNPRESSED = preload("uid://be1f4odnvb34d")
+const RT_PRESSED = preload("uid://i6b7dxnu031v")
+const RT_UNPRESSED = preload("uid://01bxmtksirhm")
+
 
 var current_tab: int = 0
 var is_menu_open: bool = false
 var header_tween: Tween
 
 
-func _ready() -> void:
+func _ready() -> void:	
 	hide()
 	update_tabs()
+	
+	lt.texture = LT_UNPRESSED
+	rt.texture = RT_UNPRESSED
 	
 	GameEvents.inventory_item_focused.connect(update_item_info)
 	
@@ -62,9 +73,23 @@ func _process(_delta: float) -> void:
 		update_tabs()
 		get_viewport().set_input_as_handled()
 	
-	elif Input.is_action_just_pressed("roll"):
+	elif Input.is_action_just_pressed("ui_cancel"):
 		toggle_menu()
 		get_viewport().set_input_as_handled()
+	
+	update_buttons_textures()
+
+
+func update_buttons_textures() -> void:
+	if Input.is_action_pressed("tab_right"):
+		rt.texture = RT_PRESSED
+	else:
+		rt.texture = RT_UNPRESSED
+	
+	if Input.is_action_pressed("tab_left"):
+		lt.texture = LT_PRESSED
+	else:
+		lt.texture = LT_UNPRESSED
 
 
 func update_header_animation() -> void:

@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://bblg1hvrdyuvn"]
+
+[ext_resource type="Texture2D" uid="uid://6kj1t27l74ae" path="res://Assets/tileset.png" id="1_0vxd2"]
+[ext_resource type="Script" uid="uid://g6a5555jxh34" path="res://Actors/Enemies/Stalactite/stalactite.gd" id="1_lgu40"]
+[ext_resource type="Script" uid="uid://0xe0iq737lh6" path="res://Systems/Components/hitbox_component.gd" id="2_lgu40"]
+[ext_resource type="PackedScene" uid="uid://bb6uks6vkiknu" path="res://Systems/Particles/pogo_particles.tscn" id="6_p3bww"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0thxj"]
+size = Vector2(22, 183)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x416w"]
+size = Vector2(10, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0thxj"]
+atlas = ExtResource("1_0vxd2")
+region = Rect2(240, 208, 16, 32)
+
+[node name="Stalactite" type="CharacterBody2D" unique_id=2090578258 groups=["enemy"]]
+collision_layer = 0
+script = ExtResource("1_lgu40")
+fall_gravity = 650.0
+particles_scene = ExtResource("6_p3bww")
+
+[node name="PlayerDetector" type="Area2D" parent="." unique_id=2048873233]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector" unique_id=1791423255]
+position = Vector2(0, 86.5)
+shape = SubResource("RectangleShape2D_0thxj")
+debug_color = Color(0.85859174, 0.00071349024, 0.88056195, 0.41960785)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1908795298]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_x416w")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=167139569]
+texture = SubResource("AtlasTexture_0thxj")
+offset = Vector2(0, 11)
+
+[node name="HitboxComponent" type="Area2D" parent="." unique_id=1183082292]
+collision_layer = 64
+collision_mask = 8
+script = ExtResource("2_lgu40")
+metadata/_custom_type_script = "uid://0xe0iq737lh6"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitboxComponent" unique_id=1739587489]
+polygon = PackedVector2Array(0, 23, 4, 20, 8, -5, -8, -5, -4, 20)

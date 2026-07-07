@@ -263,6 +263,9 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x416w"]
 size = Vector2(16, 2)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kc4xb"]
+size = Vector2(1, 15)
+
 [node name="DestructiblePlatform" type="StaticBody2D" unique_id=534750890]
 script = ExtResource("1_kc4xb")
 
@@ -283,3 +286,11 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detector" unique_id=962885489]
 position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_x416w")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Detector" unique_id=1254723821]
+position = Vector2(-8.5, -0.5)
+shape = SubResource("RectangleShape2D_kc4xb")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Detector" unique_id=1995078674]
+position = Vector2(8, 0)
+shape = SubResource("RectangleShape2D_kc4xb")

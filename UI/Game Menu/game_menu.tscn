@@ -2,14 +2,12 @@
 
 [ext_resource type="Script" uid="uid://bxi5rioo638k8" path="res://UI/Game Menu/game_menu.gd" id="1_efeg3"]
 [ext_resource type="Texture2D" uid="uid://xi2ifg7ixo2g" path="res://Assets/ui/ui.png" id="2_hihkt"]
+[ext_resource type="Texture2D" uid="uid://be1f4odnvb34d" path="res://UI/button/lt_unpressed.tres" id="2_ugeno"]
 [ext_resource type="PackedScene" uid="uid://dg2eebu544xhu" path="res://UI/Animated Slot/animated_slot.tscn" id="3_17mpa"]
 [ext_resource type="PackedScene" uid="uid://crivg1daf13fq" path="res://UI/Animated Button/animated_button.tscn" id="3_hihkt"]
+[ext_resource type="Texture2D" uid="uid://01bxmtksirhm" path="res://UI/button/rt_unpressed.tres" id="4_2dwik"]
 [ext_resource type="Texture2D" uid="uid://bi6n8bjnm10ki" path="res://Assets/ui/Vertical Separator.png" id="4_dk7y1"]
 [ext_resource type="PackedScene" uid="uid://dch8dyylb7526" path="res://addons/MetroidvaniaSystem/Template/Nodes/Minimap.tscn" id="6_dmh5u"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_efeg3"]
-atlas = ExtResource("2_hihkt")
-region = Rect2(240, 99, 16, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hihkt"]
 atlas = ExtResource("2_hihkt")
@@ -35,10 +33,6 @@ load_path = "res://.godot/imported/ui.png-9852ca86a9258f1bb84490edfbc4ad38.ctex"
 [sub_resource type="AtlasTexture" id="AtlasTexture_2dwik"]
 atlas = SubResource("CompressedTexture2D_ugeno")
 region = Rect2(146, 50, 12, 12)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pu6sy"]
-atlas = ExtResource("2_hihkt")
-region = Rect2(224, 83, 16, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5v0sf"]
 atlas = ExtResource("2_hihkt")
@@ -122,8 +116,9 @@ theme_override_constants/separation = 8
 alignment = 1
 
 [node name="LT" type="TextureRect" parent="CenterContainer/BackgroundBoard/VBoxContainer/Header" unique_id=13363639]
+unique_name_in_owner = true
 layout_mode = 2
-texture = SubResource("AtlasTexture_efeg3")
+texture = ExtResource("2_ugeno")
 stretch_mode = 5
 
 [node name="Circle" type="TextureRect" parent="CenterContainer/BackgroundBoard/VBoxContainer/Header" unique_id=1355979796]
@@ -158,8 +153,9 @@ stretch_mode = 5
 flip_h = true
 
 [node name="RT" type="TextureRect" parent="CenterContainer/BackgroundBoard/VBoxContainer/Header" unique_id=1130159982]
+unique_name_in_owner = true
 layout_mode = 2
-texture = SubResource("AtlasTexture_pu6sy")
+texture = ExtResource("4_2dwik")
 stretch_mode = 5
 
 [node name="TabContent" type="Control" parent="CenterContainer/BackgroundBoard/VBoxContainer" unique_id=1547792741]
@@ -347,6 +343,7 @@ custom_maximum_size = Vector2(100, 28)
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "Charm Name"
+horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 

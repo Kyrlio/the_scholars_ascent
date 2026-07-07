@@ -188,7 +188,7 @@ script = ExtResource("1_rno1o")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1276724055]
 script = ExtResource("1_us0cg")
-max_health = 2
+max_health = 3
 metadata/_custom_type_script = "uid://bexah18irylv2"
 
 [node name="States" type="Node" parent="." unique_id=1838571083]

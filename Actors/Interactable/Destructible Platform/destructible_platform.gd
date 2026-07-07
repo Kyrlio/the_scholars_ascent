@@ -40,7 +40,7 @@ func _check_for_player() -> void:
 	var bodies = detector.get_overlapping_bodies()
 	
 	for body in bodies:
-		if body is Player and body.is_on_floor():
+		if body is Player:
 			_switch_state(PlatformState.BREAKING)
 			break
 
