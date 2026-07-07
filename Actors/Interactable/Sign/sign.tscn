@@ -96,7 +96,7 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wxs2m"]
 size = Vector2(22, 15)
 
-[node name="Sign" type="Area2D" unique_id=530247221]
+[node name="Sign" type="Area2D" unique_id=530247221 groups=["no_grass"]]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_wxs2m")

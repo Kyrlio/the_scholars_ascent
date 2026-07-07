@@ -79,6 +79,7 @@ func change_room(room_name: String) -> void:
 		
 		new_room.name = room_name
 		room_container.add_child(new_room)
+		new_room.force_update_transform()
 		
 		var camera = game_scene.find_child("DynamicCamera", true, false)
 		if camera:
@@ -91,11 +92,22 @@ func change_room(room_name: String) -> void:
 		
 		if game_scene.player:
 			if TeleportData.target_transition_name != "":
+				print("[SceneManager] Attempting to teleport player to transition zone: ", TeleportData.target_transition_name)
 				var target_zone = new_room.find_child(TeleportData.target_transition_name, true, false)
 				
-				if target_zone and target_zone.has_node("SpawnPoint"):
-					game_scene.player.global_position = target_zone.get_node("SpawnPoint").global_position
-					game_scene.player.velocity = Vector2.ZERO
+				if target_zone:
+					if target_zone.has_node("SpawnPoint"):
+						var spawn_point = target_zone.get_node("SpawnPoint")
+						var new_pos = spawn_point.global_position
+						print("[SceneManager] Found SpawnPoint. Teleporting player from ", game_scene.player.global_position, " to ", new_pos)
+						game_scene.player.global_position = new_pos
+						game_scene.player.velocity = Vector2.ZERO
+					else:
+						printerr("[SceneManager] Error: Transition zone ", TeleportData.target_transition_name, " does not have a SpawnPoint node!")
+				else:
+					printerr("[SceneManager] Error: Could not find transition zone named ", TeleportData.target_transition_name, " in ", room_name)
+				
+				TeleportData.target_transition_name = ""
 	
 	animation_player.play("fade_out")
 	await animation_player.animation_finished

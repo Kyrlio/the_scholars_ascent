@@ -62,6 +62,7 @@ folder_colors={
 player=""
 enemy=""
 camera=""
+no_grass="No grass in front !"
 
 [gui]
 

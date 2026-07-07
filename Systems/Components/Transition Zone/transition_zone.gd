@@ -11,7 +11,7 @@ func _ready() -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	if body is Player:
+	if body is Player and not SceneManager.is_transitioning:
 		TeleportData.target_transition_name = target_zone_name
 		SceneManager.change_room.call_deferred(target_room)
 

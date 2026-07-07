@@ -204,7 +204,7 @@ gradient = SubResource("Gradient_ec1ef")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
-[node name="Chuck" type="Area2D" unique_id=423884664]
+[node name="Chuck" type="Area2D" unique_id=423884664 groups=["no_grass"]]
 collision_layer = 0
 collision_mask = 3
 script = ExtResource("1_abpf2")

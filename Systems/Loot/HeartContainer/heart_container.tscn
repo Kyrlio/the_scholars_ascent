@@ -85,7 +85,8 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x416w"]
 
-[node name="HeartContainer" type="Area2D" unique_id=136598257]
+[node name="HeartContainer" type="Area2D" unique_id=136598257 groups=["no_grass"]]
+z_index = 2
 collision_layer = 128
 collision_mask = 2
 script = ExtResource("1_shxki")

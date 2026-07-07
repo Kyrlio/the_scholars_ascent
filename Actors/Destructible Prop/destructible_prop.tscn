@@ -153,7 +153,7 @@ shader_parameter/slide_on_ground = 27.14
 atlas = ExtResource("2_ytlls")
 region = Rect2(304, 224, 16, 16)
 
-[node name="DestructibleProp" type="Node2D" unique_id=1316598219]
+[node name="DestructibleProp" type="Node2D" unique_id=1316598219 groups=["no_grass"]]
 script = ExtResource("1_wcvkn")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1543670549]

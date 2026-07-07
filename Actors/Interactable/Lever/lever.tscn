@@ -256,7 +256,7 @@ collision_mask = 32
 script = ExtResource("2_q34vm")
 metadata/_custom_type_script = "uid://dprjg5ilgd4ve"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=1197621238]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=1197621238 groups=["no_grass"]]
 position = Vector2(3, 2)
 shape = SubResource("RectangleShape2D_2ukrj")
 

@@ -134,7 +134,7 @@ _data = {
 &"open": SubResource("Animation_7rfk8")
 }
 
-[node name="Trapdoor" type="AnimatableBody2D" unique_id=1769901696]
+[node name="Trapdoor" type="AnimatableBody2D" unique_id=1769901696 groups=["no_grass"]]
 position = Vector2(1, 0)
 script = ExtResource("1_mghpm")
 
