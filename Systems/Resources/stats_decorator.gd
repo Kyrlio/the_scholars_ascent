@@ -32,3 +32,9 @@ func get_extra_jumps() -> int:
 		return decorated_stats.extra_jumps
 	else:
 		return super()
+
+func get_attack_damage() -> int:
+	if decorated_stats:
+		return decorated_stats.attack_damage
+	else:
+		return super()

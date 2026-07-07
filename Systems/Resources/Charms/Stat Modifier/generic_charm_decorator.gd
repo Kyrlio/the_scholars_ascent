@@ -19,3 +19,9 @@ func get_fall_gravity() -> float:
 
 func get_extra_jumps() -> int:
 	return (decorated_stats.extra_jumps + extra_jumps_bonus) if decorated_stats else super()
+
+func get_attack_damage() -> int:
+	if decorated_stats:
+		return int(decorated_stats.get_attack_damage() * attack_multiplier)
+	else:
+		return super()

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CharmItem" format=3 uid="uid://dxxriuwhmsl5c"]
+
+[ext_resource type="Texture2D" uid="uid://bbucqtflj4my0" path="res://Assets/items/items.png" id="1_7eroy"]
+[ext_resource type="Script" uid="uid://b1k6c6xtrwpkq" path="res://Systems/Resources/Charms/Stat Modifier/charm_item.gd" id="1_ngjt6"]
+[ext_resource type="Resource" uid="uid://y6ieg1mtt8xr" path="res://Systems/Resources/Charms/Stat Modifier/attack_damage_modifier.tres" id="3_iqx1y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ajqx1"]
+atlas = ExtResource("1_7eroy")
+region = Rect2(64, 32, 16, 16)
+
+[resource]
+script = ExtResource("1_ngjt6")
+stat_modifier = ExtResource("3_iqx1y")
+item_name = "Warrior's Charm"
+description = "Increase the sword damage."
+icon = SubResource("AtlasTexture_ajqx1")
+metadata/_custom_type_script = "uid://b1k6c6xtrwpkq"

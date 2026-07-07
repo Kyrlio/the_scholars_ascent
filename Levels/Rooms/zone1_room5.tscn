@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://cc5xoecqb015f" path="res://Actors/Interactable/Grass/grass.tscn" id="5_s8hdj"]
 [ext_resource type="PackedScene" uid="uid://clqmfvb63sfeo" path="res://Actors/Interactable/Vine/vine.tscn" id="6_g82i0"]
 [ext_resource type="Script" uid="uid://bvp3ujqsevubj" path="res://Systems/Components/death_zone_component.gd" id="7_g82i0"]
+[ext_resource type="PackedScene" uid="uid://b1k8da547si5m" path="res://Actors/Interactable/Chest/chest.tscn" id="8_72f5f"]
+[ext_resource type="Resource" uid="uid://dxxriuwhmsl5c" path="res://Systems/Resources/Charms/warrior_charm.tres" id="9_gr4f4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0thxj"]
 size = Vector2(676, 23)
@@ -22,12 +24,14 @@ metadata/_edit_lock_ = true
 scroll_scale = Vector2(0.9, 0.9)
 repeat_size = Vector2(320, 180)
 repeat_times = 12
+metadata/_edit_lock_ = true
 
 [node name="TextureRect" type="TextureRect" parent="Tilemaps/BackBackParallax" unique_id=602438016]
 modulate = Color(0.316487, 0.316487, 0.316487, 1)
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("1_24qh6")
+metadata/_edit_lock_ = true
 
 [node name="Parallax" type="Parallax2D" parent="Tilemaps" unique_id=884761773]
 scroll_scale = Vector2(0.95, 0.95)
@@ -87,6 +91,10 @@ metadata/_custom_type_script = "uid://bvp3ujqsevubj"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable/DeathZoneComponent" unique_id=1484944905]
 position = Vector2(275, 156)
 shape = SubResource("RectangleShape2D_0thxj")
+
+[node name="Chest" parent="Interactable" unique_id=12775994 instance=ExtResource("8_72f5f")]
+position = Vector2(154, 16)
+item_content = ExtResource("9_gr4f4")
 
 [node name="Golds Coin" type="Node2D" parent="." unique_id=1205763460]
 

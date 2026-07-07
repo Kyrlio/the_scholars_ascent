@@ -25,7 +25,14 @@ var current_state: State = State.IDLE
 const ATTACK_PUSH_FORCE: float = 100.0
 @export var knockback_velocity: Vector2 = Vector2(40.0, -100.0)
 
-@export var stats: Stats
+@export var stats: Stats :
+	set(value):
+		stats = value
+		if not is_inside_tree() or hitbox_component == null:
+			return
+		
+		if stats != null:
+			hitbox_component.damage = stats.get_attack_damage()
 
 @export_group("Speed")
 @export var acceleration: float = 600.0
