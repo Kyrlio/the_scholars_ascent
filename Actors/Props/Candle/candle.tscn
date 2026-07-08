@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://spybha8438se"]
+
+[ext_resource type="Script" uid="uid://cy7piacl4pfv4" path="res://Actors/Props/Candle/candle.gd" id="1_66bei"]
+[ext_resource type="Texture2D" uid="uid://cd4qh5of2k141" path="res://Assets/animations/animations.png" id="1_pdjuv"]
+[ext_resource type="Texture2D" uid="uid://b0mitm7ng045m" path="res://Systems/Resources/light.tres" id="2_66bei"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_303xt"]
+atlas = ExtResource("1_pdjuv")
+region = Rect2(240, 176, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tmi10"]
+atlas = ExtResource("1_pdjuv")
+region = Rect2(256, 176, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1hd6s"]
+atlas = ExtResource("1_pdjuv")
+region = Rect2(272, 176, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b5gwx"]
+atlas = ExtResource("1_pdjuv")
+region = Rect2(288, 176, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0thxj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_303xt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tmi10")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1hd6s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b5gwx")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 7.0
+}]
+
+[node name="Candle" type="Node2D" unique_id=2009296115]
+script = ExtResource("1_66bei")
+base_energy = 1.5
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=969365695]
+position = Vector2(0, -13)
+sprite_frames = SubResource("SpriteFrames_0thxj")
+autoplay = "default"
+frame_progress = 0.13261169
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1237757392]
+position = Vector2(0, -9)
+color = Color(0.98039216, 0.7490196, 0.38039216, 1)
+texture = ExtResource("2_66bei")

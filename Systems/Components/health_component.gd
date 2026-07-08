@@ -26,6 +26,8 @@ func heal(amount: int) -> void:
 
 
 func damage(amount: int) -> void:
+	if "is_debug_mode" in owner and owner.is_debug_mode:
+		return
 	current_health = clamp(current_health - amount, 0, max_health)
 	damaged.emit()
 	

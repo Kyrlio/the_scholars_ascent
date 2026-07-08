@@ -1,0 +1,6 @@
+~ start
+Chuck: Hey, wanna buy something ?
+- Yep !
+	do open_shop()
+- No
+=> END

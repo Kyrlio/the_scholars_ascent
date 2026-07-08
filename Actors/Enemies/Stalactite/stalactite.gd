@@ -48,7 +48,7 @@ func _start_shake() -> void:
 	current_state = State.FALLING
 
 
-func _on_hitbox_hit() -> void:
+func _on_hitbox_hit(area: Area2D) -> void:
 	if current_state == State.FALLING:
 		_shatter()
 

@@ -411,7 +411,7 @@ visible = false
 position = Vector2(0, -19)
 texture = ExtResource("3_qyu18")
 region_enabled = true
-region_rect = Rect2(226, 98, 12, 12)
+region_rect = Rect2(224, 112, 16, 16)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="InteractSprite" unique_id=941753780]
 libraries/ = SubResource("AnimationLibrary_vk042")

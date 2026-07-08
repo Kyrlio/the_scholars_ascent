@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EnemyDefinition" format=3 uid="uid://baetjato340qm"]
+
+[ext_resource type="Script" uid="uid://bskgmpsguemcs" path="res://Systems/Resources/Enemies/enemy_definition.gd" id="1_8c57c"]
+[ext_resource type="PackedScene" uid="uid://bu5asig082cyr" path="res://Actors/Enemies/Stonemaw/stonemaw.tscn" id="1_s63bh"]
+[ext_resource type="Texture2D" uid="uid://c8d0rvyblb4ix" path="res://Assets/sprites/characters/stonemaw.png" id="2_0ri03"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jnjhl"]
+atlas = ExtResource("2_0ri03")
+region = Rect2(32, 16, 16, 16)
+
+[resource]
+script = ExtResource("1_8c57c")
+enemy_scene = ExtResource("1_s63bh")
+preview_texture = SubResource("AtlasTexture_jnjhl")
+metadata/_custom_type_script = "uid://bskgmpsguemcs"

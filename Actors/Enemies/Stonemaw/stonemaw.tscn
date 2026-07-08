@@ -322,7 +322,11 @@ radius = 8.0
 height = 22.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0thxj"]
-size = Vector2(254, 35)
+size = Vector2(254, 8)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hwpwk"]
+radius = 11.0
+height = 34.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8nrn4"]
 
@@ -394,8 +398,14 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/VisionArea2D" unique_id=1163786750]
-position = Vector2(0, -17.5)
+position = Vector2(0, -4)
 shape = SubResource("RectangleShape2D_0thxj")
+debug_color = Color(0.68235296, 0.29803923, 1, 0.101960786)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Visuals/VisionArea2D" unique_id=1652620415]
+position = Vector2(0, -11)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_hwpwk")
 debug_color = Color(0.68235296, 0.29803923, 1, 0.101960786)
 
 [node name="Sprite2D" type="Sprite2D" parent="Visuals" unique_id=82683047]

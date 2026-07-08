@@ -231,7 +231,7 @@ position = Vector2(0, -25)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_camrx")
 region_enabled = true
-region_rect = Rect2(226, 98, 12, 12)
+region_rect = Rect2(224, 112, 16, 16)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="InteractSprite" unique_id=1761341481]
 libraries/ = SubResource("AnimationLibrary_1c4me")

@@ -1,14 +1,3 @@
-~ test
-Chuck: [[Hey]] buddy.
-Chuck: What you doing here, it's dangerous.
-Todd: Don't care, i'm gonna kill the motherfucker !
-Chuck: Sheesh ! Good luck with that. Wanna see what I got in my shop ?
-- Buy things
-	do open_shop()
-- Hell no
-	Chuck: So sad...
-=> END
-
 ~ chuck_rencontre_old
 if first_met == true:
 	if GameState.has_ability("sword"):
@@ -32,7 +21,7 @@ else:
 do get_viewport().set_input_as_handled()
 => END
 
-~ chuck_rencontre
+~ start
 do get_viewport().set_input_as_handled()
 if first_met == true:
 	if GameState.has_ability("sword"):

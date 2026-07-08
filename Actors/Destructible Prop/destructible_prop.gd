@@ -1,6 +1,7 @@
 extends Node2D
 class_name DestructibleProp
 
+@export var prop_id: String = ""
 @export var texture: Texture2D
 
 @onready var health_component: HealthComponent = $HealthComponent
@@ -10,6 +11,12 @@ class_name DestructibleProp
 
 
 func _ready() -> void:
+	prop_id = GameState.get_unique_prop_id(self)
+	
+	if prop_id != "" and prop_id in GameState.destroyed_props:
+		queue_free()
+		return
+	
 	if texture:
 		sprite.texture = texture
 	
@@ -18,6 +25,9 @@ func _ready() -> void:
 
 
 func _on_died() -> void:
+	if prop_id != "" and not prop_id in GameState.destroyed_props:
+		GameState.destroyed_props.append(prop_id)
+		
 	for loot in loots.get_children():
 		if loot is Loot2D and loot.has_method("drop"):
 			loot.drop()

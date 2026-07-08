@@ -32,7 +32,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				open_shop()
 				get_viewport().set_input_as_handled()
 			else:
-				DialogueManager.show_dialogue_balloon(dialogue_resource, "chuck_rencontre", [self])
+				DialogueManager.show_dialogue_balloon(dialogue_resource, "start", [self])
 				get_viewport().set_input_as_handled()
 
 

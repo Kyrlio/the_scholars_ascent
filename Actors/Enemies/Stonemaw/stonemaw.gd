@@ -2,7 +2,7 @@ extends CharacterBody2D
 class_name Stonemaw
 
 @export var enemy_id: String = ""
-@export var chase_speed: float = 80.0
+@export var chase_speed: float = 100.0
 @export var gravity: float = 500.0
 @export var knockback_velocity: Vector2 = Vector2(80.0, -80.0)
 
@@ -79,6 +79,7 @@ func update_facing() -> void:
 		visuals.scale.x = direction
 
 func _on_hit_by_hitbox(hitbox: HitboxComponent) -> void:
+	return
 	var push_dir = sign(global_position.x - hitbox.global_position.x)
 	if push_dir == 0.0:
 		push_dir = 1.0 if visuals.scale.x < 0 else -1.0

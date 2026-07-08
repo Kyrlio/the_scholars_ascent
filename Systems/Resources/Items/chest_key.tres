@@ -9,7 +9,7 @@ region = Rect2(256, 48, 16, 16)
 
 [resource]
 script = ExtResource("1_3nyjs")
-item_name = "Chest Key"
+item_name = "Key"
 description = "Can open locked chests"
 icon = SubResource("AtlasTexture_xd7y1")
 metadata/_custom_type_script = "uid://bpr4g7udde1b6"

@@ -22,6 +22,10 @@ enum State {
 var current_state: State = State.IDLE
 @export var state_locked: bool = false
 
+var is_debug_mode: bool = false
+var _original_collision_layer: int
+var _original_collision_mask: int
+
 const ATTACK_PUSH_FORCE: float = 100.0
 @export var knockback_velocity: Vector2 = Vector2(40.0, -100.0)
 
@@ -218,6 +222,11 @@ func switch_state(new_state: State) -> void:
 			velocity = Vector2.ZERO
 
 func _get_post_action_state() -> State:
+	if is_debug_mode:
+		if velocity.length_squared() > 1.0:
+			return State.RUN
+		return State.IDLE
+	
 	if not is_on_floor():
 		if is_on_wall_only() and velocity.y > 0.0 and GameState.has_ability("wall_slide"):
 			return State.WALL_SLIDE
@@ -444,8 +453,12 @@ func _unhandled_input(event: InputEvent) -> void:
 				return
 			SaveManager.save_game(global_position, get_current_health(), GameState.total_gold)
 			print("DEBUG: Jeu sauvegardé à la position ", global_position, " (Santé: ", get_current_health(), ", Or: ", GameState.total_gold, ")")
+		elif event.keycode == KEY_F3 or event.keycode == KEY_G:
+			toggle_debug_mode()
 
 func _ready() -> void:
+	_original_collision_layer = collision_layer
+	_original_collision_mask = collision_mask
 	switch_state(State.IDLE)
 	animation_player.animation_finished.connect(_on_animation_finished)
 	
@@ -492,7 +505,11 @@ func _physics_process(delta: float) -> void:
 	if is_dead:
 		return
 	
-	if not state_locked and not GameState.is_gameplay_frozen():
+	if is_debug_mode:
+		_handle_debug_movement(delta)
+		_handle_attack()
+		_handle_spell()
+	elif not state_locked and not GameState.is_gameplay_frozen():
 		_handle_horizontal_movement(delta)
 		_handle_jump()
 		_handle_attack()
@@ -597,6 +614,8 @@ func wake_up() -> void:
 #region _apply
 
 func _apply_gravity(delta: float) -> void:
+	if is_debug_mode:
+		return
 	if not is_on_floor():
 		if is_on_wall_only() and velocity.y > 0 and GameState.has_ability("wall_slide"):
 			velocity.y = min(velocity.y + stats.fall_gravity * delta, wall_slide_speed)
@@ -706,11 +725,15 @@ func _on_hitbox_hit(hurtbox: HurtboxComponent) -> void:
 
 
 func _on_player_damaged() -> void:
+	if is_debug_mode:
+		return
 	switch_state(State.HURT)
 	_trigger_invincibility(0.8)
 
 
 func _on_hurtbox_hit(hitbox: HitboxComponent) -> void:
+	if is_debug_mode:
+		return
 	var push_dir = sign(global_position.x - hitbox.global_position.x)
 	if push_dir == 0.0:
 		push_dir = 1.0 if visuals.scale.x < 0 else -1.0
@@ -773,3 +796,47 @@ func _on_animation_finished(animation_name: StringName) -> void:
 				switch_state(State.IDLE)
 
 #endregion
+
+func toggle_debug_mode() -> void:
+	is_debug_mode = !is_debug_mode
+	if is_debug_mode:
+		collision_mask = 0
+		
+		# Revive player if dead
+		if is_dead:
+			is_dead = false
+			hurtbox.set_deferred("monitorable", true)
+			hurtbox.set_deferred("monitoring", true)
+		
+		# Refill health
+		health_component.current_health = health_component.max_health
+		
+		# Reset state locks
+		state_locked = false
+		
+		switch_state(State.IDLE)
+		
+		# Visual indicator: semi-transparent cyan/blue
+		visuals.modulate = Color(0.6, 1.0, 1.0, 0.6)
+		print("DEBUG: Mode debug ACTIVÉ (Invincible + Vol + Noclip)")
+	else:
+		collision_mask = _original_collision_mask
+		visuals.modulate = Color.WHITE
+		print("DEBUG: Mode debug DÉSACTIVÉ")
+	
+	# Emit health change event to update UI
+	GameEvents.emit_player_health_changed(health_component.current_health, health_component.max_health)
+
+
+func _handle_debug_movement(delta: float) -> void:
+	var input_vector := Vector2(
+		Input.get_axis("move_left", "move_right"),
+		Input.get_axis("up", "down")
+	)
+	var target_speed = stats.speed * 2.5
+	var target_velocity = input_vector.normalized() * target_speed
+	
+	velocity = velocity.move_toward(target_velocity, acceleration * 3.0 * delta)
+	
+	if input_vector.x != 0.0:
+		_update_facing_direction(input_vector.x)

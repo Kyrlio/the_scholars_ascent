@@ -8,14 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://bsg0351mx3b4u" path="res://addons/MetroidvaniaSystem/Nodes/RoomInstance.tscn" id="4_qnaxq"]
 [ext_resource type="PackedScene" uid="uid://d1qf1x2cl5xpi" path="res://Actors/Interactable/Campfire/campfire.tscn" id="4_qsutk"]
 [ext_resource type="PackedScene" uid="uid://cc5xoecqb015f" path="res://Actors/Interactable/Grass/grass.tscn" id="5_8b6t0"]
-[ext_resource type="PackedScene" uid="uid://b1k8da547si5m" path="res://Actors/Interactable/Chest/chest.tscn" id="5_oidhs"]
 [ext_resource type="Texture2D" uid="uid://cy7q8p1pbpmlh" path="res://Assets/sprites/characters/todd.png" id="6_1am1i"]
-[ext_resource type="Resource" uid="uid://nqgp0fpajmtj" path="res://Systems/Resources/Charms/triple_jump_charm.tres" id="6_2qivc"]
 [ext_resource type="PackedScene" uid="uid://clqmfvb63sfeo" path="res://Actors/Interactable/Vine/vine.tscn" id="6_bfetu"]
 [ext_resource type="PackedScene" uid="uid://lwx1ufc0bndp" path="res://Systems/Components/Transition Zone/transition_zone.tscn" id="9_bfetu"]
-[ext_resource type="PackedScene" uid="uid://dys7k0tpundus" path="res://Systems/Loot/Gold Coin/gold_coin.tscn" id="9_h13iq"]
-[ext_resource type="PackedScene" uid="uid://bh7e1wwp55ufn" path="res://Systems/Loot/world_item.tscn" id="10_t7v6y"]
-[ext_resource type="Resource" uid="uid://da6nxmxi8svx5" path="res://Systems/Resources/Items/bat_eye.tres" id="11_exr6n"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qsutk"]
 atlas = ExtResource("6_1am1i")
@@ -89,10 +84,6 @@ position = Vector2(25, 120)
 
 [node name="Chests" type="Node2D" parent="Interactable" unique_id=1034579405]
 
-[node name="Chest" parent="Interactable/Chests" unique_id=12775994 instance=ExtResource("5_oidhs")]
-position = Vector2(205, 144)
-item_content = ExtResource("6_2qivc")
-
 [node name="Trapdoor" type="Node2D" parent="Interactable" unique_id=621240675]
 
 [node name="AbilityUnlocker" parent="Interactable" unique_id=523632769 instance=ExtResource("4_go8yv")]
@@ -103,13 +94,6 @@ popup_desc = "Todd can now do slides and jump on walls !"
 popiup_icon_text = SubResource("AtlasTexture_qsutk")
 
 [node name="Golds Coin" type="Node2D" parent="." unique_id=1205763460]
-
-[node name="WorldItem" parent="Golds Coin" unique_id=1455257283 instance=ExtResource("10_t7v6y")]
-position = Vector2(152, 137)
-item_data = ExtResource("11_exr6n")
-
-[node name="GoldCoin" parent="Golds Coin" unique_id=525774278 instance=ExtResource("9_h13iq")]
-position = Vector2(249, 137)
 
 [node name="Enemies" type="Node2D" parent="." unique_id=2139906756]
 

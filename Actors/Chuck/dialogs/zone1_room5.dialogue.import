@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://bo1alnigrvy8g"
+path="res://.godot/imported/zone1_room5.dialogue-7f037264b1a15c87c9dbd570a4e777df.tres"
+
+[deps]
+
+source_file="res://Actors/Chuck/dialogs/zone1_room5.dialogue"
+dest_files=["res://.godot/imported/zone1_room5.dialogue-7f037264b1a15c87c9dbd570a4e777df.tres"]
+
+[params]
+
+defaults=true

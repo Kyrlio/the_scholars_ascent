@@ -1,19 +1,38 @@
 extends Area2D
 class_name Campfire
 
+@export_group("Light Flicker")
+@export var noise_speed: float = 75.0
+@export var energy_flicker_amount: float = 0.5
+@export var scale_flicker_amount: float = 0.15
+@export var base_energy: float = 0.75
+
 @onready var interact_sprite: Sprite2D = $InteractSprite
 @onready var interact_animation_player: AnimationPlayer = $InteractSprite/AnimationPlayer
 @onready var label_animation_player: AnimationPlayer = $Label/AnimationPlayer
+@onready var campfire_light: PointLight2D = $CampfireLight
 
 var is_player_near: bool = false
 var player: Player = null
-
+var noise: FastNoiseLite = FastNoiseLite.new()
+var time_passed: float = 0.0
 
 func _ready() -> void:
 	interact_sprite.hide()
 	
+	noise.noise_type = FastNoiseLite.TYPE_PERLIN
+	noise.seed = randi()
+	noise.frequency = 0.05
+	
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
+
+
+func _process(delta: float) -> void:
+	time_passed += delta * noise_speed
+	var noise_value = noise.get_noise_1d(time_passed)
+	campfire_light.energy = base_energy + (noise_value * energy_flicker_amount)
+	campfire_light.texture_scale = 1.0 + (noise_value * scale_flicker_amount)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -35,6 +54,7 @@ func rest_at_campfire() -> void:
 			await get_tree().create_timer(0.2).timeout
 		
 		GameState.defeated_enemies.clear() # Respawn enemies
+		GameState.destroyed_props.clear() # Respawn destructible props
 		
 		SaveManager.save_game(player.global_position, player.get_current_health(), GameState.total_gold)
 		

@@ -9,7 +9,7 @@
 size = Vector2(22, 183)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x416w"]
-size = Vector2(10, 20)
+size = Vector2(10, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0thxj"]
 atlas = ExtResource("1_0vxd2")
@@ -32,7 +32,7 @@ shape = SubResource("RectangleShape2D_0thxj")
 debug_color = Color(0.85859174, 0.00071349024, 0.88056195, 0.41960785)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1908795298]
-position = Vector2(0, 5)
+position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_x416w")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=167139569]

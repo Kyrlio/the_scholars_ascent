@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://cd4qh5of2k141" path="res://Assets/animations/animations.png" id="1_hybyx"]
 [ext_resource type="Script" uid="uid://bm642ckb8hcpw" path="res://Actors/Interactable/Campfire/campfire.gd" id="1_je68p"]
 [ext_resource type="Texture2D" uid="uid://vsgmrqgvil2s" path="res://Assets/ui/ui-2.png" id="3_m2dea"]
+[ext_resource type="Texture2D" uid="uid://b0mitm7ng045m" path="res://Systems/Resources/light.tres" id="4_cimpx"]
 
 [sub_resource type="Animation" id="Animation_je68p"]
 length = 0.001
@@ -44,7 +45,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i23ah"]
-size = Vector2(64, 20)
+size = Vector2(48, 20)
 
 [sub_resource type="Animation" id="Animation_cimpx"]
 length = 0.001
@@ -206,15 +207,6 @@ _data = {
 &"show": SubResource("Animation_r3206")
 }
 
-[sub_resource type="Gradient" id="Gradient_1yluu"]
-offsets = PackedFloat32Array(0, 0.14285715, 0.3877551, 0.5346939)
-colors = PackedColorArray(1, 1, 1, 1, 0.41783845, 0.41783845, 0.41783845, 1, 0.19847327, 0.19847327, 0.19847327, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_m2dea"]
-gradient = SubResource("Gradient_1yluu")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-
 [node name="Campfire" type="Area2D" unique_id=1793744179 groups=["no_grass"]]
 collision_layer = 0
 collision_mask = 2
@@ -269,4 +261,4 @@ libraries/ = SubResource("AnimationLibrary_8qa3m")
 position = Vector2(-1, 3)
 color = Color(0.98039216, 0.7490196, 0.38039216, 1)
 shadow_enabled = true
-texture = SubResource("GradientTexture2D_m2dea")
+texture = ExtResource("4_cimpx")

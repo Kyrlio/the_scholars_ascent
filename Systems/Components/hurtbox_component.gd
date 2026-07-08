@@ -20,6 +20,9 @@ func _handle_hit(hitbox_component: HitboxComponent):
 		# Hit only one enemy
 		return
 	
+	if "is_debug_mode" in owner and owner.is_debug_mode:
+		return
+	
 	if owner is Grass:
 		health_component.damage(hitbox_component.damage)
 		if hit_particles_scene:

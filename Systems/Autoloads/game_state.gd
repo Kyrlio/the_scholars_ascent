@@ -9,6 +9,7 @@ var collected_coins: Array = []
 var shop_stocks: Dictionary = {}
 var activated_levers: Dictionary = {}
 var defeated_enemies: Array = []
+var destroyed_props: Array = []
 var played_cutscenes: Array = []
 var completed_arenas: Array = []
 
@@ -165,6 +166,9 @@ func load_save_data():
 	# Defeated enemies
 	defeated_enemies = data.get("defeated_enemies", [])
 	
+	# Destroyed props
+	destroyed_props = data.get("destroyed_props", [])
+	
 	# Completed arenas
 	completed_arenas = data.get("completed_arenas", [])
 	
@@ -205,6 +209,7 @@ func reset_state() -> void:
 	shop_stocks.clear()
 	activated_levers.clear()
 	defeated_enemies.clear()
+	destroyed_props.clear()
 	completed_arenas.clear()
 	played_cutscenes.clear()
 	opened_chests.clear()
@@ -226,17 +231,17 @@ func reset_state() -> void:
 	rebuild_player_stats()
 
 
-func get_unique_enemy_id(enemy: Node2D) -> String:
+func get_unique_node_id(node: Node2D, custom_id: String) -> String:
 	# Si l'ID a été défini manuellement dans l'éditeur (propriété exportée)
-	if enemy.enemy_id != "":
-		return enemy.enemy_id
+	if custom_id != "":
+		return custom_id
 	
 	# Cas 1 : Posé manuellement dans l'éditeur (owner valide)
-	if enemy.owner != null and enemy.owner.scene_file_path != "":
-		return enemy.owner.scene_file_path + "::" + str(enemy.owner.get_path_to(enemy))
+	if node.owner != null and node.owner.scene_file_path != "":
+		return node.owner.scene_file_path + "::" + str(node.owner.get_path_to(node))
 	
 	# Cas 2 : Instancié par un TileMapLayer (on remonte l'arbre pour trouver le premier TileMapLayer)
-	var parent = enemy.get_parent()
+	var parent = node.get_parent()
 	var tilemap_layer: TileMapLayer = null
 	while parent != null:
 		if parent is TileMapLayer:
@@ -252,12 +257,20 @@ func get_unique_enemy_id(enemy: Node2D) -> String:
 		
 		if room_node != null:
 			var relative_layer_path = room_node.get_path_to(tilemap_layer)
-			var local_pos = tilemap_layer.to_local(enemy.global_position)
+			var local_pos = tilemap_layer.to_local(node.global_position)
 			var cell_coords = tilemap_layer.local_to_map(local_pos)
 			return room_node.scene_file_path + "::" + str(relative_layer_path) + "::" + str(cell_coords)
 	
 	# Cas 3 : Repli (fallback) si aucune autre méthode ne marche
-	return str(enemy.get_path())
+	return str(node.get_path())
+
+
+func get_unique_enemy_id(enemy: Node2D) -> String:
+	return get_unique_node_id(enemy, enemy.enemy_id)
+
+
+func get_unique_prop_id(prop: Node2D) -> String:
+	return get_unique_node_id(prop, prop.prop_id)
 
 
 func get_unique_arena_id(arena: Node2D) -> String:
