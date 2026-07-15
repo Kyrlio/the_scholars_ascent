@@ -35,16 +35,6 @@ shader_parameter/roll_strength = 0.0
 shader_parameter/glow_strength = 0.0
 shader_parameter/glow_threshold = 0.0
 
-[sub_resource type="Environment" id="Environment_4lug0"]
-background_mode = 3
-tonemap_mode = 1
-glow_enabled = true
-glow_intensity = 1.14
-glow_bloom = 0.1
-adjustment_enabled = true
-adjustment_contrast = 1.05
-adjustment_saturation = 1.1
-
 [node name="Game" type="Node2D" unique_id=2108561114]
 process_mode = 3
 script = ExtResource("1_5ubxa")
@@ -65,12 +55,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2054175000]
-environment = SubResource("Environment_4lug0")
-
-[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=955078285]
-color = Color(0.4862745, 0.4862745, 0.4862745, 1)
 
 [node name="LevelContainer" type="Node2D" parent="." unique_id=1104555161]
 process_mode = 1

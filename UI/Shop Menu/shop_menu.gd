@@ -9,6 +9,8 @@ const GOLD_ICON = preload("uid://caqd2vijw2q1g")
 @onready var item_description: RichTextLabel = %ItemDescription
 @onready var price_label: Label = %PriceLabel
 @onready var price_icon: TextureRect = %PriceIcon
+@onready var price_item_label: Label = %PriceItemLabel
+@onready var price_item_icon: TextureRect = %PriceItemIcon
 
 var current_inventory: Array[ShopItem] = []
 var selected_item: ShopItem = null
@@ -83,12 +85,37 @@ func _on_slot_focused(index: int) -> void:
 		item_name.text = selected_item.item.item_name
 		item_description.text = selected_item.item.description
 		
-		if selected_item.currency_item == null:
-			price_label.text = "Price : " + str(selected_item.price) + " Gold"
+		if selected_item.required_item == null:
+			price_item_label.hide()
+			price_item_icon.hide()
+			price_label.show()
+			price_icon.show()
+			price_label.text = str(selected_item.gold_price)
+			selected_item.gold_price
 			price_icon.texture = GOLD_ICON
+		elif selected_item.gold_price == 0 and selected_item.required_item:
+			price_icon.hide()
+			price_label.hide()
+			price_item_icon.show()
+			price_item_label.show()
+			price_item_label.text = str(selected_item.required_item.quantity)
+			price_item_icon.texture = selected_item.required_item.item.icon
 		else:
-			price_label.text = "Price : " + str(selected_item.price) + " " + selected_item.currency_item.item_name
-			price_icon.texture = selected_item.currency_item.icon
+			price_item_icon.show()
+			price_item_label.show()
+			price_label.show()
+			price_icon.show()
+			price_label.text = str(selected_item.gold_price)
+			price_icon.texture = GOLD_ICON
+			price_item_label.text = str(selected_item.required_item.quantity)
+			price_item_icon.texture = selected_item.required_item.item.icon
+		
+		#if selected_item.currency_item == null:
+			#price_label.text = "Price : " + str(selected_item.price) + " Gold"
+			#price_icon.texture = GOLD_ICON
+		#else:
+			#price_label.text = "Price : " + str(selected_item.price) + " " + selected_item.currency_item.item_name
+			#price_icon.texture = selected_item.currency_item.icon
 	else:
 		selected_item = null
 
@@ -106,7 +133,12 @@ func buy_selected_item() -> void:
 		print("No stock for ", selected_item.item.item_name)
 		return
 	
-	if selected_item.currency_item == null:
+	if GameState.total_gold < selected_item.gold_price:
+		print("Pas assez d'or")
+		return
+	
+	if selected_item.required_item == null:
+		# ONLY GOLD
 		if GameState.total_gold >= selected_item.price:
 			GameState.total_gold -= selected_item.price
 			GameEvents.emit_item_collected(selected_item.item)
@@ -121,16 +153,20 @@ func buy_selected_item() -> void:
 		else:
 			print("Not enough money")
 	else:
+		# WITH ITEM
 		var has_enough = false
 		for slot in GameState.collected_items:
-			if slot["item"] == selected_item.currency_item and slot["quantity"] >= selected_item.price:
-				slot["quantity"] -= selected_item.price
+			if slot["item"] == selected_item.required_item.item and slot["quantity"] >= selected_item.required_item.quantity:
+				slot["quantity"] -= selected_item.required_item.quantity
 				has_enough = true
 				if slot["quantity"] <= 0:
 					GameState.collected_items.erase(slot)
 				break
 		
 		if has_enough:
+			if selected_item.gold_price > 0:
+				GameState.total_gold -= selected_item.required_item.quantity
+			
 			GameEvents.emit_item_collected(selected_item.item)
 			if selected_item.stock > 0:
 				selected_item.stock -= 1
@@ -138,9 +174,9 @@ func buy_selected_item() -> void:
 			if selected_item.resource_path != "":
 				GameState.shop_stocks[selected_item.resource_path] = selected_item.stock
 			
-			print(selected_item.item.item_name + " buyed with ", selected_item.currency_item.item_name)
+			print(selected_item.item.item_name + " buyed with ", selected_item.required_item.item.item_name, " and ", selected_item.gold_price )
 		else:
-			print("Not enough ", selected_item.currency_item.item_name, " to buy")
+			print("Not enough ", selected_item.required_item.item.item_name, " to buy")
 	
 	GameEvents.emit_gold_collected(0)
 	populate_shop()

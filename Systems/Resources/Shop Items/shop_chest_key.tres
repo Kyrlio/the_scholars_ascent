@@ -1,11 +1,20 @@
 [gd_resource type="Resource" script_class="ShopItem" format=3 uid="uid://bmop7roq04rc0"]
 
 [ext_resource type="Resource" uid="uid://fg4610ldofq0" path="res://Systems/Resources/Items/chest_key.tres" id="1_y4jqw"]
+[ext_resource type="Script" uid="uid://daqfwv4gu5atk" path="res://Systems/Resources/Shop Items/item_cost.gd" id="2_jr7lw"]
 [ext_resource type="Script" uid="uid://dus15ka8quity" path="res://Systems/Resources/Shop Items/shop_item.gd" id="3_j76rg"]
+[ext_resource type="Resource" uid="uid://da6nxmxi8svx5" path="res://Systems/Resources/Items/bat_eye.tres" id="3_m7m68"]
+
+[sub_resource type="Resource" id="Resource_u1qcv"]
+script = ExtResource("2_jr7lw")
+item = ExtResource("3_m7m68")
+quantity = 5
+metadata/_custom_type_script = "uid://daqfwv4gu5atk"
 
 [resource]
 script = ExtResource("3_j76rg")
 item = ExtResource("1_y4jqw")
-price = 10
-stock = 1
+stock = 2
+gold_price = 5
+required_item = SubResource("Resource_u1qcv")
 metadata/_custom_type_script = "uid://dus15ka8quity"

@@ -2,10 +2,18 @@
 
 [ext_resource type="Script" uid="uid://dus15ka8quity" path="res://Systems/Resources/Shop Items/shop_item.gd" id="1_aafvu"]
 [ext_resource type="Resource" uid="uid://bj5t60ys37ri6" path="res://Systems/Resources/Charms/jump_charm.tres" id="2_aaxbw"]
+[ext_resource type="Script" uid="uid://daqfwv4gu5atk" path="res://Systems/Resources/Shop Items/item_cost.gd" id="2_bol64"]
+[ext_resource type="Resource" uid="uid://ds0ps3l0a2o67" path="res://Systems/Resources/Items/mushroom.tres" id="2_w2it7"]
+
+[sub_resource type="Resource" id="Resource_14gq3"]
+script = ExtResource("2_bol64")
+item = ExtResource("2_w2it7")
+quantity = 10
+metadata/_custom_type_script = "uid://daqfwv4gu5atk"
 
 [resource]
 script = ExtResource("1_aafvu")
 item = ExtResource("2_aaxbw")
-price = 5
 stock = 1
+required_item = SubResource("Resource_14gq3")
 metadata/_custom_type_script = "uid://dus15ka8quity"

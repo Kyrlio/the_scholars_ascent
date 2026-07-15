@@ -11,6 +11,16 @@
 [ext_resource type="PackedScene" uid="uid://bsg0351mx3b4u" path="res://addons/MetroidvaniaSystem/Nodes/RoomInstance.tscn" id="7_hlhik"]
 [ext_resource type="PackedScene" uid="uid://clqmfvb63sfeo" path="res://Actors/Interactable/Vine/vine.tscn" id="7_qcdma"]
 
+[sub_resource type="Environment" id="Environment_qcdma"]
+background_mode = 3
+tonemap_mode = 1
+glow_enabled = true
+glow_intensity = 1.14
+glow_bloom = 0.1
+adjustment_enabled = true
+adjustment_contrast = 1.05
+adjustment_saturation = 1.1
+
 [node name="Zone1Room1" type="Node2D" unique_id=896410589]
 
 [node name="Tilemaps" type="Node2D" parent="." unique_id=1586076565]
@@ -98,5 +108,11 @@ target_zone_name = "Zone1Room2Left"
 position = Vector2(-23, 11)
 
 [node name="RoomInstance" parent="." unique_id=1810457737 instance=ExtResource("7_hlhik")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=856309619]
+environment = SubResource("Environment_qcdma")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=981115344]
+color = Color(0.4862745, 0.4862745, 0.4862745, 1)
 
 [editable path="SpawnPoints/Zone1Room1Right"]

@@ -4,6 +4,11 @@
 [ext_resource type="PackedScene" uid="uid://dg2eebu544xhu" path="res://UI/Animated Slot/animated_slot.tscn" id="2_cqaqy"]
 [ext_resource type="Texture2D" uid="uid://caqd2vijw2q1g" path="res://UI/gold_icon.tres" id="3_cqaqy"]
 [ext_resource type="Texture2D" uid="uid://xi2ifg7ixo2g" path="res://Assets/ui/ui.png" id="3_u1qcv"]
+[ext_resource type="Texture2D" uid="uid://bbucqtflj4my0" path="res://Assets/items/items.png" id="4_u1qcv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aaxbw"]
+atlas = ExtResource("4_u1qcv")
+region = Rect2(48, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cqaqy"]
 atlas = ExtResource("3_u1qcv")
@@ -116,15 +121,33 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
-text = "99 GOLD"
+text = "99"
 
 [node name="PriceIcon" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/DetailsPanel/HBoxContainer" unique_id=1935960053]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(16, 16)
+custom_maximum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("3_cqaqy")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="PriceItemLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/DetailsPanel/HBoxContainer" unique_id=1935359367]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "99"
+
+[node name="PriceItemIcon" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/DetailsPanel/HBoxContainer" unique_id=35876296]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(16, 16)
+custom_maximum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("AtlasTexture_aaxbw")
 expand_mode = 5
 stretch_mode = 5
 

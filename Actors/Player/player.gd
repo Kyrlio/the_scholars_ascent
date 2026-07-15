@@ -618,7 +618,10 @@ func _apply_gravity(delta: float) -> void:
 		return
 	if not is_on_floor():
 		if is_on_wall_only() and velocity.y > 0 and GameState.has_ability("wall_slide"):
-			velocity.y = min(velocity.y + stats.fall_gravity * delta, wall_slide_speed)
+			if not Input.is_action_pressed("down"):
+				velocity.y = min(velocity.y + stats.fall_gravity * delta, wall_slide_speed)
+			else:
+				velocity.y += (stats.fall_gravity * 0.5) * delta
 		else:
 			if velocity.y < 0.0:
 				velocity.y += stats.jump_gravity * delta

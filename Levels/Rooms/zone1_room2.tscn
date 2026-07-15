@@ -37,6 +37,16 @@ metadata/_custom_type_script = "uid://dus15ka8quity"
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7h2qd"]
 size = Vector2(64.000015, 27.5)
 
+[sub_resource type="Environment" id="Environment_gw3yy"]
+background_mode = 3
+tonemap_mode = 1
+glow_enabled = true
+glow_intensity = 1.14
+glow_bloom = 0.1
+adjustment_enabled = true
+adjustment_contrast = 1.05
+adjustment_saturation = 1.1
+
 [node name="Zone1Room2" type="Node2D" unique_id=896410589]
 
 [node name="Tilemaps" type="Node2D" parent="." unique_id=167249427]
@@ -274,6 +284,12 @@ position = Vector2(23, 33)
 
 [node name="RoomInstance" parent="." unique_id=2146291553 instance=ExtResource("18_f0tcx")]
 position = Vector2(0, -180)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2034303073]
+environment = SubResource("Environment_gw3yy")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=965551427]
+color = Color(0.4862745, 0.4862745, 0.4862745, 1)
 
 [editable path="TransitionZones/Zone1Room2Left"]
 [editable path="TransitionZones/Zone1Room2Up"]

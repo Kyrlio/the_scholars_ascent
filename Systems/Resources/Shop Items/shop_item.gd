@@ -2,6 +2,8 @@ extends Resource
 class_name ShopItem
 
 @export var item: ItemData
-@export var price: int
 @export var stock: int = -1 ## -1 = infinite, 1 = unique, > 1 = limited quantity
-@export var currency_item: ItemData ## If empty, the item will cost gold instead of this item
+
+@export_group("Costs")
+@export var gold_price: int = 0
+@export var required_item: ItemCost ## Can add items to the price
