@@ -139,8 +139,8 @@ func buy_selected_item() -> void:
 	
 	if selected_item.required_item == null:
 		# ONLY GOLD
-		if GameState.total_gold >= selected_item.price:
-			GameState.total_gold -= selected_item.price
+		if GameState.total_gold >= selected_item.gold_price:
+			GameState.total_gold -= selected_item.gold_price
 			GameEvents.emit_item_collected(selected_item.item)
 			if selected_item.stock > 0:
 				selected_item.stock -= 1

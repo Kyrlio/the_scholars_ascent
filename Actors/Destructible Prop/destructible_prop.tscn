@@ -8,7 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://cj0ylb0tjal2w" path="res://Systems/Particles/hit_particles_props.tscn" id="4_jdajq"]
 [ext_resource type="PackedScene" uid="uid://dys7k0tpundus" path="res://Systems/Loot/Gold Coin/gold_coin.tscn" id="4_wcvkn"]
 [ext_resource type="Shader" uid="uid://gg2blnjyvh64" path="res://Systems/Shaders/destructible_prop.gdshader" id="5_jdajq"]
-[ext_resource type="PackedScene" uid="uid://cmojugbxiw5fa" path="res://Systems/Loot/Medipack/medipack.tscn" id="9_g17ma"]
+[ext_resource type="Script" uid="uid://dw8072bqcbpx4" path="res://Systems/Loot/loot_2d.gd" id="9_nn3n5"]
+[ext_resource type="PackedScene" uid="uid://m44sraye34mj" path="res://Systems/Loot/medipack.tscn" id="10_jikie"]
 
 [sub_resource type="Animation" id="Animation_jdajq"]
 length = 0.001
@@ -186,6 +187,7 @@ unique_name_in_owner = true
 loot_scene = ExtResource("4_wcvkn")
 drop_rate = 0.8
 
-[node name="Medipack" parent="Loots" unique_id=793743400 instance=ExtResource("3_ytlls")]
-loot_scene = ExtResource("9_g17ma")
-drop_rate = 0.4
+[node name="Medipack" type="Marker2D" parent="Loots" unique_id=1787650132]
+script = ExtResource("9_nn3n5")
+loot_scene = ExtResource("10_jikie")
+metadata/_custom_type_script = "uid://dw8072bqcbpx4"

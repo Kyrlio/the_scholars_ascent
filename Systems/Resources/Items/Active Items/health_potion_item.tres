@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ActiveItem" format=3 uid="uid://c5qfu0t1csirw"]
+
+[ext_resource type="Texture2D" uid="uid://dhq7llnnwqvkm" path="res://Assets/items/medipack.png" id="1_ttkai"]
+[ext_resource type="Script" uid="uid://dvsul22jw7q0t" path="res://Systems/Resources/Items/Active Items/ActiveItem.gd" id="1_xvqh1"]
+
+[resource]
+script = ExtResource("1_xvqh1")
+item_name = "Medipack"
+description = "Heal you my boi"
+icon = ExtResource("1_ttkai")
+metadata/_custom_type_script = "uid://dvsul22jw7q0t"

@@ -8,7 +8,7 @@ class_name WorldItem
 
 func _ready() -> void:
 	var random_angle = randf_range(-PI * 0.8, -PI * 0.2)
-	var random_speed = randf_range(100.0, 200.0)
+	var random_speed = randf_range(75.0, 150.0)
 	var random_direction = Vector2.RIGHT.rotated(random_angle)
 
 	linear_velocity = random_direction * random_speed

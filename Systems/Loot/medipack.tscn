@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://m44sraye34mj"]
+
+[ext_resource type="PackedScene" uid="uid://bh7e1wwp55ufn" path="res://Systems/Loot/world_item.tscn" id="1_eauwx"]
+[ext_resource type="Resource" uid="uid://c5qfu0t1csirw" path="res://Systems/Resources/Items/Active Items/health_potion_item.tres" id="2_mfers"]
+
+[node name="Medipack" unique_id=1455257283 instance=ExtResource("1_eauwx")]
+item_data = ExtResource("2_mfers")

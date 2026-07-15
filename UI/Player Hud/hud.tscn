@@ -194,7 +194,7 @@ layout_mode = 2
 [node name="ItemPopup" parent="MarginContainer/ItemPopup" unique_id=2092195959 instance=ExtResource("4_jkuxh")]
 unique_name_in_owner = true
 layout_mode = 1
-offset_left = 228.5
+offset_left = 223.5
 offset_top = 32.0
-offset_right = 302.5
+offset_right = 297.5
 offset_bottom = 56.0

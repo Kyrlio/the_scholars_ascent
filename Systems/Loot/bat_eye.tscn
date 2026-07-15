@@ -3,5 +3,5 @@
 [ext_resource type="PackedScene" uid="uid://bh7e1wwp55ufn" path="res://Systems/Loot/world_item.tscn" id="1_o8hmh"]
 [ext_resource type="Resource" uid="uid://da6nxmxi8svx5" path="res://Systems/Resources/Items/bat_eye.tres" id="2_q413t"]
 
-[node name="WorldItem" unique_id=1455257283 instance=ExtResource("1_o8hmh")]
+[node name="BatEye" unique_id=1455257283 instance=ExtResource("1_o8hmh")]
 item_data = ExtResource("2_q413t")

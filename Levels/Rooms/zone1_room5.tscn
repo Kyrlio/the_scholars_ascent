@@ -11,7 +11,10 @@
 [ext_resource type="Script" uid="uid://bvp3ujqsevubj" path="res://Systems/Components/death_zone_component.gd" id="7_g82i0"]
 [ext_resource type="PackedScene" uid="uid://d1qf1x2cl5xpi" path="res://Actors/Interactable/Campfire/campfire.tscn" id="7_gr4f4"]
 [ext_resource type="PackedScene" uid="uid://ukyc78w0joal" path="res://Systems/Components/Enemy Spawner/enemy_spawner.tscn" id="9_e78im"]
+[ext_resource type="PackedScene" uid="uid://d8hou87leijl" path="res://Actors/Destructible Prop/destructible_prop.tscn" id="9_nxfww"]
+[ext_resource type="PackedScene" uid="uid://bh7e1wwp55ufn" path="res://Systems/Loot/world_item.tscn" id="9_po8bi"]
 [ext_resource type="Resource" uid="uid://bk5gjk8pwx26x" path="res://Systems/Resources/Enemies/beetle_def.tres" id="10_krsa5"]
+[ext_resource type="Resource" uid="uid://c5qfu0t1csirw" path="res://Systems/Resources/Items/Active Items/health_potion_item.tres" id="10_nxfww"]
 [ext_resource type="Resource" uid="uid://c8a3cvt71s35c" path="res://Systems/Resources/Enemies/slime_def.tres" id="11_jgclo"]
 [ext_resource type="PackedScene" uid="uid://bblg1hvrdyuvn" path="res://Actors/Enemies/Stalactite/stalactite.tscn" id="12_krsa5"]
 [ext_resource type="PackedScene" uid="uid://t8wylmbftndo" path="res://Actors/Chuck/chuck.tscn" id="13_jgclo"]
@@ -119,7 +122,14 @@ metadata/_custom_type_script = "uid://bvp3ujqsevubj"
 position = Vector2(714, 156)
 shape = SubResource("RectangleShape2D_0thxj")
 
+[node name="DestructibleProp" parent="Interactable" unique_id=1316598219 instance=ExtResource("9_nxfww")]
+position = Vector2(487, -200)
+
 [node name="Golds Coin" type="Node2D" parent="." unique_id=1205763460]
+
+[node name="WorldItem" parent="Golds Coin" unique_id=1455257283 instance=ExtResource("9_po8bi")]
+position = Vector2(414, -165)
+item_data = ExtResource("10_nxfww")
 
 [node name="Enemies" type="Node2D" parent="." unique_id=2139906756]
 
