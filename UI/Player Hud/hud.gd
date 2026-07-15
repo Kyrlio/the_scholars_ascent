@@ -15,6 +15,13 @@ extends CanvasLayer
 @onready var water_ammo_container: Control = $MarginContainer/WaterAmmoUI
 @onready var item_popup: ItemPopup = %ItemPopup
 
+@onready var icon_rb: TextureRect = %IconRB
+@onready var rb_button: TextureRect = %RbButton
+@onready var qty_rb: Label = %QtyRB
+@onready var icon_lb: TextureRect = %IconLB
+@onready var lb_button: TextureRect = %LbButton
+@onready var qty_lb: Label = %QtyLB
+
 var previous_hp: int = -1
 var total_gold: int = 0
 var previous_ammo: int = -1
@@ -30,6 +37,12 @@ func _ready() -> void:
 	GameEvents.player_health_changed.connect(update_health_ui)
 	GameEvents.gold_collected.connect(add_gold)
 	GameEvents.item_collected.connect(_on_item_collected)
+	GameEvents.equipment_updated.connect(update_equipment_ui)
+	
+	icon_lb.hide()
+	icon_rb.hide()
+	qty_lb.hide()
+	qty_rb.hide()
 	
 	for heart in hearts:
 		heart.pivot_offset = heart.size / 2.0
@@ -119,6 +132,24 @@ func juice_heart(heart: TextureRect, color: Color) -> void:
 	await tw.finished
 	
 	heart.z_index = 0
+
+
+func update_equipment_ui(is_lb: bool, item: ActiveItem, quantity: int) -> void:
+	var icon_rect: TextureRect = icon_lb if is_lb else icon_rb
+	var qty_label: Label = qty_lb if is_lb else qty_rb
+	
+	if item != null and quantity > 0:
+		icon_rect.texture = item.icon
+		icon_rect.show()
+		
+		if item.is_consumable:
+			qty_label.text = str(quantity)
+			qty_label.show()
+		else:
+			qty_label.hide()
+	else:
+		icon_rect.hide()
+		qty_label.hide()
 
 
 

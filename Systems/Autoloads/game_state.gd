@@ -13,6 +13,9 @@ var destroyed_props: Array = []
 var played_cutscenes: Array = []
 var completed_arenas: Array = []
 
+var equipped_item_lb: ActiveItem = null
+var equipped_item_rb: ActiveItem = null
+
 func has_cutscene_been_played(cutscene_id: String) -> bool:
 	return cutscene_id in played_cutscenes
 

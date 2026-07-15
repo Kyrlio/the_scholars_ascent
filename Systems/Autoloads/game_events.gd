@@ -12,6 +12,7 @@ signal water_ammo_changed(current_water_ammo: int)
 signal shop_opened
 signal show_ability_popup(title: String, desc: String, texture: Texture2D)
 signal show_item_player_animation_finished
+signal equipment_updated(is_lb: bool, item: ActiveItem, quantity: int)
 
 
 func emit_engine_freeze() -> void:
@@ -46,3 +47,6 @@ func emit_show_ability_popup(title: String, desc: String, icon_texture: Texture2
 
 func emit_show_item_player_animation_finished() -> void:
 	show_item_player_animation_finished.emit()
+
+func emit_equipment_updated(is_lb: bool, item: ActiveItem, quantity: int) -> void:
+	equipment_updated.emit(is_lb, item, quantity)

@@ -58,6 +58,29 @@ region_rect = Rect2(0, 0, 38, 6)
 atlas = ExtResource("2_hihkt")
 region = Rect2(144, 80, 48, 9)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ugeno"]
+atlas = ExtResource("2_hihkt")
+region = Rect2(240, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nmxdp"]
+atlas = ExtResource("2_hihkt")
+region = Rect2(32, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x416w"]
+atlas = ExtResource("2_hihkt")
+region = Rect2(32, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f72hx"]
+atlas = ExtResource("2_hihkt")
+region = Rect2(208, 80, 16, 16)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2dwik"]
+load_path = "res://.godot/imported/ui.png-b78f01a982e85082a2aba0bf4583efea.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pu6sy"]
+atlas = SubResource("CompressedTexture2D_2dwik")
+region = Rect2(32, 96, 32, 32)
+
 [node name="GameMenu" type="CanvasLayer" unique_id=996763185]
 process_mode = 3
 layer = 2
@@ -163,7 +186,6 @@ size_flags_vertical = 3
 
 [node name="InventoryTab" type="MarginContainer" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent" unique_id=1705097449]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -230,7 +252,7 @@ size_flags_horizontal = 3
 [node name="ItemName" type="Label" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer/ItemInfo" unique_id=2130347247]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 8
 text = "Item name"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer/ItemInfo" unique_id=1739630667]
@@ -283,6 +305,7 @@ horizontal_alignment = 1
 
 [node name="CharmsTab" type="MarginContainer" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent" unique_id=1242212263]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -488,6 +511,124 @@ offset_bottom = 36.0
 grow_horizontal = 2
 size_flags_horizontal = 4
 texture = SubResource("AtlasTexture_ot070")
+
+[node name="EquipmentPopup" type="PanelContainer" parent="." unique_id=269111978]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="EquipmentPopup" unique_id=1851583091]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EquipmentPopup/MarginContainer" unique_id=1641707146]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="EquipmentPopup/MarginContainer/VBoxContainer" unique_id=455403140]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Press LB or RB to equip"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="EquipmentPopup/MarginContainer/VBoxContainer" unique_id=386186414]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EquipmentPopup/MarginContainer/VBoxContainer/HBoxContainer" unique_id=564073161]
+layout_mode = 2
+theme_override_constants/separation = -4
+
+[node name="LBIcon" type="TextureRect" parent="EquipmentPopup/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=205369609]
+layout_mode = 2
+texture = SubResource("AtlasTexture_ugeno")
+stretch_mode = 5
+
+[node name="LBSlotContaineIcon" type="TextureRect" parent="EquipmentPopup/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1072606244]
+layout_mode = 2
+texture = SubResource("AtlasTexture_nmxdp")
+stretch_mode = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="EquipmentPopup/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/LBSlotContaineIcon" unique_id=514709186]
+custom_minimum_size = Vector2(24, 24)
+custom_maximum_size = Vector2(24, 24)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(12, 12)
+
+[node name="LBSlotIcon" type="TextureRect" parent="EquipmentPopup/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/LBSlotContaineIcon/MarginContainer" unique_id=1104427699]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("AtlasTexture_x416w")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="EquipmentPopup/MarginContainer/VBoxContainer/HBoxContainer" unique_id=196773183]
+layout_mode = 2
+theme_override_constants/separation = -4
+
+[node name="RBIcon" type="TextureRect" parent="EquipmentPopup/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=1554283554]
+layout_mode = 2
+texture = SubResource("AtlasTexture_f72hx")
+stretch_mode = 5
+
+[node name="LBSlotContaineIcon" type="TextureRect" parent="EquipmentPopup/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=1375780569]
+layout_mode = 2
+texture = SubResource("AtlasTexture_nmxdp")
+stretch_mode = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="EquipmentPopup/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/LBSlotContaineIcon" unique_id=732105493]
+custom_minimum_size = Vector2(24, 24)
+custom_maximum_size = Vector2(24, 24)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(12, 12)
+
+[node name="RBSlotIcon" type="TextureRect" parent="EquipmentPopup/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/LBSlotContaineIcon/MarginContainer" unique_id=805046956]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(16, 16)
+custom_maximum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("AtlasTexture_pu6sy")
+expand_mode = 3
+stretch_mode = 5
 
 [connection signal="pressed" from="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/SettingsTab/VBoxContainer/LoadSaveButton" to="." method="_on_load_save_button_pressed"]
 [connection signal="pressed" from="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/SettingsTab/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

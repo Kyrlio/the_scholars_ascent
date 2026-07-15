@@ -455,6 +455,14 @@ func _unhandled_input(event: InputEvent) -> void:
 			print("DEBUG: Jeu sauvegardé à la position ", global_position, " (Santé: ", get_current_health(), ", Or: ", GameState.total_gold, ")")
 		elif event.keycode == KEY_F3 or event.keycode == KEY_G:
 			toggle_debug_mode()
+	
+	if event.is_action_pressed("use_item_lb") and GameState.equipped_item_lb != null:
+		_try_use_item(GameState.equipped_item_lb, true)
+		get_viewport().set_input_as_handled()
+	
+	if event.is_action_pressed("use_item_rb") and GameState.equipped_item_rb != null:
+		_try_use_item(GameState.equipped_item_rb, false)
+		get_viewport().set_input_as_handled()
 
 func _ready() -> void:
 	_original_collision_layer = collision_layer
@@ -559,6 +567,31 @@ func consume_ammo() -> void:
 	current_water_ammo -= 1
 	GameEvents.water_ammo_changed.emit(current_water_ammo, stats.max_water_ammo)
 	ammo_regen_timer.start(stats.ammo_regen_time)
+
+
+func _try_use_item(item: ActiveItem, is_lb: bool) -> void:
+	var item_slot = null
+	
+	# Check if item in inventory
+	for slot in GameState.collected_items:
+		if slot["item"] == item:
+			item_slot = slot
+			break
+	
+	if item_slot != null and item_slot["quantity"] > 0:
+		item.use(self)
+		
+		if item.is_consumable:
+			item_slot["quantity"] -= 1
+			if item_slot["quantity"] <= 0:
+				GameState.collected_items.erase(item_slot)
+				
+				if is_lb: 
+					GameState.equipped_item_lb = null
+				else: 
+					GameState.equipped_item_rb = null
+	
+	GameEvents.emit_equipment_updated(is_lb, item, item_slot["quantity"])
 
 
 func _fire_projectile(direction: Vector2) -> void:

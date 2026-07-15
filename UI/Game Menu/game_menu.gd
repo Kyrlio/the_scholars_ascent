@@ -22,6 +22,10 @@ extends CanvasLayer
 @onready var lt: TextureRect = %LT
 @onready var rt: TextureRect = %RT
 
+@onready var equipment_popup: PanelContainer = %EquipmentPopup
+@onready var lb_slot_icon: TextureRect = %LBSlotIcon
+@onready var rb_slot_icon: TextureRect = %RBSlotIcon
+
 const LT_PRESSED = preload("uid://d0coissingdcp")
 const LT_UNPRESSED = preload("uid://be1f4odnvb34d")
 const RT_PRESSED = preload("uid://i6b7dxnu031v")
@@ -33,9 +37,10 @@ var is_menu_open: bool = false
 var header_tween: Tween
 var slot_tween: Tween
 var focused_slot: AnimatedSlot = null
+var item_to_equip: ActiveItem = null
 
 
-func _ready() -> void:	
+func _ready() -> void:
 	hide()
 	update_tabs()
 	
@@ -54,6 +59,7 @@ func _ready() -> void:
 	
 	for slot in inventory_slots:
 		slot.focus_entered.connect(_on_inventory_slot_focused.bind(slot))
+		slot.pressed.connect(_on_inventory_slot_pressed.bind(slot))
 
 
 func _process(_delta: float) -> void:
@@ -61,6 +67,17 @@ func _process(_delta: float) -> void:
 		toggle_menu()
 		get_viewport().set_input_as_handled()
 		return
+	
+	if equipment_popup.visible:
+		if Input.is_action_just_pressed("use_item_lb"):
+			assign_equipment(true)
+		elif Input.is_action_just_pressed("use_item_rb"):
+			assign_equipment(false)
+		elif Input.is_action_just_pressed("escape") or Input.is_action_just_pressed("ui_cancel"):
+			equipment_popup.hide()
+			item_to_equip = null
+		return
+	
 	
 	if not is_menu_open:
 		return
@@ -107,6 +124,35 @@ func _process(_delta: float) -> void:
 				get_viewport().set_input_as_handled()
 	
 	update_buttons_textures()
+
+
+func assign_equipment(is_lb: bool) -> void:
+	if item_to_equip == null:
+		return
+	
+	var target_icon: TextureRect = lb_slot_icon if is_lb else rb_slot_icon
+	
+	if is_lb: GameState.equipped_item_lb = item_to_equip
+	else: GameState.equipped_item_rb = item_to_equip
+	
+	var quantity: int = 0
+	for slot in GameState.collected_items:
+		if slot["item"] == item_to_equip:
+			quantity = slot["quantity"]
+			break
+	
+	target_icon.texture = item_to_equip.icon
+	target_icon.pivot_offset = target_icon.size / 2.0
+	
+	var tw: Tween = create_tween().set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
+	target_icon.scale = Vector2(1.8, 1.8)
+	tw.tween_property(target_icon, "scale", Vector2.ONE, 0.3)
+	
+	await tw.finished
+	
+	GameEvents.emit_equipment_updated(is_lb, item_to_equip, quantity)
+	equipment_popup.hide()
+	item_to_equip = null
 
 
 func update_buttons_textures() -> void:
@@ -313,3 +359,12 @@ func _on_inventory_slot_focused(slot: AnimatedSlot) -> void:
 	else:
 		item_name.text = "Empty"
 		item_description.text = ""
+
+
+func _on_inventory_slot_pressed(slot: AnimatedSlot) -> void:
+	if slot.item_data is ActiveItem:
+		item_to_equip = slot.item_data as ActiveItem
+		lb_slot_icon.texture = GameState.equipped_item_lb.icon if GameState.equipped_item_lb else null
+		rb_slot_icon.texture = GameState.equipped_item_rb.icon if GameState.equipped_item_rb else null
+		
+		equipment_popup.show()

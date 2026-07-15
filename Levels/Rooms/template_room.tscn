@@ -8,7 +8,23 @@
 [ext_resource type="PackedScene" uid="uid://cc5xoecqb015f" path="res://Actors/Interactable/Grass/grass.tscn" id="5_sngkc"]
 [ext_resource type="PackedScene" uid="uid://clqmfvb63sfeo" path="res://Actors/Interactable/Vine/vine.tscn" id="6_2lplb"]
 
+[sub_resource type="Environment" id="Environment_2tyjh"]
+background_mode = 3
+tonemap_mode = 1
+glow_enabled = true
+glow_intensity = 1.14
+glow_bloom = 0.1
+adjustment_enabled = true
+adjustment_contrast = 1.05
+adjustment_saturation = 1.1
+
 [node name="ZoneRoom" type="Node2D" unique_id=896410589]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1340249498]
+environment = SubResource("Environment_2tyjh")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=80804647]
+color = Color(0.4862745, 0.4862745, 0.4862745, 1)
 
 [node name="Tilemaps" type="Node2D" parent="." unique_id=167249427]
 metadata/_edit_lock_ = true
