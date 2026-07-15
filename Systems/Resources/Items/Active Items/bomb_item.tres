@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="BombItem" format=3 uid="uid://doqyqspear1j6"]
+
+[ext_resource type="PackedScene" uid="uid://p5hcafkp4ui1" path="res://Actors/Projectiles/Bomb/bomb.tscn" id="1_m5rtc"]
+[ext_resource type="Texture2D" uid="uid://cd4qh5of2k141" path="res://Assets/animations/animations.png" id="2_n5hr8"]
+[ext_resource type="Script" uid="uid://0s0sp3wx442v" path="res://Systems/Resources/Items/Active Items/bomb_item.gd" id="3_k1pgv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fjfch"]
+atlas = ExtResource("2_n5hr8")
+region = Rect2(32, 32, 16, 16)
+
+[resource]
+script = ExtResource("3_k1pgv")
+bomb_scene = ExtResource("1_m5rtc")
+item_name = "Bomb"
+description = "Gonna explode BOOM"
+icon = SubResource("AtlasTexture_fjfch")
+metadata/_custom_type_script = "uid://dvsul22jw7q0t"

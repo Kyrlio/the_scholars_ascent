@@ -44,6 +44,10 @@ func _ready() -> void:
 	qty_lb.hide()
 	qty_rb.hide()
 	
+	# Initialize equipment UI with loaded active items
+	update_equipment_ui(true, GameState.equipped_item_lb, GameState.get_item_quantity(GameState.equipped_item_lb))
+	update_equipment_ui(false, GameState.equipped_item_rb, GameState.get_item_quantity(GameState.equipped_item_rb))
+	
 	for heart in hearts:
 		heart.pivot_offset = heart.size / 2.0
 	

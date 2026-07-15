@@ -132,8 +132,18 @@ func assign_equipment(is_lb: bool) -> void:
 	
 	var target_icon: TextureRect = lb_slot_icon if is_lb else rb_slot_icon
 	
-	if is_lb: GameState.equipped_item_lb = item_to_equip
-	else: GameState.equipped_item_rb = item_to_equip
+	if is_lb:
+		if GameState.equipped_item_rb == item_to_equip:
+			GameState.equipped_item_rb = null
+			rb_slot_icon.texture = null
+			GameEvents.emit_equipment_updated(false, null, 0)
+		GameState.equipped_item_lb = item_to_equip
+	else:
+		if GameState.equipped_item_lb == item_to_equip:
+			GameState.equipped_item_lb = null
+			lb_slot_icon.texture = null
+			GameEvents.emit_equipment_updated(true, null, 0)
+		GameState.equipped_item_rb = item_to_equip
 	
 	var quantity: int = 0
 	for slot in GameState.collected_items:
@@ -307,8 +317,20 @@ func use_active_item(item: ActiveItem) -> void:
 		for slot in GameState.collected_items:
 			if slot["item"] == item:
 				slot["quantity"] -= 1
-				if slot["quantity"] <= 0:
+				var new_qty = slot["quantity"]
+				if new_qty <= 0:
 					GameState.collected_items.erase(slot)
+					if GameState.equipped_item_lb == item:
+						GameState.equipped_item_lb = null
+						GameEvents.emit_equipment_updated(true, null, 0)
+					if GameState.equipped_item_rb == item:
+						GameState.equipped_item_rb = null
+						GameEvents.emit_equipment_updated(false, null, 0)
+				else:
+					if GameState.equipped_item_lb == item:
+						GameEvents.emit_equipment_updated(true, item, new_qty)
+					if GameState.equipped_item_rb == item:
+						GameEvents.emit_equipment_updated(false, item, new_qty)
 				break
 		
 		update_inventory_tab()

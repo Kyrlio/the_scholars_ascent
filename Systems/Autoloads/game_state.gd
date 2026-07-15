@@ -66,6 +66,15 @@ func add_gold(amount: int) -> void:
 	total_gold += amount
 
 
+func get_item_quantity(item: ItemData) -> int:
+	if item == null:
+		return 0
+	for slot in collected_items:
+		if slot["item"] == item:
+			return slot["quantity"]
+	return 0
+
+
 func has_ability(ability_name: String) -> bool:
 	return ability_name in unlocked_abitilities
 
@@ -149,6 +158,19 @@ func load_save_data():
 		if ResourceLoader.exists(path):
 			equipped_charms.append(load(path))
 	
+	# Active items equipped
+	var lb_path = data.get("equipped_item_lb", "")
+	if lb_path != "" and ResourceLoader.exists(lb_path):
+		equipped_item_lb = load(lb_path)
+	else:
+		equipped_item_lb = null
+		
+	var rb_path = data.get("equipped_item_rb", "")
+	if rb_path != "" and ResourceLoader.exists(rb_path):
+		equipped_item_rb = load(rb_path)
+	else:
+		equipped_item_rb = null
+	
 	# Chests opened
 	opened_chests = data.get("opened_chests", [])
 	
@@ -208,6 +230,8 @@ func reset_state() -> void:
 	collected_items.clear()
 	collected_charms.clear()
 	equipped_charms.clear()
+	equipped_item_lb = null
+	equipped_item_rb = null
 	collected_coins.clear()
 	shop_stocks.clear()
 	activated_levers.clear()

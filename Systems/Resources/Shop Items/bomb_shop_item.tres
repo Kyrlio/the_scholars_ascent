@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ShopItem" format=3 uid="uid://dlqt7c4soowr2"]
+
+[ext_resource type="Script" uid="uid://dus15ka8quity" path="res://Systems/Resources/Shop Items/shop_item.gd" id="1_44y35"]
+[ext_resource type="Resource" uid="uid://doqyqspear1j6" path="res://Systems/Resources/Items/Active Items/bomb_item.tres" id="1_qvy76"]
+
+[resource]
+script = ExtResource("1_44y35")
+item = ExtResource("1_qvy76")
+gold_price = 3
+metadata/_custom_type_script = "uid://dus15ka8quity"

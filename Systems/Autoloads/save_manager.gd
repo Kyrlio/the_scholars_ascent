@@ -36,6 +36,14 @@ func save_game(player_position: Vector2, current_health: int, total_gold: int) -
 		if charm != null and charm.resource_path != "":
 			equipped_paths.append(charm.resource_path)
 	
+	var equipped_lb_path: String = ""
+	if GameState.equipped_item_lb != null and GameState.equipped_item_lb.resource_path != "":
+		equipped_lb_path = GameState.equipped_item_lb.resource_path
+		
+	var equipped_rb_path: String = ""
+	if GameState.equipped_item_rb != null and GameState.equipped_item_rb.resource_path != "":
+		equipped_rb_path = GameState.equipped_item_rb.resource_path
+	
 	var save_data: Dictionary = {
 		"player_pos_x": player_position.x,
 		"player_pos_y": player_position.y,
@@ -47,6 +55,8 @@ func save_game(player_position: Vector2, current_health: int, total_gold: int) -
 		"collected_items": items_save_data,
 		"collected_charms": charms_paths,
 		"equipped_charms": equipped_paths,
+		"equipped_item_lb": equipped_lb_path,
+		"equipped_item_rb": equipped_rb_path,
 		"opened_chests": GameState.opened_chests,
 		"opened_star_doors": GameState.opened_star_doors,
 		"collected_coins": GameState.collected_coins,
