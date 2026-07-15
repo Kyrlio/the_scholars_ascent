@@ -34,6 +34,14 @@ load_path = "res://.godot/imported/ui.png-9852ca86a9258f1bb84490edfbc4ad38.ctex"
 atlas = SubResource("CompressedTexture2D_ugeno")
 region = Rect2(146, 50, 12, 12)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_32urs"]
+atlas = ExtResource("2_hihkt")
+region = Rect2(208, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e4ttj"]
+atlas = ExtResource("2_hihkt")
+region = Rect2(224, 96, 16, 16)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_5v0sf"]
 atlas = ExtResource("2_hihkt")
 region = Rect2(85, 53, 38, 6)
@@ -45,16 +53,6 @@ texture_margin_top = 1.0
 texture_margin_right = 6.0
 texture_margin_bottom = 5.0
 region_rect = Rect2(0, 0, 38, 6)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_32urs"]
-atlas = ExtResource("2_hihkt")
-region = Rect2(210, 114, 12, 12)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nmxdp"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_e4ttj"]
-atlas = ExtResource("2_hihkt")
-region = Rect2(226, 98, 12, 12)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ot070"]
 atlas = ExtResource("2_hihkt")
@@ -254,6 +252,35 @@ theme_override_font_sizes/mono_font_size = 8
 text = "Item description j'ai fait caca tres fort prout prout prout
 "
 
+[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer/ItemInfo" unique_id=2122731755]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+theme_override_constants/separation = 1
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer/ItemInfo/HBoxContainer2" unique_id=795420413]
+layout_mode = 2
+texture = SubResource("AtlasTexture_32urs")
+stretch_mode = 5
+
+[node name="EquipLabel" type="Label" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer/ItemInfo/HBoxContainer2" unique_id=1544865361]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Equip"
+horizontal_alignment = 1
+
+[node name="TextureRect2" type="TextureRect" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer/ItemInfo/HBoxContainer2" unique_id=284241684]
+layout_mode = 2
+texture = SubResource("AtlasTexture_e4ttj")
+stretch_mode = 5
+
+[node name="EquipLabel2" type="Label" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/InventoryTab/HBoxContainer/ItemInfo/HBoxContainer2" unique_id=973754198]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Use"
+horizontal_alignment = 1
+
 [node name="CharmsTab" type="MarginContainer" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent" unique_id=1242212263]
 unique_name_in_owner = true
 layout_mode = 1
@@ -382,22 +409,6 @@ stretch_mode = 5
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "Equip"
-horizontal_alignment = 1
-
-[node name="VSeparator" type="VSeparator" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/CharmsTab/HBoxContainer/CharmInfo/HBoxContainer2" unique_id=1892877534]
-custom_minimum_size = Vector2(7, 0)
-layout_mode = 2
-theme_override_styles/separator = SubResource("StyleBoxEmpty_nmxdp")
-
-[node name="TextureRect2" type="TextureRect" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/CharmsTab/HBoxContainer/CharmInfo/HBoxContainer2" unique_id=2022006748]
-layout_mode = 2
-texture = SubResource("AtlasTexture_e4ttj")
-stretch_mode = 5
-
-[node name="EquipLabel2" type="Label" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent/CharmsTab/HBoxContainer/CharmInfo/HBoxContainer2" unique_id=817565446]
-layout_mode = 2
-theme_override_font_sizes/font_size = 8
-text = "Something"
 horizontal_alignment = 1
 
 [node name="SettingsTab" type="MarginContainer" parent="CenterContainer/BackgroundBoard/VBoxContainer/TabContent" unique_id=1835344281]

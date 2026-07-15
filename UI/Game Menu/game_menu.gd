@@ -31,6 +31,8 @@ const RT_UNPRESSED = preload("uid://01bxmtksirhm")
 var current_tab: int = 0
 var is_menu_open: bool = false
 var header_tween: Tween
+var slot_tween: Tween
+var focused_slot: AnimatedSlot = null
 
 
 func _ready() -> void:	
@@ -67,15 +69,42 @@ func _process(_delta: float) -> void:
 		current_tab = (current_tab + 1) % tabs.size()
 		update_tabs()
 		get_viewport().set_input_as_handled()
+		return
 	
 	elif Input.is_action_just_pressed("tab_left"):
 		current_tab = (current_tab - 1 + tabs.size()) % tabs.size()
 		update_tabs()
 		get_viewport().set_input_as_handled()
+		return
 	
 	elif Input.is_action_just_pressed("ui_cancel"):
 		toggle_menu()
 		get_viewport().set_input_as_handled()
+		return
+	
+	# Handle custom actions (A / Y) on focused slots
+	if focused_slot != null and focused_slot.item_data != null:
+		if current_tab == 0: # Inventory
+			if Input.is_action_just_pressed("interact"):
+				if focused_slot.item_data is ActiveItem:
+					print("[GameMenu] Using active item: ", focused_slot.item_data.item_name)
+					use_active_item(focused_slot.item_data)
+					get_viewport().set_input_as_handled()
+				else:
+					print("[GameMenu] Item is not an ActiveItem: ", focused_slot.item_data.item_name)
+			elif Input.is_action_just_pressed("jump"):
+				print("[GameMenu] Action A on item: ", focused_slot.item_data.item_name)
+				# Put here any custom equipping/action logic for general items
+				get_viewport().set_input_as_handled()
+		
+		elif current_tab == 1: # Charms
+			if Input.is_action_just_pressed("jump"):
+				print("[GameMenu] Action A on charm: ", focused_slot.item_data.item_name)
+				if focused_slot in available_slots:
+					_on_available_slot_pressed(focused_slot)
+				elif focused_slot in equipped_slots:
+					_on_equipped_slot_pressed(focused_slot)
+				get_viewport().set_input_as_handled()
 	
 	update_buttons_textures()
 
@@ -146,6 +175,7 @@ func update_inventory_tab() -> void:
 
 
 func update_tabs() -> void:
+	focused_slot = null
 	for i in range(tabs.size()):
 		tabs[i].visible = (i == current_tab)
 	
@@ -213,6 +243,33 @@ func update_item_info(item: ItemData) -> void:
 		item_name.text = "Empty"
 		item_description.text = "null"
 
+func use_active_item(item: ActiveItem) -> void:
+	var player: Player = get_tree().get_first_node_in_group("player")
+	if not player:
+		return
+	
+	item.use(player)
+	
+	if slot_tween and slot_tween.is_running():
+		slot_tween.kill()
+	
+	slot_tween = create_tween().set_parallel(false).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	slot_tween.tween_property(focused_slot.icon_sprite, "scale", Vector2(0.6, 0.6), 0.1)
+	slot_tween.tween_property(focused_slot.icon_sprite, "scale", Vector2.ONE, 0.2)
+	
+	if item.is_consumable:
+		for slot in GameState.collected_items:
+			if slot["item"] == item:
+				slot["quantity"] -= 1
+				if slot["quantity"] <= 0:
+					GameState.collected_items.erase(slot)
+				break
+		
+		update_inventory_tab()
+		
+		if focused_slot != null:
+			_on_inventory_slot_focused(focused_slot)
+
 
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
@@ -227,6 +284,7 @@ func _on_load_save_button_pressed() -> void:
 
 
 func _on_slot_focused(slot: AnimatedSlot) -> void:
+	focused_slot = slot
 	if slot.item_data != null:
 		charm_name.text = slot.item_data.item_name
 		charm_description.text = slot.item_data.description
@@ -248,6 +306,7 @@ func _on_available_slot_pressed(slot: AnimatedSlot) -> void:
 
 
 func _on_inventory_slot_focused(slot: AnimatedSlot) -> void:
+	focused_slot = slot
 	if slot.item_data != null:
 		item_name.text = slot.item_data.item_name
 		item_description.text = slot.item_data.description

@@ -1,10 +1,10 @@
-[gd_resource type="Resource" script_class="ActiveItem" format=3 uid="uid://c5qfu0t1csirw"]
+[gd_resource type="Resource" script_class="HealthPotionItem" format=3 uid="uid://c5qfu0t1csirw"]
 
 [ext_resource type="Texture2D" uid="uid://dhq7llnnwqvkm" path="res://Assets/items/medipack.png" id="1_ttkai"]
-[ext_resource type="Script" uid="uid://dvsul22jw7q0t" path="res://Systems/Resources/Items/Active Items/ActiveItem.gd" id="1_xvqh1"]
+[ext_resource type="Script" uid="uid://384ev1w1ok0y" path="res://Systems/Resources/Items/Active Items/health_potion_item.gd" id="2_ttkai"]
 
 [resource]
-script = ExtResource("1_xvqh1")
+script = ExtResource("2_ttkai")
 item_name = "Medipack"
 description = "Heal you my boi"
 icon = ExtResource("1_ttkai")
