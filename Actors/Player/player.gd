@@ -17,7 +17,8 @@ enum State {
 	DEAD,
 	REST,
 	SHOW_ITEM,
-	CAST_SPELL
+	CAST_SPELL,
+	SHIELD
 }
 var current_state: State = State.IDLE
 @export var state_locked: bool = false
@@ -132,9 +133,11 @@ var last_wall_normal: Vector2 = Vector2.ZERO
 var can_air_roll: bool = true
 var jump_count: int = 0
 var current_water_ammo: int = 0
-
 var tween: Tween
 var run_dust_cooldown: float = 0.0
+var current_shield_item: ShieldItem
+var shield_hp: int = 0
+var is_block_stunned: bool = false
 
 #endregion
 
@@ -146,6 +149,11 @@ func switch_state(new_state: State) -> void:
 	
 	var previous_state: State = current_state
 	current_state = new_state
+	
+	if previous_state == State.SHIELD:
+		hurtbox.is_blocking = false
+		if hurtbox.blocked_hit.is_connected(_on_shield_hit):
+				hurtbox.blocked_hit.disconnect(_on_shield_hit)
 	
 	match current_state:
 		State.IDLE:
@@ -220,6 +228,15 @@ func switch_state(new_state: State) -> void:
 		State.CAST_SPELL:
 			animation_player.play("cast_spell")
 			velocity = Vector2.ZERO
+		
+		State.SHIELD:
+			animation_player.play("shield")
+			velocity.x = 0.0
+			is_block_stunned = false
+			hurtbox.is_blocking = true
+			hurtbox.block_direction = get_facing_direction()
+			if not hurtbox.blocked_hit.is_connected(_on_shield_hit):
+				hurtbox.blocked_hit.connect(_on_shield_hit)
 
 func _get_post_action_state() -> State:
 	if is_debug_mode:
@@ -253,6 +270,7 @@ func _update_state() -> void:
 		State.REST: return
 		State.SHOW_ITEM: return
 		State.CAST_SPELL: return
+		State.SHIELD: return
 	
 	var next_state: State = _get_post_action_state()
 	if next_state == State.WALL_SLIDE:
@@ -314,6 +332,16 @@ func _handle_horizontal_movement(delta: float) -> void:
 			else:
 				velocity.x = visuals.scale.x * (roll_speed * air_roll_speed_multiplier)
 			return
+		State.SHIELD:
+			if is_block_stunned:
+				velocity.x = move_toward(velocity.x, 0, 800 * delta)
+			else:
+				var direction: float = Input.get_axis("move_left", "move_right")
+				if direction != 0.0:
+					_update_facing_direction(direction)
+				
+				hurtbox.block_direction = get_facing_direction()
+				velocity.x = direction * (stats.speed * 0.2)
 	
 	var direction: float = Input.get_axis("move_left", "move_right")
 	
@@ -326,6 +354,15 @@ func _handle_horizontal_movement(delta: float) -> void:
 		_update_facing_direction(direction)
 	else:
 		velocity.x = move_toward(velocity.x, 0, friction * delta)
+
+
+func _handle_shield() -> void:
+	if current_state != State.SHIELD:
+		return
+	
+	if not Input.is_action_pressed("use_item_lb") and not Input.is_action_pressed("use_item_rb"):
+		switch_state(State.IDLE)
+
 
 func _handle_jump() -> void:
 	match current_state:
@@ -522,6 +559,7 @@ func _physics_process(delta: float) -> void:
 		_handle_jump()
 		_handle_attack()
 		_handle_spell()
+		_handle_shield()
 		_handle_roll()
 		_handle_oneway_drop_through()
 	else:
@@ -591,7 +629,15 @@ func _try_use_item(item: ActiveItem, is_lb: bool) -> void:
 				else: 
 					GameState.equipped_item_rb = null
 	
-	GameEvents.emit_equipment_updated(is_lb, item, item_slot["quantity"])
+	var final_qty: int = 0
+	var final_item: ActiveItem = item
+	if item_slot != null:
+		final_qty = item_slot["quantity"]
+	if final_qty <= 0:
+		final_item = null
+		final_qty = 0
+	
+	GameEvents.emit_equipment_updated(is_lb, final_item, final_qty)
 
 
 func _fire_projectile(direction: Vector2) -> void:
@@ -624,6 +670,35 @@ func play_run_dust() -> void:
 	run_animated_sprite.reset_physics_interpolation()
 	run_animated_sprite.frame = 0
 	run_animated_sprite.play("run")
+
+
+func _break_shield() -> void:
+	var item_slot = null
+	for slot in GameState.collected_items:
+		if slot["item"] == current_shield_item:
+			item_slot = slot
+			break
+	
+	if item_slot != null:
+		item_slot["quantity"] -= 1
+		var remaining_quantity: int = item_slot["quantity"]
+		
+		var was_equipped_lb: bool = GameState.equipped_item_lb == current_shield_item
+		var was_equipped_rb: bool = GameState.equipped_item_rb == current_shield_item
+		
+		if remaining_quantity <= 0:
+			GameState.collected_items.erase(item_slot)
+			remaining_quantity = 0
+			if was_equipped_lb: GameState.equipped_item_lb = null
+			if was_equipped_rb: GameState.equipped_item_rb = null
+		
+		if was_equipped_lb:
+			GameEvents.emit_equipment_updated(true, current_shield_item if remaining_quantity > 0 else null, remaining_quantity)
+		if was_equipped_rb:
+			GameEvents.emit_equipment_updated(false, current_shield_item if remaining_quantity > 0 else null, remaining_quantity)
+		
+		current_shield_item = null
+		switch_state(State.IDLE)
 
 
 #region cutscene
@@ -765,6 +840,31 @@ func _on_player_damaged() -> void:
 		return
 	switch_state(State.HURT)
 	_trigger_invincibility(0.8)
+
+
+func _on_shield_hit(hitbox: HitboxComponent) -> void:
+	shield_hp -= hitbox.damage
+	GameEvents.emit_camera_shake(0.6)
+	
+	var push_dir = sign(global_position.x - hitbox.global_position.x)
+	if push_dir == 0.0: push_dir = 1.0
+	
+	velocity.x = push_dir * 150.0
+	is_block_stunned = true
+	
+	var enemy: CharacterBody2D = hitbox.owner
+	if is_instance_valid(enemy) and enemy is CharacterBody2D:
+		var enemy_push_dir = -push_dir
+		enemy.velocity.x = enemy_push_dir * 250.0
+		
+		var enemy_tw = create_tween()
+		enemy_tw.tween_property(enemy, "velocity:x", 0.0, 0.25)
+	
+	await get_tree().create_timer(0.2).timeout
+	is_block_stunned = false
+	
+	if shield_hp <= 0:
+		_break_shield()
 
 
 func _on_hurtbox_hit(hitbox: HitboxComponent) -> void:

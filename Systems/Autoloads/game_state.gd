@@ -209,17 +209,24 @@ func _on_item_collected(new_item: ItemData, quantity: int = 1) -> void:
 		GameEvents.emit_show_ability_popup(new_item.item_name, new_item.description, new_item.icon)
 	else:
 		var found: bool = false
+		var new_qty: int = quantity
 		
 		for slot in collected_items:
 			if slot["item"] == new_item:
 				slot["quantity"] += quantity
+				new_qty = slot["quantity"]
 				found = true
 				print(new_item.item_name + " stacké ! (Total " + str(slot["quantity"]) + " )")
 				break
 		
 		if not found:
-			collected_items.append({"item": new_item, "quantity": 1})
+			collected_items.append({"item": new_item, "quantity": quantity})
 			print("Objet ajouté a l'inventaire")
+		
+		if new_item == equipped_item_lb:
+			GameEvents.emit_equipment_updated(true, equipped_item_lb, new_qty)
+		if new_item == equipped_item_rb:
+			GameEvents.emit_equipment_updated(false, equipped_item_rb, new_qty)
 
 
 func reset_state() -> void:

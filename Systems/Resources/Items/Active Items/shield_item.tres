@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ShieldItem" format=3 uid="uid://dy1hdgiln654v"]
+
+[ext_resource type="Texture2D" uid="uid://d346qxaevyjfp" path="res://Assets/items/shield.png" id="1_lddxn"]
+[ext_resource type="Script" uid="uid://ysl4d0vfga03" path="res://Systems/Resources/Items/Active Items/shield_item.gd" id="2_1pqc7"]
+
+[resource]
+script = ExtResource("2_1pqc7")
+item_name = "Shield"
+description = "Protect you from enemies attack. Hold LB or RB button to use."
+icon = ExtResource("1_lddxn")
+metadata/_custom_type_script = "uid://dvsul22jw7q0t"

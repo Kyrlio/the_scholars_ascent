@@ -2,6 +2,7 @@ class_name HurtboxComponent
 extends Area2D
 
 signal hit_by_hitbox(hitbox_component: HitboxComponent)
+signal blocked_hit(hitbox_component: HitboxComponent)
 
 @export var health_component: HealthComponent
 @export var hit_particles_scene: PackedScene
@@ -10,6 +11,9 @@ var peer_id_filter: int = -1
 var disable_collisions: bool
 var is_invincible: bool = false
 var _invincibility_time_left: float = 0.0
+
+var is_blocking: bool = false
+var block_direction: float = 0.0
 
 func _ready() -> void:
 	area_entered.connect(_on_area_entered)
@@ -32,6 +36,21 @@ func _handle_hit(hitbox_component: HitboxComponent):
 		if is_invincible:
 			hitbox_component.register_hurtbox_hit(self)
 			return
+		
+		if is_blocking:
+			var hit_dir = sign(hitbox_component.global_position.x - global_position.x)
+			if hit_dir == 0.0: hit_dir = 1.0
+			
+			if hit_dir == sign(block_direction):
+				hitbox_component.register_hurtbox_hit(self)
+				blocked_hit.emit(hitbox_component)
+				
+				GameEvents.emit_engine_freeze()
+				if hit_particles_scene:
+					_play_hit_particles(hitbox_component)
+				
+				return
+		
 		
 		hitbox_component.register_hurtbox_hit(self)
 		GameEvents.emit_engine_freeze()

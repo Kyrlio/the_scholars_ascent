@@ -22,6 +22,7 @@
 [ext_resource type="Resource" uid="uid://cjl3jpl5y114n" path="res://Systems/Resources/Shop Items/feather_charm.tres" id="16_ixys3"]
 [ext_resource type="Resource" uid="uid://bofasd2wa0s7t" path="res://Systems/Resources/Shop Items/health_potion.tres" id="17_5vtj6"]
 [ext_resource type="Resource" uid="uid://dlqt7c4soowr2" path="res://Systems/Resources/Shop Items/bomb_shop_item.tres" id="19_po8bi"]
+[ext_resource type="Resource" uid="uid://dy1hdgiln654v" path="res://Systems/Resources/Items/Active Items/shield_item.tres" id="20_nxfww"]
 
 [sub_resource type="Environment" id="Environment_2j5ja"]
 background_mode = 3
@@ -35,6 +36,12 @@ adjustment_saturation = 1.1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0thxj"]
 size = Vector2(2556, 23)
+
+[sub_resource type="Resource" id="Resource_a5d43"]
+script = ExtResource("14_gy67o")
+item = ExtResource("20_nxfww")
+gold_price = 1
+metadata/_custom_type_script = "uid://dus15ka8quity"
 
 [node name="Zone1Room5" type="Node2D" unique_id=896410589]
 
@@ -149,7 +156,7 @@ position = Vector2(1392, -363)
 
 [node name="Chuck" parent="Chucks" unique_id=423884664 instance=ExtResource("13_jgclo")]
 position = Vector2(571, -192)
-inventory = Array[ExtResource("14_gy67o")]([ExtResource("15_2j5ja"), ExtResource("16_ixys3"), ExtResource("17_5vtj6"), ExtResource("19_po8bi")])
+inventory = Array[ExtResource("14_gy67o")]([ExtResource("15_2j5ja"), ExtResource("16_ixys3"), ExtResource("17_5vtj6"), ExtResource("19_po8bi"), SubResource("Resource_a5d43")])
 dialogue_resource = ExtResource("14_k0xf2")
 
 [node name="PointLight2D" parent="Chucks/Chuck" index="4" unique_id=607707309]
