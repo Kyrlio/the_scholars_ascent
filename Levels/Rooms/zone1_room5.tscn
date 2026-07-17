@@ -3,7 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://7d7qnhkg5diw" path="res://Assets/backgrounds/background.png" id="1_24qh6"]
 [ext_resource type="TileSet" uid="uid://kfnw62y6y32u" path="res://Systems/Resources/background_tileset.tres" id="2_weh6h"]
 [ext_resource type="TileSet" uid="uid://dwci46dnir3i8" path="res://Systems/Resources/ground_tileset.tres" id="3_v3xjk"]
-[ext_resource type="PackedScene" uid="uid://bsg0351mx3b4u" path="res://addons/MetroidvaniaSystem/Nodes/RoomInstance.tscn" id="4_s15lf"]
 [ext_resource type="Script" uid="uid://dyh6qa2l38r1a" path="res://Systems/scripts/foliage_spawner.gd" id="4_v3xjk"]
 [ext_resource type="PackedScene" uid="uid://lwx1ufc0bndp" path="res://Systems/Components/Transition Zone/transition_zone.tscn" id="4_weh6h"]
 [ext_resource type="PackedScene" uid="uid://cc5xoecqb015f" path="res://Actors/Interactable/Grass/grass.tscn" id="5_s8hdj"]
@@ -61,7 +60,7 @@ repeat_times = 7
 metadata/_edit_lock_ = true
 
 [node name="TextureRect" type="TextureRect" parent="Tilemaps/BackBackParallax" unique_id=602438016]
-modulate = Color(0.316487, 0.316487, 0.316487, 1)
+modulate = Color(0.4392157, 0.4392157, 0.4392157, 1)
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("1_24qh6")
@@ -166,8 +165,8 @@ visible = false
 
 [node name="Zone1Room5Left" parent="TransitionZones" unique_id=2134984359 instance=ExtResource("4_weh6h")]
 position = Vector2(-29, 5)
-target_room = "zone1_room3"
-target_zone_name = "Zone1Room3Right"
+target_room = "zone1_room3.5"
+target_zone_name = "Zone1Room3_5Right"
 
 [node name="SpawnPoint" parent="TransitionZones/Zone1Room5Left" index="1" unique_id=1278852891]
 position = Vector2(18, 11)
@@ -179,9 +178,6 @@ target_zone_name = "Zone2Room1Left"
 
 [node name="SpawnPoint" parent="TransitionZones/Zone1Room5Right" index="1" unique_id=1278852891]
 position = Vector2(-19, 12)
-
-[node name="RoomInstance" parent="." unique_id=2146291553 instance=ExtResource("4_s15lf")]
-position = Vector2(0, -180)
 
 [editable path="Chucks/Chuck"]
 [editable path="TransitionZones/Zone1Room5Left"]

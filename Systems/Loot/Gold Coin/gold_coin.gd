@@ -24,7 +24,7 @@ func _ready() -> void:
 	
 	if throw:
 		var random_angle = randf_range(-PI * 0.8, -PI * 0.2)
-		var random_speed = randf_range(150.0, 275.0)
+		var random_speed = randf_range(100.0, 175.0)
 		var random_direction = Vector2.RIGHT.rotated(random_angle)
 
 		linear_velocity = random_direction * random_speed

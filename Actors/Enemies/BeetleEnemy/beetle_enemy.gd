@@ -15,7 +15,7 @@ class_name BeetleEnemy
 @export var speed: float = 10.0
 @export var gravity: float = 500.0
 @export var hit_stop_duration: float = 0.25
-@export var knockback_velocity: Vector2 = Vector2(100.0, -100.0)
+@export var knockback_velocity: Vector2 = Vector2(150.0, -100.0)
 
 
 var direction: float = 1.0

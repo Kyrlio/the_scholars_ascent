@@ -6,7 +6,7 @@ class_name Bat
 @export var dash_speed: float = 225.0
 @export var dash_length: float = 0.35 ## In seconds
 @export var hover_altitude: float = 35.0 ## Distance above the player
-@export var knockback_velocity: Vector2 = Vector2(80.0, -80.0)
+@export var knockback_velocity: Vector2 = Vector2(125.0, -80.0)
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var visuals: Node2D = $Visuals

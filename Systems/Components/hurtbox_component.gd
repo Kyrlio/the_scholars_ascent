@@ -20,9 +20,9 @@ func _ready() -> void:
 
 
 func _handle_hit(hitbox_component: HitboxComponent):
-	if not is_instance_valid(hitbox_component) or hitbox_component.is_hit_handled or disable_collisions:
-		# Hit only one enemy
-		return
+	#if not is_instance_valid(hitbox_component) or hitbox_component.is_hit_handled or disable_collisions:
+		## Hit only one enemy
+		#return
 	
 	if "is_debug_mode" in owner and owner.is_debug_mode:
 		return

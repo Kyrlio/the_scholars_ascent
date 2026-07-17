@@ -4,7 +4,7 @@ class_name ArenaArea
 const BAT_SCENE = preload("uid://b1ttmwn8g2yb1")
 
 @export var arena_id: String = ""
-@export var enemy_spawners: Array[Marker2D] = []
+@export var enemy_spawners: Array[EnemySpawner] = []
 
 @onready var right_trapdoor: Trapdoor = $RightTrapdoor
 @onready var left_trapdoor: Trapdoor = $LeftTrapdoor
@@ -31,20 +31,26 @@ func spawn_enemies() -> void:
 	var scene_root := get_tree().current_scene
 	if not scene_root: return
 	
+	enemy_count = 0
 	for spawner in enemy_spawners:
-		if spawner.enemy_scene:
-			var enemy: Node2D = spawner.enemy_scene.instantiate()
-			scene_root.add_child.call_deferred(enemy)
-			enemy.global_position = spawner.global_position
-			
-			if enemy.has_signal("died"):
-				enemy.died.connect(_on_enemy_died)
-			else:
-				var health_component: HealthComponent = enemy.get_node_or_null("HealthComponent")
-				if health_component and health_component.has_signal("died"):
-					health_component.died.connect(_on_enemy_died)
+		if spawner:
+			var enemy = spawner.spawn()
+			if enemy:
+				enemy_count += 1
+				if enemy.has_signal("died"):
+					enemy.died.connect(_on_enemy_died)
 				else:
-					enemy.tree_exited.connect(_on_enemy_died)
+					var health_component: HealthComponent = enemy.get_node_or_null("HealthComponent")
+					if health_component and health_component.has_signal("died"):
+						health_component.died.connect(_on_enemy_died)
+					else:
+						enemy.tree_exited.connect(_on_enemy_died)
+	
+	if enemy_count <= 0:
+		right_trapdoor.activate()
+		left_trapdoor.activate()
+		if not actual_arena_id in GameState.completed_arenas:
+			GameState.completed_arenas.append(actual_arena_id)
 
 func _on_body_entered(body: Node2D) -> void:
 	set_deferred("monitoring", false)

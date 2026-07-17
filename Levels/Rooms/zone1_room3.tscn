@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://cc5xoecqb015f" path="res://Actors/Interactable/Grass/grass.tscn" id="5_v6gd7"]
 [ext_resource type="PackedScene" uid="uid://clqmfvb63sfeo" path="res://Actors/Interactable/Vine/vine.tscn" id="6_ahdor"]
 [ext_resource type="PackedScene" uid="uid://bjkcmrb2gcnt5" path="res://Systems/Components/Arena Area/arena_area.tscn" id="6_igqfo"]
-[ext_resource type="Script" uid="uid://dj3p78ef7onij" path="res://Systems/Components/Arena Area/Arena Enemy Spawner/arena_enemy_spawner.gd" id="8_b3eng"]
 [ext_resource type="PackedScene" uid="uid://uec5sa3yyp7m" path="res://Actors/Interactable/Trapdoor/trapdoor.tscn" id="8_ou1o6"]
 [ext_resource type="PackedScene" uid="uid://bsg2twb245xa3" path="res://Actors/Interactable/Lever/lever.tscn" id="9_r72qh"]
 [ext_resource type="PackedScene" uid="uid://dys7k0tpundus" path="res://Systems/Loot/Gold Coin/gold_coin.tscn" id="10_c2w2m"]
@@ -16,10 +15,9 @@
 [ext_resource type="PackedScene" uid="uid://cswlxnfs8vx4p" path="res://Systems/Loot/Key/key.tscn" id="13_ahdor"]
 [ext_resource type="Resource" uid="uid://bk5gjk8pwx26x" path="res://Systems/Resources/Enemies/beetle_def.tres" id="13_i4mjl"]
 [ext_resource type="Resource" uid="uid://c8a3cvt71s35c" path="res://Systems/Resources/Enemies/slime_def.tres" id="14_v6gd7"]
-[ext_resource type="PackedScene" uid="uid://b1ttmwn8g2yb1" path="res://Actors/Enemies/Bat/bat.tscn" id="15_2xos5"]
 [ext_resource type="Resource" uid="uid://b6hqxpsx6yet1" path="res://Systems/Resources/Enemies/bat_def.tres" id="15_ahdor"]
+[ext_resource type="PackedScene" uid="uid://ctgcuxn4avkgf" path="res://Actors/Interactable/Sign/sign.tscn" id="15_lprav"]
 [ext_resource type="PackedScene" uid="uid://lwx1ufc0bndp" path="res://Systems/Components/Transition Zone/transition_zone.tscn" id="19_3keor"]
-[ext_resource type="PackedScene" uid="uid://bsg0351mx3b4u" path="res://addons/MetroidvaniaSystem/Nodes/RoomInstance.tscn" id="20_v4m8w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nsrcm"]
 size = Vector2(109, 31)
@@ -125,7 +123,7 @@ scale = Vector2(1, -1)
 
 [node name="ArenaArea" parent="Interactable" unique_id=783166699 node_paths=PackedStringArray("enemy_spawners") instance=ExtResource("6_igqfo")]
 position = Vector2(-387, -329)
-enemy_spawners = [NodePath("EnemySpawner"), NodePath("EnemySpawner2"), NodePath("EnemySpawner3")]
+enemy_spawners = [NodePath("EnemySpawner4"), NodePath("EnemySpawner5"), NodePath("EnemySpawner6")]
 
 [node name="CollisionShape2D" parent="Interactable/ArenaArea" index="0" unique_id=561907463]
 position = Vector2(-67.5, -5.5)
@@ -137,20 +135,20 @@ position = Vector2(154, -24)
 [node name="LeftTrapdoor" parent="Interactable/ArenaArea" index="2" unique_id=492936994]
 position = Vector2(-133, -24)
 
-[node name="EnemySpawner" type="Marker2D" parent="Interactable/ArenaArea" unique_id=134818945]
+[node name="EnemySpawner4" parent="Interactable/ArenaArea" unique_id=2085234761 instance=ExtResource("12_0jto0")]
 position = Vector2(-71, -64)
-script = ExtResource("8_b3eng")
-enemy_scene = ExtResource("15_2xos5")
+enemy_definition = ExtResource("15_ahdor")
+is_area_spawner = true
 
-[node name="EnemySpawner2" type="Marker2D" parent="Interactable/ArenaArea" unique_id=1608161937]
+[node name="EnemySpawner5" parent="Interactable/ArenaArea" unique_id=1114588405 instance=ExtResource("12_0jto0")]
 position = Vector2(6, -89)
-script = ExtResource("8_b3eng")
-enemy_scene = ExtResource("15_2xos5")
+enemy_definition = ExtResource("15_ahdor")
+is_area_spawner = true
 
-[node name="EnemySpawner3" type="Marker2D" parent="Interactable/ArenaArea" unique_id=1735495966]
+[node name="EnemySpawner6" parent="Interactable/ArenaArea" unique_id=1698778869 instance=ExtResource("12_0jto0")]
 position = Vector2(87, -62)
-script = ExtResource("8_b3eng")
-enemy_scene = ExtResource("15_2xos5")
+enemy_definition = ExtResource("15_ahdor")
+is_area_spawner = true
 
 [node name="Grasses" type="Node2D" parent="Interactable" unique_id=2096868312]
 
@@ -159,14 +157,20 @@ enemy_scene = ExtResource("15_2xos5")
 [node name="Key" parent="Interactable" unique_id=525774278 instance=ExtResource("13_ahdor")]
 position = Vector2(468, -409)
 
-[node name="Golds Coin" type="Node2D" parent="." unique_id=1205763460]
+[node name="Golds Coin" type="Node2D" parent="Interactable" unique_id=1205763460]
 
-[node name="GoldCoin2" parent="Golds Coin" unique_id=1404803091 instance=ExtResource("10_c2w2m")]
+[node name="GoldCoin2" parent="Interactable/Golds Coin" unique_id=1404803091 instance=ExtResource("10_c2w2m")]
 position = Vector2(537, -283)
+
+[node name="Chucks" type="Node2D" parent="Interactable" unique_id=271414076]
+
+[node name="Sign" parent="Interactable" unique_id=530247221 instance=ExtResource("15_lprav")]
+position = Vector2(521, -112)
+sign_text = "You need wall slide and jump ability to go further"
 
 [node name="Enemies" type="Node2D" parent="." unique_id=2139906756]
 
-[node name="EnemySpawner" parent="Enemies" unique_id=2085234761 instance=ExtResource("12_0jto0")]
+[node name="EnemySpawner" parent="Enemies" unique_id=955640084 instance=ExtResource("12_0jto0")]
 position = Vector2(152, -88)
 enemy_definition = ExtResource("13_i4mjl")
 
@@ -189,8 +193,6 @@ enemy_definition = ExtResource("14_v6gd7")
 [node name="EnemySpawner5" parent="Enemies" unique_id=805645937 instance=ExtResource("12_0jto0")]
 position = Vector2(583, -204)
 enemy_definition = ExtResource("15_ahdor")
-
-[node name="Chucks" type="Node2D" parent="." unique_id=271414076]
 
 [node name="TransitionZones" type="Node2D" parent="." unique_id=2136319480]
 
@@ -232,8 +234,8 @@ position = Vector2(47, -45)
 
 [node name="Zone1Room3Right" parent="TransitionZones" unique_id=428446417 instance=ExtResource("19_3keor")]
 position = Vector2(820, -216)
-target_room = "zone1_room5"
-target_zone_name = "Zone1Room5Left"
+target_room = "zone1_room3.5"
+target_zone_name = "Zone1Room3_5Left"
 
 [node name="CollisionShape2D" parent="TransitionZones/Zone1Room3Right" index="0" unique_id=1915848413]
 position = Vector2(33, -8.5)
@@ -241,9 +243,6 @@ shape = SubResource("RectangleShape2D_7h2qd")
 
 [node name="SpawnPoint" parent="TransitionZones/Zone1Room3Right" index="1" unique_id=1278852891]
 position = Vector2(-1, 6)
-
-[node name="RoomInstance" parent="." unique_id=2146291553 instance=ExtResource("20_v4m8w")]
-visible = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=880317723]
 environment = SubResource("Environment_ahdor")

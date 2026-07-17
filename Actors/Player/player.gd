@@ -28,7 +28,7 @@ var _original_collision_layer: int
 var _original_collision_mask: int
 
 const ATTACK_PUSH_FORCE: float = 100.0
-@export var knockback_velocity: Vector2 = Vector2(40.0, -100.0)
+@export var knockback_velocity: Vector2 = Vector2(50.0, -100.0)
 
 @export var stats: Stats :
 	set(value):
