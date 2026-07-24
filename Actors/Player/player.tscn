@@ -277,6 +277,30 @@ tracks/6/keys = {
 "update": 1,
 "values": [SubResource("CompressedTexture2D_w553y")]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Visuals/Hitbox/CollisionShape2D:disabled")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Visuals/Hitbox/CollisionShape2D3:disabled")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_sciwa"]
 resource_name = "air_dash"
@@ -349,6 +373,18 @@ tracks/5/path = NodePath("Visuals/Hitbox/CollisionShape2D2:disabled")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Visuals/Hitbox/CollisionShape2D3:disabled")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -801,6 +837,18 @@ tracks/7/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Visuals/Hitbox/CollisionShape2D3:disabled")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_w553y"]
 resource_name = "hurt"
@@ -1246,6 +1294,20 @@ tracks/7/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/8/type = "method"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Hurtbox")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [false],
+"method": &"toggle_invincibility"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_g1lo4"]
@@ -1936,9 +1998,6 @@ _data = {
 &"flash": SubResource("Animation_nwamd")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_sor1j"]
-radius = 5.0
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ui0vk"]
 radius = 7.9999995
 height = 23.0
@@ -2097,6 +2156,9 @@ fill_from = Vector2(0.5, 0.5)
 radius = 4.0
 height = 10.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_sor1j"]
+radius = 4.0
+
 [node name="Player" type="CharacterBody2D" unique_id=391222067 groups=["player"]]
 collision_layer = 2
 collision_mask = 33
@@ -2151,19 +2213,6 @@ libraries/ = SubResource("AnimationLibrary_isd1h")
 
 [node name="FlashAnimationPlayer" type="AnimationPlayer" parent="." unique_id=1975941485]
 libraries/ = SubResource("AnimationLibrary_woyfc")
-
-[node name="Hurtbox" type="Area2D" parent="." unique_id=2135399883 node_paths=PackedStringArray("health_component")]
-unique_name_in_owner = true
-collision_layer = 8
-collision_mask = 64
-script = ExtResource("5_awv0x")
-health_component = NodePath("../HealthComponent")
-hit_particles_scene = ExtResource("10_wmrsf")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=377365471]
-position = Vector2(0, -6)
-shape = SubResource("CircleShape2D_sor1j")
-debug_color = Color(0.97284085, 0, 0.4415506, 0.41960785)
 
 [node name="Visuals" type="Node2D" parent="." unique_id=1054381174]
 
@@ -2236,3 +2285,16 @@ texture = SubResource("GradientTexture2D_pnakb")
 position = Vector2(0, -4)
 rotation = -1.5707964
 shape = SubResource("CapsuleShape2D_y2lmi")
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=2135399883 node_paths=PackedStringArray("health_component")]
+unique_name_in_owner = true
+collision_layer = 8
+collision_mask = 64
+script = ExtResource("5_awv0x")
+health_component = NodePath("../HealthComponent")
+hit_particles_scene = ExtResource("10_wmrsf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=377365471]
+position = Vector2(0, -6)
+shape = SubResource("CircleShape2D_sor1j")
+debug_color = Color(0.97284085, 0, 0.4415506, 0.41960785)

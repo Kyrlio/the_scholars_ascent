@@ -44,7 +44,7 @@ const ATTACK_PUSH_FORCE: float = 100.0
 @export var friction: float = 800.0
 @export var air_roll_friction: float = 1200.0
 @export var roll_friction: float = 5000.0
-@export var roll_speed: float = 200.0
+@export var roll_speed: float = 175.0
 @export var air_roll_speed_multiplier: float = 0.85
 
 @export_group("Jump")
@@ -786,6 +786,8 @@ func _check_wall_jump() -> bool:
 				wall_normal = last_wall_normal
 			
 			wall_coyote_timer.stop()
+			buffer_jump_timer.stop()
+			_was_on_wall = false
 			velocity.x = wall_normal.x * wall_jump_pushback
 			velocity.y = wall_jump_lift
 			jump_count = 1
@@ -852,13 +854,15 @@ func _on_shield_hit(hitbox: HitboxComponent) -> void:
 	velocity.x = push_dir * 150.0
 	is_block_stunned = true
 	
-	var enemy: CharacterBody2D = hitbox.owner
+	var enemy = hitbox.owner
 	if is_instance_valid(enemy) and enemy is CharacterBody2D:
 		var enemy_push_dir = -push_dir
 		enemy.velocity.x = enemy_push_dir * 250.0
 		
 		var enemy_tw = create_tween()
 		enemy_tw.tween_property(enemy, "velocity:x", 0.0, 0.25)
+	elif is_instance_valid(enemy) and enemy is Arrow:
+		print("arrow")
 	
 	await get_tree().create_timer(0.2).timeout
 	is_block_stunned = false

@@ -6,7 +6,7 @@ extends Node2D
 @export var scale_flicker_amount: float = 0.05
 @export var base_energy: float = 1.0
 
-@onready var point_light: PointLight2D = $PointLight2D
+@export var point_light: PointLight2D
 
 var noise: FastNoiseLite = FastNoiseLite.new()
 var time_passed: float = 0.0

@@ -40,9 +40,11 @@ animations = [{
 "speed": 7.0
 }]
 
-[node name="Candle" type="Node2D" unique_id=2009296115]
+[node name="Candle" type="Node2D" unique_id=2009296115 node_paths=PackedStringArray("point_light")]
 script = ExtResource("1_66bei")
+scale_flicker_amount = 0.075
 base_energy = 1.5
+point_light = NodePath("PointLight2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=969365695]
 position = Vector2(0, -13)

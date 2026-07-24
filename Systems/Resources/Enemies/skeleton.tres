@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EnemyDefinition" format=3 uid="uid://dnfqplk7bhemk"]
+
+[ext_resource type="Script" uid="uid://bskgmpsguemcs" path="res://Systems/Resources/Enemies/enemy_definition.gd" id="1_70q83"]
+[ext_resource type="PackedScene" uid="uid://ct3k6k7tov0sn" path="res://Actors/Enemies/Skeleton/skeleton.tscn" id="1_vqpak"]
+[ext_resource type="Texture2D" uid="uid://dejpp0b4b8cyj" path="res://Assets/sprites/characters/skeleton.png" id="2_mxic0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rac43"]
+atlas = ExtResource("2_mxic0")
+region = Rect2(32, 16, 16, 16)
+
+[resource]
+script = ExtResource("1_70q83")
+enemy_scene = ExtResource("1_vqpak")
+preview_texture = SubResource("AtlasTexture_rac43")
+metadata/_custom_type_script = "uid://bskgmpsguemcs"

@@ -30,6 +30,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [Vector2i(0, 0)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/HitboxComponent/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_hh7ex"]
 resource_name = "attack"
@@ -77,6 +89,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [Vector2i(0, 3), Vector2i(1, 3), Vector2i(2, 3), Vector2i(3, 3), Vector2i(4, 3), Vector2i(5, 3)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/HitboxComponent/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_pehus"]
@@ -149,13 +173,17 @@ radius = 9.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_skx0m"]
 radius = 39.0
-height = 232.0
+height = 356.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0thxj"]
 radius = 39.0
 height = 154.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_86bw5"]
+radius = 8.0
+
 [node name="Skeleton" type="CharacterBody2D" unique_id=1045531243]
+collision_layer = 4
 script = ExtResource("1_ofjee")
 arrow_scene = ExtResource("2_hh7ex")
 
@@ -224,7 +252,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/VisionArea2D" unique_id=978203572]
-position = Vector2(112, -9)
+position = Vector2(15, -9)
 rotation = -1.5707964
 shape = SubResource("CapsuleShape2D_skx0m")
 debug_color = Color(0.6666667, 0.3137255, 1, 0.12156863)
@@ -248,10 +276,8 @@ script = ExtResource("4_hh7ex")
 metadata/_custom_type_script = "uid://0xe0iq737lh6"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/HitboxComponent" unique_id=695682310]
-debug_color = Color(0.8287953, 0.39524278, 3.85046e-07, 0.41960785)
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Visuals/HitboxComponent" unique_id=981374165]
-disabled = true
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_86bw5")
 debug_color = Color(0.8287953, 0.39524278, 3.85046e-07, 0.41960785)
 
 [node name="Raycasts" type="Node2D" parent="Visuals" unique_id=1172658011]

@@ -215,10 +215,6 @@ apply_gravity = false
 position = Vector2(216, 150)
 enemy_definition = ExtResource("9_u3q40")
 
-[node name="EnemySpawner6" parent="Enemies" unique_id=637174305 instance=ExtResource("8_v7iq5")]
-position = Vector2(687, 102)
-enemy_definition = ExtResource("9_u3q40")
-
 [node name="EnemySpawner2" parent="Enemies" unique_id=1826043817 instance=ExtResource("8_v7iq5")]
 position = Vector2(434, 104)
 enemy_definition = ExtResource("11_cfomo")

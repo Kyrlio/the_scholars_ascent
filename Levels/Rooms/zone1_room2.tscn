@@ -26,6 +26,7 @@
 [ext_resource type="PackedScene" uid="uid://ukyc78w0joal" path="res://Systems/Components/Enemy Spawner/enemy_spawner.tscn" id="18_d407i"]
 [ext_resource type="PackedScene" uid="uid://bsg0351mx3b4u" path="res://addons/MetroidvaniaSystem/Nodes/RoomInstance.tscn" id="18_f0tcx"]
 [ext_resource type="Resource" uid="uid://bk5gjk8pwx26x" path="res://Systems/Resources/Enemies/beetle_def.tres" id="19_40hgc"]
+[ext_resource type="PackedScene" uid="uid://c0vnbhke81lga" path="res://Systems/Loot/StarContainer/star_container.tscn" id="19_mny43"]
 [ext_resource type="Resource" uid="uid://b6hqxpsx6yet1" path="res://Systems/Resources/Enemies/bat_def.tres" id="20_40hgc"]
 [ext_resource type="Resource" uid="uid://c8a3cvt71s35c" path="res://Systems/Resources/Enemies/slime_def.tres" id="23_mny43"]
 
@@ -173,6 +174,9 @@ position = Vector2(1494, 184)
 [node name="DestructibleProp5" parent="Interactable/Destructible Props" unique_id=2006236923 instance=ExtResource("14_qqfi7")]
 position = Vector2(1600, 24)
 
+[node name="StarContainer" parent="Interactable" unique_id=1178016197 instance=ExtResource("19_mny43")]
+position = Vector2(167, -42)
+
 [node name="Golds Coin" type="Node2D" parent="." unique_id=1205763460]
 
 [node name="GoldCoin2" parent="Golds Coin" unique_id=1836896840 instance=ExtResource("4_i0vdc")]
@@ -194,6 +198,7 @@ throw = false
 [node name="GoldCoin5" parent="Golds Coin" unique_id=51036273 instance=ExtResource("4_i0vdc")]
 position = Vector2(801, 374)
 throw = false
+apply_gravity = false
 
 [node name="GoldCoin6" parent="Golds Coin" unique_id=1575479167 instance=ExtResource("4_i0vdc")]
 position = Vector2(696, 154)
@@ -265,10 +270,10 @@ target_room = "zone1_room1"
 target_zone_name = "Zone1Room1Right"
 
 [node name="CollisionShape2D" parent="TransitionZones/Zone1Room2Left" index="0" unique_id=1915848413]
-position = Vector2(2.5, -2)
+position = Vector2(-16, -2)
 
 [node name="SpawnPoint" parent="TransitionZones/Zone1Room2Left" index="1" unique_id=1278852891]
-position = Vector2(38, 9)
+position = Vector2(10, 10)
 
 [node name="Zone1Room2Up" parent="TransitionZones" unique_id=1796626277 instance=ExtResource("7_tx1m7")]
 position = Vector2(1480, -172)

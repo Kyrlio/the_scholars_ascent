@@ -190,4 +190,5 @@ drop_rate = 0.8
 [node name="Medipack" type="Marker2D" parent="Loots" unique_id=1787650132]
 script = ExtResource("9_nn3n5")
 loot_scene = ExtResource("10_jikie")
+drop_rate = 0.4
 metadata/_custom_type_script = "uid://dw8072bqcbpx4"

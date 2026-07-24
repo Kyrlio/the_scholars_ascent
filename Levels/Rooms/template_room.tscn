@@ -57,7 +57,7 @@ texture = ExtResource("1_jekdt")
 
 [node name="Parallax" type="Parallax2D" parent="Tilemaps" unique_id=884761773]
 visible = false
-scroll_scale = Vector2(0.95, 0.95)
+scroll_scale = Vector2(0.93, 0.93)
 repeat_size = Vector2(512, 640)
 
 [node name="Background" type="TileMapLayer" parent="Tilemaps/Parallax" unique_id=1442915945]
@@ -105,7 +105,7 @@ shadow_filter_smooth = 8.0
 [node name="Moving Platforms" type="Node2D" parent="." unique_id=1137787977]
 position = Vector2(0, -1)
 
-[node name="Interactable" type="Node" parent="." unique_id=1306188801]
+[node name="Interactable" type="Node2D" parent="." unique_id=259931378]
 
 [node name="Campfires" type="Node2D" parent="Interactable" unique_id=515711366]
 
