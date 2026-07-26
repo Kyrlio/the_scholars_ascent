@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://dpojsiaiomh0f"]
+
+[ext_resource type="Script" uid="uid://b83nmv2o33amp" path="res://Actors/Projectiles/Enemy Projectile/enemy_projectile.gd" id="1_srwl0"]
+[ext_resource type="Texture2D" uid="uid://cd4qh5of2k141" path="res://Assets/animations/animations.png" id="2_qs6nr"]
+[ext_resource type="Script" uid="uid://0xe0iq737lh6" path="res://Systems/Components/hitbox_component.gd" id="3_8l8it"]
+[ext_resource type="Texture2D" uid="uid://b0mitm7ng045m" path="res://Systems/Resources/light.tres" id="4_8l8it"]
+[ext_resource type="Script" uid="uid://cy7piacl4pfv4" path="res://Actors/Props/Candle/candle.gd" id="5_5fhl8"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0fyhl"]
+radius = 8.0
+height = 26.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_56klv"]
+radius = 5.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5fhl8"]
+atlas = ExtResource("2_qs6nr")
+region = Rect2(240, 224, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3wg48"]
+atlas = ExtResource("2_qs6nr")
+region = Rect2(272, 224, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k4i5v"]
+atlas = ExtResource("2_qs6nr")
+region = Rect2(304, 224, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rbcc2"]
+atlas = ExtResource("2_qs6nr")
+region = Rect2(336, 224, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y3vcb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5fhl8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3wg48")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k4i5v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rbcc2")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="EnemyProjectile" type="Area2D" unique_id=1744261615]
+collision_layer = 0
+script = ExtResource("1_srwl0")
+speed = 150.0
+
+[node name="HitboxComponent" type="Area2D" parent="." unique_id=1267998147]
+collision_layer = 64
+collision_mask = 8
+script = ExtResource("3_8l8it")
+metadata/_custom_type_script = "uid://0xe0iq737lh6"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=1096907685]
+position = Vector2(-6, 0)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_0fyhl")
+debug_color = Color(0.98347324, 0, 0.35703626, 0.41960785)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=798751150]
+shape = SubResource("CircleShape2D_56klv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2098906602]
+sprite_frames = SubResource("SpriteFrames_y3vcb")
+autoplay = "default"
+frame = 2
+frame_progress = 0.45668474
+offset = Vector2(-6, 0)
+flip_h = true
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=2131243762 node_paths=PackedStringArray("point_light")]
+color = Color(0.9411765, 0.35686275, 0.35686275, 1)
+shadow_enabled = true
+texture = ExtResource("4_8l8it")
+script = ExtResource("5_5fhl8")
+noise_speed = 250.0
+energy_flicker_amount = 1.0
+scale_flicker_amount = 0.5
+base_energy = 1.5
+point_light = NodePath(".")

@@ -51,6 +51,7 @@ func save_game(player_position: Vector2, current_health: int, total_gold: int) -
 		"saved_room": current_room_name,
 		"unlocked_max_health": GameState.unlocked_max_health,
 		"collected_heart_containers": GameState.collected_heart_containers,
+		"collected_star_containers": GameState.collected_star_containers,
 		"gold": total_gold,
 		"collected_items": items_save_data,
 		"collected_charms": charms_paths,

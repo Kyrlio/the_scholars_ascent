@@ -254,7 +254,7 @@ fill_from = Vector2(0.5, 0.5)
 [node name="BeetleEnemy" type="CharacterBody2D" unique_id=1367831147 groups=["enemy"]]
 collision_layer = 4
 script = ExtResource("1_m6xea")
-speed = 20.0
+speed = 25.0
 gravity = 900.0
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1130520108]

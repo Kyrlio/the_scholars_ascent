@@ -78,6 +78,7 @@ func change_room(room_name: String) -> void:
 			old_room.queue_free()
 		
 		new_room.name = room_name
+		room_container.process_mode = Node.PROCESS_MODE_INHERIT
 		room_container.add_child(new_room)
 		new_room.force_update_transform()
 		
@@ -114,8 +115,6 @@ func change_room(room_name: String) -> void:
 	
 	if game_scene and game_scene.player:
 		game_scene.player.process_mode = Node.PROCESS_MODE_INHERIT
-	if room_container:
-		room_container.process_mode = Node.PROCESS_MODE_INHERIT
 	
 	is_transitioning = false
 
@@ -161,6 +160,7 @@ func reload_current_room_for_rest(player: Node2D) -> void:
 			break
 	
 	new_room.name = room_name
+	room_container.process_mode = Node.PROCESS_MODE_INHERIT
 	room_container.add_child(new_room)
 	
 	var camera = game_scene.find_child("DynamicCamera", true, false)
@@ -175,6 +175,5 @@ func reload_current_room_for_rest(player: Node2D) -> void:
 	if player:
 		player.process_mode = Node.PROCESS_MODE_INHERIT
 		player.switch_state(player.State.IDLE)
-	room_container.process_mode = Node.PROCESS_MODE_INHERIT
 	
 	is_transitioning = false

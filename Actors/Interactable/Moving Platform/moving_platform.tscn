@@ -7,44 +7,41 @@
 [ext_resource type="Texture2D" uid="uid://u73ygp0dcxh2" path="res://Assets/sprites/rails/rail_middle.png" id="3_h11eh"]
 [ext_resource type="Texture2D" uid="uid://dhdrvwin637w6" path="res://Assets/sprites/rails/rail_end.png" id="4_aqflx"]
 
-[sub_resource type="Animation" id="Animation_mx1mf"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PlatformBody/Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
+[sub_resource type="AtlasTexture" id="AtlasTexture_lwwk3"]
+atlas = ExtResource("1_e3rx4")
+region = Rect2(320, 64, 16, 16)
 
-[sub_resource type="Animation" id="Animation_1cysw"]
-resource_name = "default"
-length = 0.3333417
-loop_mode = 1
-step = 0.083333336
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PlatformBody/Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.083333336, 0.16666667, 0.25),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3]
-}
+[sub_resource type="AtlasTexture" id="AtlasTexture_h11eh"]
+atlas = ExtResource("1_e3rx4")
+region = Rect2(336, 64, 16, 16)
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_u06l4"]
-_data = {
-&"RESET": SubResource("Animation_mx1mf"),
-&"default": SubResource("Animation_1cysw")
-}
+[sub_resource type="AtlasTexture" id="AtlasTexture_aqflx"]
+atlas = ExtResource("1_e3rx4")
+region = Rect2(352, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tsax1"]
+atlas = ExtResource("1_e3rx4")
+region = Rect2(368, 64, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0thxj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lwwk3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h11eh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aqflx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tsax1")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 12.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mx1mf"]
 size = Vector2(32, 8)
@@ -55,18 +52,15 @@ rail_start = ExtResource("2_lwwk3")
 rail_middle = ExtResource("3_h11eh")
 rail_end = ExtResource("4_aqflx")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1690936475]
-libraries/ = SubResource("AnimationLibrary_u06l4")
-autoplay = &"default"
-
 [node name="PlatformBody" type="AnimatableBody2D" parent="." unique_id=33799574]
+collision_layer = 256
+collision_mask = 7
 
-[node name="Sprite2D" type="Sprite2D" parent="PlatformBody" unique_id=1067678756]
-texture = ExtResource("1_e3rx4")
-offset = Vector2(0, 3)
-hframes = 4
-region_enabled = true
-region_rect = Rect2(320, 64, 64, 16)
+[node name="Base" type="AnimatedSprite2D" parent="PlatformBody" unique_id=1539395831]
+position = Vector2(0, 3)
+sprite_frames = SubResource("SpriteFrames_0thxj")
+autoplay = "default"
+frame_progress = 0.29350775
 
 [node name="Sprite2D2" type="Sprite2D" parent="PlatformBody" unique_id=545621965]
 position = Vector2(-12, -1)

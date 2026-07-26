@@ -43,9 +43,10 @@ const ATTACK_PUSH_FORCE: float = 100.0
 @export var acceleration: float = 600.0
 @export var friction: float = 800.0
 @export var air_roll_friction: float = 1200.0
-@export var roll_friction: float = 5000.0
+@export var roll_friction: float = 6000.0
 @export var roll_speed: float = 175.0
 @export var air_roll_speed_multiplier: float = 0.85
+@export var roll_cooldown: float = 1.0
 
 @export_group("Jump")
 @export var jump_cutoff: float = 0.4 
@@ -121,6 +122,7 @@ func _toggle_ability(ability_name: String, is_unlocked: bool) -> void:
 @onready var wall_coyote_timer: Timer = $Timers/WallCoyoteTimer
 @onready var pogo_particles: GPUParticles2D = $PogoParticles
 @onready var ammo_regen_timer: Timer = $Timers/AmmoRegenTimer
+@onready var roll_cooldown_timer: Timer = $Timers/RollCooldownTimer
 @onready var object_pool_projectile: Node = $ObjectPool_Projectile
 @onready var hurtbox: HurtboxComponent = %Hurtbox
 @onready var run_animated_sprite: AnimatedSprite2D = %RunAnimatedSprite
@@ -195,6 +197,7 @@ func switch_state(new_state: State) -> void:
 		
 		State.ROLL:
 			if is_on_floor():
+				roll_cooldown_timer.start(roll_cooldown)
 				animation_player.play("roll")
 			else:
 				velocity.y = stats.jump_velocity * 0.5
@@ -441,16 +444,16 @@ func _handle_attack() -> void:
 				switch_state(State.GROUND_ATTACK)
 
 func _handle_roll() -> void:
-	if check_common_conditions():
+	if current_state == State.HURT or current_state == State.REST or current_state == State.SHOW_ITEM:
 		return
 	
-	if Input.is_action_just_pressed("roll") and current_state != State.ROLL and current_state != State.GROUND_ATTACK and current_state != State.AIR_ATTACK and GameState.has_ability("roll"):
+	if Input.is_action_just_pressed("roll") and current_state != State.ROLL:
 		if is_on_floor():
-			switch_state(State.ROLL)
+			if GameState.has_ability("roll") and roll_cooldown_timer.is_stopped() and current_state != State.GROUND_ATTACK:
+				switch_state(State.ROLL)
 		else:
 			if GameState.has_ability("air_roll") and can_air_roll:
-				if not is_on_floor():
-					can_air_roll = false
+				can_air_roll = false
 				switch_state(State.ROLL)
 
 func _handle_spell() -> void:
@@ -741,6 +744,7 @@ func _apply_pogo() -> void:
 	if not GameState.has_ability("pogo"):
 		return
 	can_air_roll = true
+	roll_cooldown_timer.stop()
 	velocity.y = stats.jump_velocity * 0.9
 	pogo_particles.restart()
 	jump_count = 0

@@ -207,9 +207,9 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 1
 offset_left = 223.5
-offset_top = 41.0
+offset_top = 44.0
 offset_right = 297.5
-offset_bottom = 65.0
+offset_bottom = 68.0
 
 [node name="EquipmentUI" type="Control" parent="MarginContainer" unique_id=1189448668]
 layout_mode = 2
@@ -245,6 +245,7 @@ stretch_mode = 5
 
 [node name="RbButton" type="TextureRect" parent="MarginContainer/EquipmentUI/SlotRB" unique_id=279145829]
 unique_name_in_owner = true
+visible = false
 custom_maximum_size = Vector2(16, 16)
 layout_mode = 0
 offset_left = 24.0
@@ -253,6 +254,24 @@ offset_right = 40.0
 offset_bottom = 42.0
 texture = SubResource("AtlasTexture_cbec6")
 stretch_mode = 3
+
+[node name="RBLabel" type="Label" parent="MarginContainer/EquipmentUI/SlotRB" unique_id=891126396]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 8.0
+offset_top = 9.0
+offset_right = 19.0
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 8
+text = "RB"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="QtyRB" type="Label" parent="MarginContainer/EquipmentUI/SlotRB" unique_id=1548994979]
 unique_name_in_owner = true
@@ -294,6 +313,7 @@ stretch_mode = 5
 
 [node name="LbButton" type="TextureRect" parent="MarginContainer/EquipmentUI/SlotLB" unique_id=687447970]
 unique_name_in_owner = true
+visible = false
 custom_maximum_size = Vector2(16, 16)
 layout_mode = 0
 offset_left = -1.0
@@ -302,6 +322,24 @@ offset_right = 15.0
 offset_bottom = 41.0
 texture = SubResource("AtlasTexture_pw1mq")
 stretch_mode = 3
+
+[node name="LBLabel" type="Label" parent="MarginContainer/EquipmentUI/SlotLB" unique_id=2141332131]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 9.0
+offset_top = 8.0
+offset_right = 19.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 8
+text = "LB"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="QtyLB" type="Label" parent="MarginContainer/EquipmentUI/SlotLB" unique_id=1110205709]
 unique_name_in_owner = true

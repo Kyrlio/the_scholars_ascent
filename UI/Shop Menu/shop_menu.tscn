@@ -105,7 +105,9 @@ size_flags_horizontal = 3
 unique_name_in_owner = true
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
+theme_override_font_sizes/font_size = 8
 text = "Jump Charm"
+horizontal_alignment = 1
 
 [node name="ItemDescription" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/DetailsPanel" unique_id=1024666662]
 unique_name_in_owner = true

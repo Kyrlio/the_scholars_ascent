@@ -241,6 +241,7 @@ libraries/ = SubResource("AnimationLibrary_srtig")
 
 [node name="Label" type="Label" parent="." unique_id=1900152447]
 modulate = Color(1, 1, 1, 0)
+z_index = 2
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

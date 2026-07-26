@@ -13,25 +13,16 @@
 atlas = ExtResource("2_hihkt")
 region = Rect2(84, 36, 8, 8)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_17mpa"]
-load_path = "res://.godot/imported/ui.png-9852ca86a9258f1bb84490edfbc4ad38.ctex"
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_dk7y1"]
-atlas = SubResource("CompressedTexture2D_17mpa")
+atlas = ExtResource("2_hihkt")
 region = Rect2(146, 35, 12, 11)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_dmh5u"]
-load_path = "res://.godot/imported/ui.png-9852ca86a9258f1bb84490edfbc4ad38.ctex"
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_2a0b4"]
-atlas = SubResource("CompressedTexture2D_dmh5u")
+atlas = ExtResource("2_hihkt")
 region = Rect2(146, 18, 12, 12)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ugeno"]
-load_path = "res://.godot/imported/ui.png-9852ca86a9258f1bb84490edfbc4ad38.ctex"
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_2dwik"]
-atlas = SubResource("CompressedTexture2D_ugeno")
+atlas = ExtResource("2_hihkt")
 region = Rect2(146, 50, 12, 12)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_32urs"]
@@ -74,11 +65,8 @@ region = Rect2(32, 96, 32, 32)
 atlas = ExtResource("2_hihkt")
 region = Rect2(208, 80, 16, 16)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2dwik"]
-load_path = "res://.godot/imported/ui.png-b78f01a982e85082a2aba0bf4583efea.ctex"
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_pu6sy"]
-atlas = SubResource("CompressedTexture2D_2dwik")
+atlas = ExtResource("2_hihkt")
 region = Rect2(32, 96, 32, 32)
 
 [node name="GameMenu" type="CanvasLayer" unique_id=996763185]

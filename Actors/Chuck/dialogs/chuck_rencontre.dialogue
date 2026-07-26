@@ -25,10 +25,16 @@ do get_viewport().set_input_as_handled()
 do get_viewport().set_input_as_handled()
 if first_met == true:
 	if GameState.has_ability("sword"):
-		Chuck: Go kill this motherfucker now.
+		if not GameState.has_ability("wall_slide"):
+			Chuck: Go kill this motherfucker now.
 	else:
 		Chuck: The sword is up there. C'mon buddy...
-elif not first_met and GameState.has_ability("sword"):
+	Chuck: Wanna buy things ?
+	- Yep !
+		do open_shop()
+	- No
+		=> END
+elif not first_met and GameState.has_ability("sword") and not GameState.has_ability("wall_slide"):
 	Chuck: Hey, did you take my sword without my permission ?!
 	Todd: Yep and what are you gonna do about it ?
 	Chuck: ... You piece of shit...
@@ -50,7 +56,7 @@ else:
 		Todd: Hummm... I dunno, why don't you do it yourself ?
 		Chuck: Don't be a brat, take the sword up there and KILL THEM ALL !
 		Todd: ...
-	Chuck: Another thing. If you see me later, come talk to me, I'll sell you things.
+	Chuck: Another thing. If you see me later, come talk to me, I'll sell you things. And you should also rest a this campfire.
 
 do first_met = true
 => END

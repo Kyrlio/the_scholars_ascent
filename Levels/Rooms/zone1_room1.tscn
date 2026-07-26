@@ -89,7 +89,7 @@ shadow_filter_smooth = 8.0
 position = Vector2(113, 160)
 
 [node name="Campfire" parent="Interactable" unique_id=1793744179 instance=ExtResource("4_cmh1j")]
-position = Vector2(23, 136)
+position = Vector2(9, 136)
 
 [node name="GoldsCoin" type="Node2D" parent="." unique_id=1210938853]
 

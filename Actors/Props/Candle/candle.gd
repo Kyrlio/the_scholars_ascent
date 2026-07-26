@@ -18,7 +18,7 @@ func _ready() -> void:
 	noise.frequency = 0.05
 
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	time_passed += delta * noise_speed
 	
 	var noise_value = noise.get_noise_1d(time_passed)

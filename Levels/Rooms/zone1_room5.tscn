@@ -10,7 +10,6 @@
 [ext_resource type="Script" uid="uid://bvp3ujqsevubj" path="res://Systems/Components/death_zone_component.gd" id="7_g82i0"]
 [ext_resource type="PackedScene" uid="uid://d1qf1x2cl5xpi" path="res://Actors/Interactable/Campfire/campfire.tscn" id="7_gr4f4"]
 [ext_resource type="PackedScene" uid="uid://ukyc78w0joal" path="res://Systems/Components/Enemy Spawner/enemy_spawner.tscn" id="9_e78im"]
-[ext_resource type="PackedScene" uid="uid://d8hou87leijl" path="res://Actors/Destructible Prop/destructible_prop.tscn" id="9_nxfww"]
 [ext_resource type="Resource" uid="uid://bk5gjk8pwx26x" path="res://Systems/Resources/Enemies/beetle_def.tres" id="10_krsa5"]
 [ext_resource type="Resource" uid="uid://c8a3cvt71s35c" path="res://Systems/Resources/Enemies/slime_def.tres" id="11_jgclo"]
 [ext_resource type="PackedScene" uid="uid://bblg1hvrdyuvn" path="res://Actors/Enemies/Stalactite/stalactite.tscn" id="12_krsa5"]
@@ -110,7 +109,7 @@ position = Vector2(0, -1)
 [node name="Campfires" type="Node2D" parent="Interactable" unique_id=515711366]
 
 [node name="Campfire" parent="Interactable/Campfires" unique_id=1793744179 instance=ExtResource("7_gr4f4")]
-position = Vector2(518, -200)
+position = Vector2(576, -200)
 
 [node name="Chests" type="Node2D" parent="Interactable" unique_id=1034579405]
 
@@ -126,9 +125,6 @@ metadata/_custom_type_script = "uid://bvp3ujqsevubj"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable/DeathZoneComponent" unique_id=1484944905]
 position = Vector2(714, 156)
 shape = SubResource("RectangleShape2D_0thxj")
-
-[node name="DestructibleProp" parent="Interactable" unique_id=1316598219 instance=ExtResource("9_nxfww")]
-position = Vector2(487, -200)
 
 [node name="Golds Coin" type="Node2D" parent="." unique_id=1205763460]
 
@@ -154,7 +150,7 @@ position = Vector2(1392, -363)
 [node name="Chucks" type="Node2D" parent="." unique_id=271414076]
 
 [node name="Chuck" parent="Chucks" unique_id=423884664 instance=ExtResource("13_jgclo")]
-position = Vector2(571, -192)
+position = Vector2(505, -192)
 inventory = Array[ExtResource("14_gy67o")]([ExtResource("15_2j5ja"), ExtResource("16_ixys3"), ExtResource("17_5vtj6"), ExtResource("19_po8bi"), SubResource("Resource_a5d43")])
 dialogue_resource = ExtResource("14_k0xf2")
 

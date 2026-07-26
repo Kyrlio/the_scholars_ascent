@@ -33,6 +33,7 @@ var opened_star_doors: Array = []
 var total_gold: int = 0
 var unlocked_max_health: int = 2
 var collected_heart_containers: Array = []
+var collected_star_containers: Array = []
 
 var saved_player_pos: Vector2 = Vector2.ZERO
 var saved_player_health: int = -1
@@ -122,6 +123,7 @@ func load_save_data():
 	saved_player_health = data.get("health", 2)
 	unlocked_max_health = data.get("unlocked_max_health", 2)
 	collected_heart_containers = data.get("collected_heart_containers", [])
+	collected_star_containers = data.get("collected_star_containers", [])
 	var raw_levers = data.get("activated_levers", {})
 	if typeof(raw_levers) == TYPE_ARRAY:
 		activated_levers = {}
@@ -252,6 +254,7 @@ func reset_state() -> void:
 	total_gold = 0
 	unlocked_max_health = 2
 	collected_heart_containers.clear()
+	collected_star_containers.clear()
 	
 	saved_player_pos = Vector2.ZERO
 	saved_player_health = -1

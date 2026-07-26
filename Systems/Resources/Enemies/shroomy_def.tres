@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EnemyDefinition" format=3 uid="uid://srckga688paj"]
+
+[ext_resource type="PackedScene" uid="uid://4qdfh74hosww" path="res://Actors/Enemies/Shroomy/shroomy.tscn" id="1_0fbb4"]
+[ext_resource type="Script" uid="uid://bskgmpsguemcs" path="res://Systems/Resources/Enemies/enemy_definition.gd" id="1_qyc0a"]
+[ext_resource type="Texture2D" uid="uid://ddx24ify3mqmv" path="res://Assets/sprites/characters/shroomy.png" id="2_qa0w3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l0rda"]
+atlas = ExtResource("2_qa0w3")
+region = Rect2(32, 16, 16, 16)
+
+[resource]
+script = ExtResource("1_qyc0a")
+enemy_scene = ExtResource("1_0fbb4")
+preview_texture = SubResource("AtlasTexture_l0rda")
+metadata/_custom_type_script = "uid://bskgmpsguemcs"

@@ -39,9 +39,9 @@ freeze = true
 z_index = -1
 collision_layer = 128
 collision_mask = 102
-mass = 5.0
+mass = 1000.0
 physics_material_override = SubResource("PhysicsMaterial_wm31n")
-linear_damp = 1.0
+linear_damp = 0.5
 
 [node name="Sprite2D" type="Sprite2D" parent="Chain1" unique_id=191779586]
 position = Vector2(0, -1)
@@ -61,9 +61,9 @@ z_index = -1
 position = Vector2(0, 16)
 collision_layer = 128
 collision_mask = 102
-mass = 5.0
+mass = 1000.0
 physics_material_override = SubResource("PhysicsMaterial_wm31n")
-linear_damp = 1.0
+linear_damp = 0.5
 
 [node name="Sprite2D" type="Sprite2D" parent="Chain2" unique_id=104591485]
 position = Vector2(0, -2)
@@ -82,9 +82,9 @@ node_b = NodePath("../../Chain1")
 position = Vector2(0, 32)
 collision_layer = 128
 collision_mask = 102
-mass = 5.0
+mass = 1000.0
 physics_material_override = SubResource("PhysicsMaterial_wm31n")
-linear_damp = 1.0
+linear_damp = 0.5
 
 [node name="Sprite2D" type="Sprite2D" parent="Chain3" unique_id=1673936737]
 position = Vector2(0, -3)
@@ -103,9 +103,9 @@ node_b = NodePath("../../Chain2")
 position = Vector2(-1, 37)
 collision_layer = 128
 collision_mask = 102
-mass = 5.0
+mass = 1000.0
 physics_material_override = SubResource("PhysicsMaterial_wm31n")
-linear_damp = 1.0
+linear_damp = 0.5
 
 [node name="Light" type="Sprite2D" parent="Chain4" unique_id=859386414]
 position = Vector2(1, 8)

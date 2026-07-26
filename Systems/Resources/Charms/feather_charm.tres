@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CharmItem" format=3 uid="uid://bj5t60ys37ri6"]
+
+[ext_resource type="Texture2D" uid="uid://bbucqtflj4my0" path="res://Assets/items/items.png" id="1_vbrqs"]
+[ext_resource type="Script" uid="uid://b1k6c6xtrwpkq" path="res://Systems/Resources/Charms/Stat Modifier/charm_item.gd" id="2_31bks"]
+[ext_resource type="Resource" uid="uid://cmps4kpidk88h" path="res://Systems/Resources/Charms/Stat Modifier/gravity_multiplier.tres" id="3_x6dd3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oth74"]
+atlas = ExtResource("1_vbrqs")
+region = Rect2(17, 48, 14, 16)
+
+[resource]
+script = ExtResource("2_31bks")
+stat_modifier = ExtResource("3_x6dd3")
+item_name = "Feather Charm"
+description = "Reduce your gravity. You will fall slowly !"
+icon = SubResource("AtlasTexture_oth74")
+metadata/_custom_type_script = "uid://b1k6c6xtrwpkq"

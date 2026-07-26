@@ -2,12 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://bl4a7jbqm1376" path="res://Actors/Enemies/Slime/slime.tscn" id="1_6wmic"]
 [ext_resource type="Script" uid="uid://bskgmpsguemcs" path="res://Systems/Resources/Enemies/enemy_definition.gd" id="1_sb330"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gpya3"]
-load_path = "res://.godot/imported/slime.png-79db35ec81eaceaec5fe55f2c89641d7.ctex"
+[ext_resource type="Texture2D" uid="uid://bq71x2lc2gsb0" path="res://Assets/sprites/characters/slime.png" id="2_slime"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6wmic"]
-atlas = SubResource("CompressedTexture2D_gpya3")
+atlas = ExtResource("2_slime")
 region = Rect2(32, 16, 16, 16)
 
 [resource]

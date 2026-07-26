@@ -19,7 +19,6 @@ func physics_update(delta: float) -> void:
 		if is_instance_valid(player_node):
 			context.player = player_node
 		else:
-			context.set_state($"../PatrolState")
 			return
 	
 	action_timer -= delta

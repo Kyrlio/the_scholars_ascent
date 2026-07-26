@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="The_Scholars_Ascent"
-run/main_scene="uid://c34md2nlrcm34"
+run/main_scene="uid://dt8ca72wpxg58"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 boot_splash/bg_color=Color(0.27058825, 0.16862746, 0.24705882, 1)
 boot_splash/show_image=false
@@ -199,6 +199,7 @@ locale/translations_pot_files=PackedStringArray("res://Actors/Chuck/dialogs/chuc
 2d_physics/layer_6="Player Hitbox"
 2d_physics/layer_7="Enemy Hitbox"
 2d_physics/layer_8="Object"
+2d_physics/layer_9="Moving Platform"
 
 [physics]
 

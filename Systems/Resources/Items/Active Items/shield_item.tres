@@ -5,7 +5,8 @@
 
 [resource]
 script = ExtResource("2_1pqc7")
+max_shield_hp = 5
 item_name = "Shield"
-description = "Protect you from enemies attack. Hold LB or RB button to use."
+description = "Protect you from enemies attack. The shield will break receiving 5 attacks."
 icon = ExtResource("1_lddxn")
 metadata/_custom_type_script = "uid://dvsul22jw7q0t"

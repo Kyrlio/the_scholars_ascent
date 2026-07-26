@@ -100,7 +100,7 @@ autoplay = "default"
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=2055357040 node_paths=PackedStringArray("point_light")]
 color = Color(0.47058824, 0.7607843, 0.8392157, 1)
-shadow_enabled = true
+shadow_filter_smooth = 2.0
 texture = ExtResource("4_yci3f")
 script = ExtResource("5_xibb8")
 noise_speed = 50.0

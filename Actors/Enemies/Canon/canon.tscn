@@ -1,0 +1,105 @@
+[gd_scene format=3 uid="uid://cr823bxvou8ra"]
+
+[ext_resource type="Texture2D" uid="uid://cd4qh5of2k141" path="res://Assets/animations/animations.png" id="1_lolqu"]
+[ext_resource type="Script" uid="uid://b7wwialnaxk1x" path="res://Actors/Enemies/Canon/canon.gd" id="1_v6yqh"]
+[ext_resource type="PackedScene" uid="uid://dpojsiaiomh0f" path="res://Actors/Projectiles/Enemy Projectile/enemy_projectile.tscn" id="2_7c8e7"]
+
+[sub_resource type="Animation" id="Animation_lolqu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_v6yqh"]
+resource_name = "default"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_7c8e7"]
+resource_name = "shoot"
+length = 0.5
+step = 0.083333336
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.083333336, 0.16666667, 0.25, 0.3333333, 0.41666666),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 1, 2, 3, 0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.33333334),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"fire"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rt3gj"]
+_data = {
+&"RESET": SubResource("Animation_lolqu"),
+&"default": SubResource("Animation_v6yqh"),
+&"shoot": SubResource("Animation_7c8e7")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0thxj"]
+size = Vector2(14, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0thxj"]
+atlas = ExtResource("1_lolqu")
+region = Rect2(320, 80, 64, 16)
+
+[node name="Cannon" type="StaticBody2D" unique_id=139558691]
+script = ExtResource("1_v6yqh")
+projectile_scene = ExtResource("2_7c8e7")
+fire_cooldown = 2.5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=299411898]
+libraries/ = SubResource("AnimationLibrary_rt3gj")
+autoplay = &"default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=474377614]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_0thxj")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=607583303]
+rotation = 1.5707964
+texture = SubResource("AtlasTexture_0thxj")
+hframes = 4
+
+[node name="Muzzle" type="Marker2D" parent="." unique_id=520445937]
+position = Vector2(22, 0)
+
+[node name="CooldownTimer" type="Timer" parent="." unique_id=1561401161]
+process_callback = 0

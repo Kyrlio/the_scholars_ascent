@@ -5,4 +5,5 @@
 [resource]
 script = ExtResource("1_3ir33")
 attack_multiplier = 2.0
+fall_multiplier = 0.2
 metadata/_custom_type_script = "uid://dkwvnttxu8rls"

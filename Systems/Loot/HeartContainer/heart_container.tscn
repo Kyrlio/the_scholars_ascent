@@ -2,10 +2,14 @@
 
 [ext_resource type="Texture2D" uid="uid://cd4qh5of2k141" path="res://Assets/animations/animations.png" id="1_krmx7"]
 [ext_resource type="Script" uid="uid://b3k68pfwibf28" path="res://Systems/Loot/HeartContainer/heart_container.gd" id="1_shxki"]
+[ext_resource type="Texture2D" uid="uid://b0mitm7ng045m" path="res://Systems/Resources/light.tres" id="3_hrytc"]
+[ext_resource type="Script" uid="uid://cy7piacl4pfv4" path="res://Actors/Props/Candle/candle.gd" id="4_pqpbp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_maolo"]
 atlas = ExtResource("1_krmx7")
 region = Rect2(256, 80, 16, 16)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x416w"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_shxki"]
 atlas = ExtResource("1_krmx7")
@@ -83,8 +87,6 @@ animations = [{
 "speed": 12.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_x416w"]
-
 [node name="HeartContainer" type="Area2D" unique_id=136598257 groups=["no_grass"]]
 z_index = 2
 collision_layer = 128
@@ -92,9 +94,21 @@ collision_mask = 2
 script = ExtResource("1_shxki")
 icon = SubResource("AtlasTexture_maolo")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=504128079]
+shape = SubResource("CircleShape2D_x416w")
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1170640251]
 sprite_frames = SubResource("SpriteFrames_0thxj")
 autoplay = "default"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=504128079]
-shape = SubResource("CircleShape2D_x416w")
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1312192085 node_paths=PackedStringArray("point_light")]
+color = Color(0.56078434, 0.19607843, 0.37254903, 1)
+shadow_filter = 1
+shadow_filter_smooth = 2.0
+texture = ExtResource("3_hrytc")
+script = ExtResource("4_pqpbp")
+noise_speed = 50.0
+energy_flicker_amount = 0.5
+scale_flicker_amount = 0.2
+base_energy = 2.0
+point_light = NodePath(".")

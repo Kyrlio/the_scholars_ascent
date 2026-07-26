@@ -7,13 +7,9 @@ class_name StarContainer
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 func _ready() -> void:
-	if container_id == "":
-		if owner != null and owner.scene_file_path != "":
-			container_id = owner.scene_file_path + "::" + str(owner.get_path_to(self))
-		else:
-			container_id = str(get_path())
+	container_id = GameState.get_unique_node_id(self, container_id)
 	
-	if container_id != "" and container_id in GameState.collected_heart_containers:
+	if container_id != "" and container_id in GameState.collected_star_containers:
 		queue_free()
 		return
 	
@@ -22,6 +18,9 @@ func _ready() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
+		if container_id != "" and not container_id in GameState.collected_star_containers:
+			GameState.collected_star_containers.append(container_id)
+		
 		GameEvents.emit_item_collected(item_data, 1)
 		
 		animated_sprite.play("recolted")
