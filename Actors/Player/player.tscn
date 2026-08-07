@@ -1997,13 +1997,15 @@ _data = {
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ui0vk"]
 radius = 7.9999995
-height = 23.0
+height = 26.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xk7p5"]
-size = Vector2(22, 24)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_proh2"]
+radius = 11.0
+height = 32.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0thxj"]
-size = Vector2(25, 22)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hbjq8"]
+radius = 12.5
+height = 32.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v1key"]
 atlas = ExtResource("3_v1key")
@@ -2237,21 +2239,21 @@ collision_mask = 0
 script = ExtResource("6_pnakb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/Hitbox" unique_id=1092941922]
-position = Vector2(9, -7)
+position = Vector2(11, -7)
 rotation = -1.5707964
 shape = SubResource("CapsuleShape2D_ui0vk")
 disabled = true
 debug_color = Color(0.67152274, 0.50890875, 0, 0.41960785)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Visuals/Hitbox" unique_id=175770632]
-position = Vector2(1, 4)
-shape = SubResource("RectangleShape2D_xk7p5")
+position = Vector2(1, 5)
+shape = SubResource("CapsuleShape2D_proh2")
 disabled = true
 debug_color = Color(0.67152274, 0.50890875, 0, 0.41960785)
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Visuals/Hitbox" unique_id=453319408]
-position = Vector2(-0.5, -17)
-shape = SubResource("RectangleShape2D_0thxj")
+position = Vector2(-0.5, -18)
+shape = SubResource("CapsuleShape2D_hbjq8")
 disabled = true
 debug_color = Color(0.5990399, 0.54432476, 0, 0.41960785)
 
@@ -2277,7 +2279,7 @@ modulate = Color(1.8247963, 1.8247963, 1.8247963, 1)
 position = Vector2(0, 4)
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=501588490]
-position = Vector2(0, -5)
+position = Vector2(1, -5)
 color = Color(0.8352941, 0.79607844, 0.7607843, 1)
 energy = 0.5
 texture = SubResource("GradientTexture2D_pnakb")
