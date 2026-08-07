@@ -261,5 +261,4 @@ libraries/ = SubResource("AnimationLibrary_8qa3m")
 [node name="CampfireLight" type="PointLight2D" parent="." unique_id=452483666]
 position = Vector2(-1, 3)
 color = Color(0.98039216, 0.7490196, 0.38039216, 1)
-shadow_enabled = true
 texture = ExtResource("4_cimpx")
